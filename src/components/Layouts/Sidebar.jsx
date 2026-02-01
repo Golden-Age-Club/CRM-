@@ -110,12 +110,7 @@ const NAV_DATA = [
   {
     label: "ADMIN",
     items: [
-      {
-        title: "Dashboard",
-        icon: HomeIcon,
-        permission: "dashboard",
-        items: [{ title: "Overview", url: "/" }],
-      },
+      { title: "Dashboard", url: "/", icon: HomeIcon, items: [], permission: "dashboard" },
       { title: "User Management", url: "/users", icon: User, items: [], permission: "users" },
       { title: "Wallet & Finance", url: "/finance", icon: Table, items: [], permission: "finance" },
       { title: "Bets & Games", url: "/bets", icon: Alphabet, items: [], permission: "bets" },
@@ -125,30 +120,10 @@ const NAV_DATA = [
   {
     label: "OPERATIONS",
     items: [
-      {
-        title: "Risk Control",
-        icon: PieChart,
-        permission: "risk",
-        items: [{ title: "Abnormal Users", url: "/risk" }],
-      },
-      {
-        title: "Bonus & Promotions",
-        icon: FourCircle,
-        permission: "promotions",
-        items: [{ title: "Campaigns", url: "/promotions" }],
-      },
-      {
-        title: "Reports",
-        icon: PieChart,
-        permission: "reports",
-        items: [{ title: "Core Metrics", url: "/reports" }],
-      },
-      {
-        title: "System & Logs",
-        icon: Authentication,
-        permission: "system",
-        items: [{ title: "Settings", url: "/system" }],
-      },
+      { title: "Risk Control", url: "/risk", icon: PieChart, items: [], permission: "risk" },
+      { title: "Bonus & Promotions", url: "/promotions", icon: FourCircle, items: [], permission: "promotions" },
+      { title: "Reports", url: "/reports", icon: PieChart, items: [], permission: "reports" },
+      { title: "System & Logs", url: "/system", icon: Authentication, items: [], permission: "system" },
     ],
   },
 ];
@@ -229,12 +204,12 @@ const Sidebar = () => {
       <aside
         className={`overflow-hidden border-r border-gray-200 bg-white transition-[width] duration-200 ease-linear dark:border-gray-800 dark:bg-gray-900 ${
           isMobile ? "fixed bottom-0 top-0 z-50" : "sticky top-0 h-screen"
-        } ${isOpen ? "w-64" : "w-0"}`}
+        } ${isOpen ? "w-56" : "w-0"}`}
         aria-label="Main navigation"
         aria-hidden={!isOpen}
         inert={!isOpen}
       >
-        <div className="flex h-full flex-col py-6 pl-6 pr-2">
+        <div className="flex h-full flex-col py-6 pl-6 pr-4">
           <div className="relative pr-4.5">
             <a
               href="/"
@@ -265,79 +240,83 @@ const Sidebar = () => {
 
                 <nav role="navigation" aria-label={section.label}>
                   <ul className="space-y-2">
-                    {section.items.map((item) => (
-                      <li key={item.title}>
-                        {item.items.length ? (
-                          <div>
-                            <MenuItem
-                              isActive={item.items.some(
-                                ({ url }) => location.pathname === url
-                              )}
-                              onClick={() => toggleExpanded(item.title)}
-                            >
-                              <item.icon
-                                className="size-6 shrink-0"
-                                aria-hidden="true"
-                              />
-
-                              <span>{item.title}</span>
-
-                              <ChevronUp
-                                className={`ml-auto rotate-180 transition-transform duration-200 ${
-                                  expandedItems.includes(item.title) ? "rotate-0" : ""
-                                }`}
-                                aria-hidden="true"
-                              />
-                            </MenuItem>
-
-                            {expandedItems.includes(item.title) && (
-                              <ul
-                                className="ml-9 mr-0 space-y-1.5 pb-[15px] pr-0 pt-2"
-                                role="menu"
-                              >
-                                {item.items.map((subItem) => (
-                                  <li key={subItem.title} role="none">
-                                    <MenuItem
-                                      as="link"
-                                      href={subItem.url}
-                                      onNavigate={() => isMobile && toggleSidebar()}
-                                      isActive={location.pathname === subItem.url}
-                                    >
-                                      <span>{subItem.title}</span>
-                                    </MenuItem>
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
-                          </div>
-                        ) : (
-                          (() => {
-                            const href =
-                              "url" in item
-                                ? item.url + ""
-                                : "/" +
-                                  item.title.toLowerCase().split(" ").join("-");
-
-                            return (
+                    {section.items.map((item) => {
+                      // If item has multiple sub-items, show as dropdown
+                      // Otherwise, show as direct link
+                      if (item.items && item.items.length > 1) {
+                        return (
+                          <li key={item.title}>
+                            <div>
                               <MenuItem
-                                className="flex items-center gap-3 py-3 px-4"
-                                as="link"
-                                href={href}
-                                onNavigate={() => isMobile && toggleSidebar()}
-                                isActive={location.pathname === href}
+                                isActive={item.items.some(
+                                  ({ url }) => location.pathname === url
+                                )}
+                                onClick={() => toggleExpanded(item.title)}
                               >
                                 <item.icon
                                   className="size-6 shrink-0"
                                   aria-hidden="true"
                                 />
 
-                                <span>{item.title}</span>
+                                <span className="whitespace-nowrap">{item.title}</span>
+
+                                <ChevronUp
+                                  className={`ml-auto rotate-180 transition-transform duration-200 ${
+                                    expandedItems.includes(item.title) ? "rotate-0" : ""
+                                  }`}
+                                  aria-hidden="true"
+                                />
                               </MenuItem>
-                            );
-                          })()
-                        )}
-                      </li>
-                    ))}
+
+                              {expandedItems.includes(item.title) && (
+                                <ul
+                                  className="ml-9 mr-0 space-y-1.5 pb-[15px] pr-0 pt-2"
+                                  role="menu"
+                                >
+                                  {item.items.map((subItem) => (
+                                    <li key={subItem.title} role="none">
+                                      <MenuItem
+                                        as="link"
+                                        href={subItem.url}
+                                        onNavigate={() => isMobile && toggleSidebar()}
+                                        isActive={location.pathname === subItem.url}
+                                      >
+                                        <span className="whitespace-nowrap">{subItem.title}</span>
+                                      </MenuItem>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </li>
+                        );
+                      }
+
+                      // Direct link (no dropdown or single item)
+                      const href =
+                        "url" in item && item.url
+                          ? item.url
+                          : "/" + item.title.toLowerCase().split(" ").join("-");
+
+                      return (
+                        <li key={item.title}>
+                          <MenuItem
+                            className="flex items-center gap-3 py-3 px-4"
+                            as="link"
+                            href={href}
+                            onNavigate={() => isMobile && toggleSidebar()}
+                            isActive={location.pathname === href}
+                          >
+                            <item.icon
+                              className="size-6 shrink-0"
+                              aria-hidden="true"
+                            />
+
+                            <span className="whitespace-nowrap">{item.title}</span>
+                          </MenuItem>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </nav>
               </div>

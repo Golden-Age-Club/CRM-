@@ -11,12 +11,12 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-const WeeksProfit = ({ className = "" }) => {
-  const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+const WeeksProfit = ({ className = "" }) => {
   const data = useMemo(
     () => ({
-      labels,
+      labels: LABELS,
       datasets: [
         {
           label: "Expenses",

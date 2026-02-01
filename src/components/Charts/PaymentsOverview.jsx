@@ -12,17 +12,17 @@ import { Line } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const PaymentsOverview = ({ className = "" }) => {
-  const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const values = [3800, 2500, 1900, 2800, 2100, 2600, 3400, 4000, 3700, 4600, 5100, 5900];
+const LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const VALUES = [3800, 2500, 1900, 2800, 2100, 2600, 3400, 4000, 3700, 4600, 5100, 5900];
 
+const PaymentsOverview = ({ className = "" }) => {
   const data = useMemo(
     () => ({
-      labels,
+      labels: LABELS,
       datasets: [
         {
           label: "Revenue",
-          data: values,
+          data: VALUES,
           fill: true,
           tension: 0.35,
           borderColor: "#3b82f6",

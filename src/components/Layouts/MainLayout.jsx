@@ -19,7 +19,7 @@ const MainLayout = ({ children }) => {
         </div>
 
         <footer className="bg-gray-100 dark:bg-gray-800 py-4 text-center text-sm text-gray-600 dark:text-gray-400">
-          © 2025 SamBuild Dashboard. Built with passion.
+
         </footer>
       </div>
     </SidebarProvider>

@@ -2,31 +2,16 @@
 import React, { useMemo, useState, createContext, useContext } from 'react';
 import { NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
+import { MdOutlineDashboard } from "react-icons/md";
+import { FiUsers } from "react-icons/fi";
+import { BiWallet } from "react-icons/bi";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { RiVipCrownLine } from "react-icons/ri";
+import { TbReport } from "react-icons/tb";
+import { TbLogs } from "react-icons/tb";
+import { RiAdminLine } from "react-icons/ri";
 
 // Icon Components
-const HomeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-  </svg>
-);
-
-const Calendar = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-  </svg>
-);
-
-const User = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-  </svg>
-);
-
-const Alphabet = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
-  </svg>
-);
 
 const Table = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -50,6 +35,12 @@ const FourCircle = () => (
 const Authentication = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+  </svg>
+);
+
+const UserGroup = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.525m0 0A5.971 5.971 0 0 0 6.058 18.72M18 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
   </svg>
 );
 
@@ -110,20 +101,21 @@ const NAV_DATA = [
   {
     label: "ADMIN",
     items: [
-      { title: "Dashboard", url: "/", icon: HomeIcon, items: [], permission: "dashboard" },
-      { title: "User Management", url: "/users", icon: User, items: [], permission: "users" },
-      { title: "Wallet & Finance", url: "/finance", icon: Table, items: [], permission: "finance" },
-      { title: "Bets & Games", url: "/bets", icon: Alphabet, items: [], permission: "bets" },
-      { title: "VIP & Segmentation", url: "/vip", icon: Calendar, items: [], permission: "vip" },
+      { title: "Dashboard", url: "/", icon: MdOutlineDashboard, items: [], permission: "dashboard" },
+      { title: "User Management", url: "/users", icon: FiUsers, items: [], permission: "users" },
+      { title: "Wallet & Finance", url: "/finance", icon: BiWallet, items: [], permission: "finance" },
+      { title: "Bets & Games", url: "/bets", icon: IoGameControllerOutline, items: [], permission: "bets" },
+      { title: "VIP & Segmentation", url: "/vip", icon: RiVipCrownLine, items: [], permission: "vip" },
     ],
   },
   {
     label: "OPERATIONS",
     items: [
-      { title: "Risk Control", url: "/risk", icon: PieChart, items: [], permission: "risk" },
-      { title: "Bonus & Promotions", url: "/promotions", icon: FourCircle, items: [], permission: "promotions" },
-      { title: "Reports", url: "/reports", icon: PieChart, items: [], permission: "reports" },
-      { title: "System & Logs", url: "/system", icon: Authentication, items: [], permission: "system" },
+      { title: "Risk Control", url: "/risk", icon: Authentication, items: [], permission: "risk" },
+      { title: "Bonus & Promotions", url: "/promotions", icon: UserGroup, items: [], permission: "promotions" },
+      { title: "Reports", url: "/reports", icon: TbReport, items: [], permission: "reports" },
+      { title: "System & Logs", url: "/system", icon: TbLogs, items: [], permission: "system" },
+      { title: "Admin Management", url: "/admin-management", icon: RiAdminLine, items: [], permission: "system" },
     ],
   },
 ];

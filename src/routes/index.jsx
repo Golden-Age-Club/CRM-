@@ -12,16 +12,15 @@ import DashboardOverview from '../pages/DashboardOverview';
 import NotAuthorized from '../pages/NotAuthorized';
 import NotFound from '../pages/NotFound';
 import SignIn from '../pages/SignIn';
-import {
-  BetsPage,
-  FinancePage,
-  PromotionsPage,
-  ReportsPage,
-  RiskPage,
-  SystemPage,
-  UsersPage,
-  VipPage,
-} from '../pages/Placeholders';
+import UsersPage from '../pages/UsersPage';
+import BetsPage from '../pages/BetsPage';
+import FinancePage from '../pages/FinancePage';
+import PromotionsPage from '../pages/PromotionsPage';
+import ReportsPage from '../pages/ReportsPage';
+import RiskPage from '../pages/RiskPage';
+import SystemPage from '../pages/SystemPage';
+import VipPage from '../pages/VipPage';
+import AdminManagementPage from '../pages/AdminManagementPage';
 
 // Layout Wrapper Component
 const LayoutWrapper = () => (
@@ -113,6 +112,14 @@ export default function AppRoutes() {
           element: (
             <ProtectedRoute requiredPermission="system">
               <SystemPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: 'admin-management',
+          element: (
+            <ProtectedRoute requiredPermission="system">
+              <AdminManagementPage />
             </ProtectedRoute>
           ),
         },

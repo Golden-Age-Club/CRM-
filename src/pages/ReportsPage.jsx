@@ -82,7 +82,7 @@ export default function ReportsPage() {
               <select
                 value={exportFormat}
                 onChange={(e) => setExportFormat(e.target.value)}
-                className="rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                className="rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
               >
                 <option value="csv">CSV</option>
                 <option value="excel">Excel</option>
@@ -92,7 +92,7 @@ export default function ReportsPage() {
           </div>
           <button
             onClick={() => handleExport("dashboard")}
-            className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+            className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
           >
             Export Data
           </button>
@@ -113,7 +113,7 @@ export default function ReportsPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-orange-500 text-orange-600 dark:text-orange-400"
+                    ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
               >
@@ -182,7 +182,7 @@ export default function ReportsPage() {
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Game Performance Analysis</h3>
                 <button
                   onClick={() => handleExport("games")}
-                  className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
                 >
                   Export Games Data
                 </button>
@@ -225,7 +225,7 @@ export default function ReportsPage() {
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Player Segment Analysis</h3>
                 <button
                   onClick={() => handleExport("players")}
-                  className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
                 >
                   Export Player Data
                 </button>

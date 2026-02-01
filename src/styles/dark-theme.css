@@ -1,0 +1,276 @@
+/* Custom Dark Theme Styles */
+.dark {
+  /* Main background - very dark navy/slate */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  
+  /* Card backgrounds */
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  
+  /* Text colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  /* Sidebar and header */
+  --sidebar-bg: #0f172a;
+  --header-bg: #1e293b;
+}
+
+/* Apply dark theme styles */
+.dark body {
+  background-color: var(--bg-primary);
+}
+
+.dark .bg-gray-50 {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark .bg-gray-800 {
+  background-color: var(--card-bg) !important;
+}
+
+.dark .bg-gray-900 {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark .bg-slate-800 {
+  background-color: var(--header-bg) !important;
+}
+
+.dark .bg-slate-900 {
+  background-color: var(--sidebar-bg) !important;
+}
+
+.dark .border-gray-200 {
+  border-color: var(--card-border) !important;
+}
+
+.dark .border-gray-700 {
+  border-color: var(--card-border) !important;
+}
+
+.dark .text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.dark .text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.dark .text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.dark .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.dark .text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+.dark .text-gray-300 {
+  color: var(--text-secondary) !important;
+}
+
+.dark .text-white {
+  color: var(--text-primary) !important;
+}
+
+/* Sidebar specific styling */
+.dark .sidebar {
+  background-color: var(--sidebar-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Header specific styling */
+.dark header {
+  background-color: var(--header-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Card styling */
+.dark .rounded-xl {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Input and form styling */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--card-border) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Search bar specific styling */
+.dark .bg-gray-50.border-gray-300 {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--card-border) !important;
+}
+
+.dark .bg-gray-700 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Button styling */
+.dark .hover\:bg-gray-50:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.dark .hover\:bg-gray-700:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Navigation hover states */
+.dark .dark\:hover\:bg-gray-700:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Stats cards and metrics */
+.dark .stats-card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Chart containers */
+.dark .chart-container {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Dropdown menus */
+.dark .dropdown-menu {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+}
+
+/* Navigation items */
+.dark .nav-item:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Table styling */
+.dark table {
+  background-color: var(--card-bg);
+}
+
+.dark th {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.dark td {
+  border-color: var(--card-border);
+  color: var(--text-secondary);
+}
+
+/* Modal and overlay styling */
+.dark .modal,
+.dark .overlay {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Notification dropdown */
+.dark .bg-white.dark\:bg-gray-800 {
+  background-color: var(--card-bg) !important;
+}
+
+/* User dropdown */
+.dark .hover\:bg-gray-50.dark\:hover\:bg-gray-700:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Scrollbar styling for dark theme */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--card-border);
+}
+
+/* Override any remaining gray backgrounds in dark mode */
+.dark [class*="bg-gray"] {
+  background-color: var(--card-bg);
+}
+
+.dark [class*="border-gray"] {
+  border-color: var(--card-border);
+}
+
+/* Main content area styling */
+.dark main {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Dashboard specific styling */
+.dark .dashboard-container {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Page containers */
+.dark .page-container {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Ensure all page backgrounds are dark */
+.dark .min-h-screen {
+  background-color: var(--bg-primary) !important;
+}
+
+/* Card shadows in dark mode */
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus states */
+.dark .focus\:ring-blue-500:focus {
+  --tw-ring-color: #3b82f6;
+}
+
+.dark .focus\:border-blue-500:focus {
+  border-color: #3b82f6;
+}
+
+/* Active states for navigation */
+.dark .bg-blue-500 {
+  background-color: #3b82f6 !important;
+}
+
+/* Ensure proper contrast for active nav items */
+.dark .bg-blue-500.text-white {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}

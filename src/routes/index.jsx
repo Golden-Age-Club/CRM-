@@ -20,6 +20,8 @@ import ReportsPage from '../pages/ReportsPage';
 import RiskPage from '../pages/RiskPage';
 import SystemPage from '../pages/SystemPage';
 import VipPage from '../pages/VipPage';
+import ProfilePage from '../pages/ProfilePage';
+import SettingsPage from '../pages/SettingsPage';
 import AdminManagementPage from '../pages/AdminManagementPage';
 
 // Layout Wrapper Component
@@ -114,6 +116,14 @@ export default function AppRoutes() {
               <SystemPage />
             </ProtectedRoute>
           ),
+        },
+        {
+          path: 'profile',
+          element: <ProfilePage />,
+        },
+        {
+          path: 'settings',
+          element: <SettingsPage />,
         },
         {
           path: 'admin-management',

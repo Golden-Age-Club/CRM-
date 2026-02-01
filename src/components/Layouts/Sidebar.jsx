@@ -122,9 +122,9 @@ const NAV_DATA = [
 
 // MenuItem Component
 const MenuItem = ({ children, isActive, onClick, as = 'button', href, className = '', onNavigate }) => {
-  const menuItemClasses = `flex items-center gap-3 py-3 px-4 rounded-lg transition-colors ${
+  const menuItemClasses = `flex items-center gap-2 py-3 px-3 rounded-lg transition-colors ${
     isActive 
-      ? 'bg-orange-500 text-white' 
+      ? 'bg-blue-500 text-white' 
       : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
   }`;
 
@@ -133,7 +133,7 @@ const MenuItem = ({ children, isActive, onClick, as = 'button', href, className 
       <NavLink
         to={href}
         onClick={onNavigate}
-        className={({ isActive: navActive }) => `${menuItemClasses} ${navActive ? 'bg-orange-500 text-white' : ''} ${className}`}
+        className={({ isActive: navActive }) => `${menuItemClasses} ${navActive ? 'bg-blue-500 text-white' : ''} ${className}`}
       >
         {children}
       </NavLink>
@@ -154,7 +154,7 @@ const MenuItem = ({ children, isActive, onClick, as = 'button', href, className 
 // Logo Component
 const Logo = () => (
   <div className="flex items-center gap-2">
-    <div className="w-8 h-8 bg-orange-500 rounded-md"></div>
+    <div className="w-8 h-8 bg-blue-500 rounded-md"></div>
     <span className="text-xl font-bold text-gray-800 dark:text-white">Golden Cash Casino</span>
   </div>
 );
@@ -194,9 +194,9 @@ const Sidebar = () => {
       )}
 
       <aside
-        className={`overflow-hidden border-r border-gray-200 bg-white transition-[width] duration-200 ease-linear dark:border-gray-800 dark:bg-gray-900 ${
+        className={`sidebar overflow-hidden border-r border-gray-200 bg-white transition-[width] duration-200 ease-linear dark:border-gray-700 dark:bg-slate-900 ${
           isMobile ? "fixed bottom-0 top-0 z-50" : "sticky top-0 h-screen"
-        } ${isOpen ? "w-56" : "w-0"}`}
+        } ${isOpen ? "w-72" : "w-0"}`}
         aria-label="Main navigation"
         aria-hidden={!isOpen}
         inert={!isOpen}

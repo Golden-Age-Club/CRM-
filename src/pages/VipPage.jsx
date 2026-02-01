@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import ActionsMenu from "../components/ActionsMenu";
 
 export default function VipPage() {
   const [activeTab, setActiveTab] = useState("users");
   const [searchTerm, setSearchTerm] = useState("");
+  const [openMenu, setOpenMenu] = useState(null);
   const [showConfigModal, setShowConfigModal] = useState(false);
   const [showAdjustModal, setShowAdjustModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -102,7 +104,7 @@ export default function VipPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-orange-500 text-orange-600 dark:text-orange-400"
+                    ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
               >
@@ -122,7 +124,7 @@ export default function VipPage() {
                   placeholder="Search by username or VIP level..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
 
@@ -148,13 +150,18 @@ export default function VipPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${user.totalDeposit.toLocaleString()}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${user.totalBets.toLocaleString()}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{user.lastActivity}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <button
-                            onClick={() => handleAdjustVip(user)}
-                            className="px-3 py-1 rounded text-xs font-medium bg-orange-100 text-orange-800 hover:bg-orange-200 dark:bg-orange-900 dark:text-orange-200"
-                          >
-                            Adjust VIP
-                          </button>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                          <ActionsMenu
+                            isOpen={openMenu === `vip-${user.id}`}
+                            onToggle={() => setOpenMenu(openMenu === `vip-${user.id}` ? null : `vip-${user.id}`)}
+                            showIcons={false}
+                            actions={[
+                              { 
+                                label: "Adjust VIP", 
+                                onClick: () => handleAdjustVip(user)
+                              },
+                            ]}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -171,7 +178,7 @@ export default function VipPage() {
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">VIP Tier Configuration</h3>
                 <button
                   onClick={() => setShowConfigModal(true)}
-                  className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
                 >
                   Edit Configuration
                 </button>
@@ -223,7 +230,7 @@ export default function VipPage() {
                 <select
                   value={newVipLevel}
                   onChange={(e) => setNewVipLevel(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 >
                   {vipTiers.map((tier) => (
                     <option key={tier.level} value={tier.level}>{tier.level}</option>
@@ -244,7 +251,7 @@ export default function VipPage() {
               </button>
               <button
                 onClick={handleSaveVipAdjustment}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Save Changes
               </button>
@@ -264,7 +271,7 @@ export default function VipPage() {
             <div className="flex justify-end">
               <button
                 onClick={() => setShowConfigModal(false)}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Close
               </button>

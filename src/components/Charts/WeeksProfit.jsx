@@ -79,7 +79,7 @@ const WeeksProfit = ({ className = "" }) => {
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-gray-800 dark:text-white">Profit vs Expenses</h3>
         <div className="flex space-x-2 text-sm">
-          <button className="px-3 py-1 rounded bg-orange-500 text-white">Week</button>
+          <button className="px-3 py-1 rounded bg-blue-500 text-white">Week</button>
           <button className="px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
             Month
           </button>

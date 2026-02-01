@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import ActionsMenu from "../components/ActionsMenu";
 
 export default function RiskPage() {
   const [activeTab, setActiveTab] = useState("abnormal");
   const [searchTerm, setSearchTerm] = useState("");
+  const [openMenu, setOpenMenu] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showActionModal, setShowActionModal] = useState(false);
   const [actionType, setActionType] = useState("");
@@ -178,7 +180,7 @@ export default function RiskPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-orange-500 text-orange-600 dark:text-orange-400"
+                    ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
               >
@@ -200,7 +202,7 @@ export default function RiskPage() {
               }
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
           </div>
 
@@ -219,7 +221,7 @@ export default function RiskPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {abnormalUsers.map((user) => (
                     <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.id}</td>
@@ -236,19 +238,24 @@ export default function RiskPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.winRate}%</td>
                       <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(user.status)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
-                        <button
-                          onClick={() => handleUserAction(user, "freeze")}
-                          className="px-3 py-1 rounded text-xs font-medium bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200"
-                        >
-                          Freeze
-                        </button>
-                        <button
-                          onClick={() => handleUserAction(user, "restrict")}
-                          className="px-3 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-200"
-                        >
-                          Restrict
-                        </button>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                        <ActionsMenu
+                          isOpen={openMenu === `risk-${user.id}`}
+                          onToggle={() => setOpenMenu(openMenu === `risk-${user.id}` ? null : `risk-${user.id}`)}
+                          showIcons={false}
+                          actions={[
+                            { 
+                              label: "Freeze Account", 
+                              onClick: () => handleUserAction(user, "freeze"),
+                              danger: true
+                            },
+                            { 
+                              label: "Restrict Account", 
+                              onClick: () => handleUserAction(user, "restrict"),
+                              danger: true
+                            },
+                          ]}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -271,7 +278,7 @@ export default function RiskPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Triggered</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {riskRules.map((rule) => (
                     <tr key={rule.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{rule.id}</td>
@@ -302,7 +309,7 @@ export default function RiskPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {riskHistory.map((record) => (
                     <tr key={record.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{record.id}</td>

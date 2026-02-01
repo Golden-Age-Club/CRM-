@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import ActionsMenu from "../components/ActionsMenu";
 
 export default function AdminManagementPage() {
   const [activeTab, setActiveTab] = useState("admins");
   const [searchTerm, setSearchTerm] = useState("");
+  const [openMenu, setOpenMenu] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
@@ -180,7 +182,7 @@ export default function AdminManagementPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-orange-500 text-orange-600 dark:text-orange-400"
+                    ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
               >
@@ -201,11 +203,11 @@ export default function AdminManagementPage() {
                   placeholder="Search by username, email, or role..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
                 <button
                   onClick={() => setShowCreateModal(true)}
-                  className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 flex items-center"
+                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -249,23 +251,20 @@ export default function AdminManagementPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                           {admin.createdAt}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
-                          <button
-                            onClick={() => handleEditAdmin(admin)}
-                            className="px-3 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => handleToggleStatus(admin.id, admin.status)}
-                            className={`px-3 py-1 rounded text-xs font-medium ${
-                              admin.status === "active"
-                                ? "bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200"
-                                : "bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-200"
-                            }`}
-                          >
-                            {admin.status === "active" ? "Deactivate" : "Activate"}
-                          </button>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                          <ActionsMenu
+                            isOpen={openMenu === admin.id}
+                            onToggle={() => setOpenMenu(openMenu === admin.id ? null : admin.id)}
+                            showIcons={false}
+                            actions={[
+                              { label: "Edit", onClick: () => handleEditAdmin(admin) },
+                              { 
+                                label: admin.status === "active" ? "Deactivate" : "Activate", 
+                                onClick: () => handleToggleStatus(admin.id, admin.status),
+                                danger: admin.status === "active"
+                              },
+                            ]}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -337,7 +336,7 @@ export default function AdminManagementPage() {
                   type="text"
                   value={newAdmin.username}
                   onChange={(e) => setNewAdmin({...newAdmin, username: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                   placeholder="Enter username"
                 />
               </div>
@@ -350,7 +349,7 @@ export default function AdminManagementPage() {
                   type="email"
                   value={newAdmin.email}
                   onChange={(e) => setNewAdmin({...newAdmin, email: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                   placeholder="Enter email"
                 />
               </div>
@@ -362,7 +361,7 @@ export default function AdminManagementPage() {
                 <select
                   value={newAdmin.role}
                   onChange={(e) => setNewAdmin({...newAdmin, role: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 >
                   {roles.map((role) => (
                     <option key={role.id} value={role.id}>{role.name}</option>
@@ -380,7 +379,7 @@ export default function AdminManagementPage() {
               </button>
               <button
                 onClick={handleCreateAdmin}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Create Admin
               </button>
@@ -426,7 +425,7 @@ export default function AdminManagementPage() {
                   type="email"
                   value={selectedAdmin.email}
                   onChange={(e) => setSelectedAdmin({...selectedAdmin, email: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               
@@ -437,7 +436,7 @@ export default function AdminManagementPage() {
                 <select
                   value={selectedAdmin.role}
                   onChange={(e) => setSelectedAdmin({...selectedAdmin, role: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 >
                   {roles.map((role) => (
                     <option key={role.id} value={role.id}>{role.name}</option>
@@ -452,7 +451,7 @@ export default function AdminManagementPage() {
                 <select
                   value={selectedAdmin.status}
                   onChange={(e) => setSelectedAdmin({...selectedAdmin, status: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -469,7 +468,7 @@ export default function AdminManagementPage() {
               </button>
               <button
                 onClick={handleUpdateAdmin}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Update Admin
               </button>

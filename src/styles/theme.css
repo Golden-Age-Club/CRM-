@@ -1,0 +1,24 @@
+/* Theme transition styles */
+* {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Ensure smooth transitions for theme changes */
+html {
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Override transition for elements that shouldn't animate */
+input, textarea, select {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Smooth transitions for buttons */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Ensure icons transition smoothly */
+svg {
+  transition: color 0.2s ease-in-out;
+}

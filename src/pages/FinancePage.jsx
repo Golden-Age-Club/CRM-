@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import ActionsMenu from "../components/ActionsMenu";
 
 export default function FinancePage() {
   const [activeTab, setActiveTab] = useState("balances");
   const [searchTerm, setSearchTerm] = useState("");
+  const [openMenu, setOpenMenu] = useState(null);
   const [showAdjustModal, setShowAdjustModal] = useState(false);
   const [adjustUserId, setAdjustUserId] = useState(null);
   const [adjustAmount, setAdjustAmount] = useState("");
@@ -88,7 +90,7 @@ export default function FinancePage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-orange-500 text-orange-600 dark:text-orange-400"
+                    ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
               >
@@ -106,7 +108,7 @@ export default function FinancePage() {
               placeholder="Search by user ID or username..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
           </div>
 
@@ -132,16 +134,21 @@ export default function FinancePage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 dark:text-green-400">${bal.available.toLocaleString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600 dark:text-red-400">${bal.frozen.toLocaleString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">${bal.total.toLocaleString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        <button
-                          onClick={() => {
-                            setAdjustUserId(bal.userId);
-                            setShowAdjustModal(true);
-                          }}
-                          className="px-3 py-1 rounded text-xs font-medium bg-orange-100 text-orange-800 hover:bg-orange-200 dark:bg-orange-900 dark:text-orange-200"
-                        >
-                          Adjust
-                        </button>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                        <ActionsMenu
+                          isOpen={openMenu === `bal-${bal.userId}`}
+                          onToggle={() => setOpenMenu(openMenu === `bal-${bal.userId}` ? null : `bal-${bal.userId}`)}
+                          showIcons={false}
+                          actions={[
+                            { 
+                              label: "Adjust Balance", 
+                              onClick: () => {
+                                setAdjustUserId(bal.userId);
+                                setShowAdjustModal(true);
+                              }
+                            },
+                          ]}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -204,19 +211,23 @@ export default function FinancePage() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${wd.amount.toLocaleString()}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(wd.status)}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{wd.date}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
-                          <button
-                            onClick={() => handleWithdrawalAction(wd.id, "approved")}
-                            className="px-3 py-1 rounded text-xs font-medium bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-200"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            onClick={() => handleWithdrawalAction(wd.id, "rejected")}
-                            className="px-3 py-1 rounded text-xs font-medium bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200"
-                          >
-                            Reject
-                          </button>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                          <ActionsMenu
+                            isOpen={openMenu === `wd-${wd.id}`}
+                            onToggle={() => setOpenMenu(openMenu === `wd-${wd.id}` ? null : `wd-${wd.id}`)}
+                            showIcons={false}
+                            actions={[
+                              { 
+                                label: "Approve", 
+                                onClick: () => handleWithdrawalAction(wd.id, "approved")
+                              },
+                              { 
+                                label: "Reject", 
+                                onClick: () => handleWithdrawalAction(wd.id, "rejected"),
+                                danger: true
+                              },
+                            ]}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -243,7 +254,7 @@ export default function FinancePage() {
                       type="text"
                       value={adjustUserId || ""}
                       onChange={(e) => setAdjustUserId(Number(e.target.value))}
-                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                     />
                   </div>
                   <div>
@@ -253,7 +264,7 @@ export default function FinancePage() {
                       value={adjustAmount}
                       onChange={(e) => setAdjustAmount(e.target.value)}
                       placeholder="Enter amount (positive or negative)"
-                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                     />
                   </div>
                   <div>
@@ -263,7 +274,7 @@ export default function FinancePage() {
                       onChange={(e) => setAdjustReason(e.target.value)}
                       placeholder="Enter reason for adjustment..."
                       rows={3}
-                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                      className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                     />
                   </div>
                 </div>
@@ -281,7 +292,7 @@ export default function FinancePage() {
                   <button
                     onClick={handleAdjustBalance}
                     disabled={!adjustAmount || !adjustReason}
-                    className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Continue
                   </button>
@@ -312,7 +323,7 @@ export default function FinancePage() {
                   </button>
                   <button
                     onClick={handleAdjustBalance}
-                    className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                    className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
                   >
                     Confirm Adjustment
                   </button>

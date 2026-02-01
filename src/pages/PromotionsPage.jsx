@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
+import ActionsMenu from "../components/ActionsMenu";
 
 export default function PromotionsPage() {
   const [activeTab, setActiveTab] = useState("promotions");
   const [searchTerm, setSearchTerm] = useState("");
+  const [openMenu, setOpenMenu] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPromotion, setSelectedPromotion] = useState(null);
@@ -187,7 +189,7 @@ export default function PromotionsPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
-                    ? "border-orange-500 text-orange-600 dark:text-orange-400"
+                    ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
                 }`}
               >
@@ -207,12 +209,12 @@ export default function PromotionsPage() {
               }
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
             {activeTab === "promotions" && (
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Create Promotion
               </button>
@@ -253,23 +255,23 @@ export default function PromotionsPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{promo.wagering}x</td>
                       <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(promo.status)}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{promo.totalClaimed}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
-                        <button
-                          onClick={() => handleEditPromotion(promo)}
-                          className="px-3 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleTogglePromotion(promo.id, promo.status)}
-                          className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                            promo.status === "active"
-                              ? "bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200"
-                              : "bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-200"
-                          }`}
-                        >
-                          {promo.status === "active" ? "Disable" : "Enable"}
-                        </button>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                        <ActionsMenu
+                          isOpen={openMenu === `promo-${promo.id}`}
+                          onToggle={() => setOpenMenu(openMenu === `promo-${promo.id}` ? null : `promo-${promo.id}`)}
+                          showIcons={false}
+                          actions={[
+                            { 
+                              label: "Edit", 
+                              onClick: () => handleEditPromotion(promo)
+                            },
+                            { 
+                              label: promo.status === "active" ? "Disable" : "Enable", 
+                              onClick: () => handleTogglePromotion(promo.id, promo.status),
+                              danger: promo.status === "active"
+                            },
+                          ]}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -336,7 +338,7 @@ export default function PromotionsPage() {
                   type="text"
                   value={newPromotion.name}
                   onChange={(e) => setNewPromotion({...newPromotion, name: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               <div>
@@ -344,7 +346,7 @@ export default function PromotionsPage() {
                 <select
                   value={newPromotion.type}
                   onChange={(e) => setNewPromotion({...newPromotion, type: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 >
                   <option value="deposit_bonus">Deposit Bonus</option>
                   <option value="free_spins">Free Spins</option>
@@ -358,7 +360,7 @@ export default function PromotionsPage() {
                   value={newPromotion.description}
                   onChange={(e) => setNewPromotion({...newPromotion, description: e.target.value})}
                   rows={2}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               <div>
@@ -367,7 +369,7 @@ export default function PromotionsPage() {
                   type="number"
                   value={newPromotion.bonusAmount}
                   onChange={(e) => setNewPromotion({...newPromotion, bonusAmount: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               <div>
@@ -376,7 +378,7 @@ export default function PromotionsPage() {
                   type="number"
                   value={newPromotion.minDeposit}
                   onChange={(e) => setNewPromotion({...newPromotion, minDeposit: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               <div>
@@ -385,7 +387,7 @@ export default function PromotionsPage() {
                   type="number"
                   value={newPromotion.wagering}
                   onChange={(e) => setNewPromotion({...newPromotion, wagering: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               <div>
@@ -394,7 +396,7 @@ export default function PromotionsPage() {
                   type="date"
                   value={newPromotion.validFrom}
                   onChange={(e) => setNewPromotion({...newPromotion, validFrom: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
               <div>
@@ -403,7 +405,7 @@ export default function PromotionsPage() {
                   type="date"
                   value={newPromotion.validTo}
                   onChange={(e) => setNewPromotion({...newPromotion, validTo: e.target.value})}
-                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-orange-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
             </div>
@@ -416,7 +418,7 @@ export default function PromotionsPage() {
               </button>
               <button
                 onClick={handleCreatePromotion}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Create Promotion
               </button>
@@ -442,7 +444,7 @@ export default function PromotionsPage() {
                   setShowEditModal(false);
                   setSelectedPromotion(null);
                 }}
-                className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
               >
                 Close
               </button>

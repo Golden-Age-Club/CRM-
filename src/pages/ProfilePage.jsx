@@ -1,0 +1,288 @@
+import React, { useState } from "react";
+
+export default function ProfilePage() {
+  const [activeTab, setActiveTab] = useState("details");
+
+  const profileData = {
+    name: "Sarah Johnson",
+    title: "Senior Product Designer at TechCorp Inc.",
+    email: "sarah.johnson@example.com",
+    phone: "+1 (555) 123-4567",
+    location: "San Francisco, CA",
+    joinDate: "January 2024",
+    avatar: "SJ",
+    verified: true,
+    proMember: true,
+    bio: "Senior Product Designer with 8+ years of experience in creating user-centered designs for web and mobile applications. Passionate about building intuitive and accessible interfaces.",
+    stats: {
+      projects: 24,
+      tasksCompleted: 156,
+      hoursLogged: 1240,
+      teamMembers: 12
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
+        <div className="space-y-10">
+          {/* Breadcrumb */}
+          <nav className="flex text-base text-gray-500 dark:text-gray-400">
+            <a href="/" className="hover:text-gray-700 dark:hover:text-gray-300">Home</a>
+            <span className="mx-2">/</span>
+            <span className="text-gray-900 dark:text-white">Profile</span>
+          </nav>
+
+          {/* Header */}
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile</h1>
+              <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
+                Manage your profile information and settings.
+              </p>
+            </div>
+            <button className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm">
+              <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Edit Profile
+            </button>
+          </div>
+
+          {/* Profile Card */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-10">
+            <div className="flex items-start space-x-10">
+              {/* Avatar */}
+              <div className="relative">
+                <div className="w-28 h-28 rounded-full bg-blue-500 flex items-center justify-center text-white text-3xl font-semibold">
+                  {profileData.avatar}
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Profile Info */}
+              <div className="flex-1">
+                <div className="flex items-center space-x-5 mb-4">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{profileData.name}</h2>
+                  <div className="flex space-x-2">
+                    {profileData.proMember && (
+                      <span className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                        Pro Member
+                      </span>
+                    )}
+                    {profileData.verified && (
+                      <span className="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-200">
+                        Verified
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <p className="text-lg text-gray-600 dark:text-gray-400 mb-5">{profileData.title}</p>
+                <p className="text-base text-gray-600 dark:text-gray-400 mb-7 leading-relaxed">{profileData.bio}</p>
+                
+                {/* Contact Info */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
+                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    {profileData.email}
+                  </div>
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
+                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    {profileData.phone}
+                  </div>
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
+                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {profileData.location}
+                  </div>
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
+                    <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a4 4 0 118 0v4m-4 8a2 2 0 100-4 2 2 0 000 4zm0 0v4m-4-8a2 2 0 100-4 2 2 0 000 4zm8 0a2 2 0 100-4 2 2 0 000 4z" />
+                    </svg>
+                    Joined {profileData.joinDate}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-12 pt-10 border-t border-gray-200 dark:border-gray-700">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.projects}</div>
+                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Projects</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.tasksCompleted}</div>
+                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Tasks Completed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.hoursLogged}</div>
+                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Hours Logged</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.teamMembers}</div>
+                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Team Members</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div className="border-b border-gray-200 dark:border-gray-700">
+              <nav className="flex -mb-px">
+                {[
+                  { id: "details", label: "Profile Details" },
+                  { id: "settings", label: "Account Settings" },
+                  { id: "security", label: "Security" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-8 py-4 text-base font-medium border-b-2 transition-colors ${
+                      activeTab === tab.id
+                        ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            <div className="p-10">
+              {activeTab === "details" && (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                  {/* Personal Information */}
+                  <div className="lg:col-span-2">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Personal Information</h3>
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">First Name</label>
+                          <input
+                            type="text"
+                            defaultValue="Sarah"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
+                          <input
+                            type="text"
+                            defaultValue="Johnson"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                        <input
+                          type="email"
+                          defaultValue={profileData.email}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        />
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Your email is private</p>
+                      </div>
+                      <div>
+                        <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Bio</label>
+                        <textarea
+                          rows={5}
+                          defaultValue={profileData.bio}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        />
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Brief description for your profile. Max 160 characters.</p>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Website</label>
+                          <input
+                            type="url"
+                            defaultValue="https://johndoe.com"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Location</label>
+                          <input
+                            type="text"
+                            defaultValue={profileData.location}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Recent Activity */}
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Activity</h3>
+                    <div className="space-y-6">
+                      <div className="flex items-start space-x-4">
+                        <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
+                          <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-base font-medium text-gray-900 dark:text-white">Completed project review</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">2 hours ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-4">
+                        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
+                          <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-base font-medium text-gray-900 dark:text-white">Updated profile information</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">1 day ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-4">
+                        <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center flex-shrink-0">
+                          <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-base font-medium text-gray-900 dark:text-white">Joined new team</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">3 days ago</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === "settings" && (
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Account Settings</h3>
+                  <p className="text-base text-gray-600 dark:text-gray-400">Account settings content would go here.</p>
+                </div>
+              )}
+
+              {activeTab === "security" && (
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Security Settings</h3>
+                  <p className="text-base text-gray-600 dark:text-gray-400">Security settings content would go here.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

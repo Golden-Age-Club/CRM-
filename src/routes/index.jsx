@@ -26,9 +26,11 @@ import AdminManagementPage from '../pages/AdminManagementPage';
 
 // Layout Wrapper Component
 const LayoutWrapper = () => (
-  <MainLayout>
-    <Outlet />
-  </MainLayout>
+  <ProtectedRoute>
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
+  </ProtectedRoute>
 );
 
 export default function AppRoutes() {

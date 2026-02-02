@@ -12,14 +12,8 @@ export default function ProfilePage() {
     joinDate: "January 2024",
     avatar: "SJ",
     verified: true,
-    proMember: true,
     bio: "Senior Product Designer with 8+ years of experience in creating user-centered designs for web and mobile applications. Passionate about building intuitive and accessible interfaces.",
-    stats: {
-      projects: 24,
-      tasksCompleted: 156,
-      hoursLogged: 1240,
-      teamMembers: 12
-    }
+
   };
 
   return (
@@ -69,11 +63,6 @@ export default function ProfilePage() {
                 <div className="flex items-center space-x-5 mb-4">
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{profileData.name}</h2>
                   <div className="flex space-x-2">
-                    {profileData.proMember && (
-                      <span className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                        Pro Member
-                      </span>
-                    )}
                     {profileData.verified && (
                       <span className="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-200">
                         Verified
@@ -115,25 +104,7 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-12 pt-10 border-t border-gray-200 dark:border-gray-700">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.projects}</div>
-                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Projects</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.tasksCompleted}</div>
-                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Tasks Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.hoursLogged}</div>
-                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Hours Logged</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white">{profileData.stats.teamMembers}</div>
-                <div className="text-base text-gray-600 dark:text-gray-400 mt-1">Team Members</div>
-              </div>
-            </div>
+  
           </div>
 
           {/* Tabs */}
@@ -203,24 +174,7 @@ export default function ProfilePage() {
                         />
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Brief description for your profile. Max 160 characters.</p>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Website</label>
-                          <input
-                            type="url"
-                            defaultValue="https://johndoe.com"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Location</label>
-                          <input
-                            type="text"
-                            defaultValue={profileData.location}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                          />
-                        </div>
-                      </div>
+
                     </div>
                   </div>
 

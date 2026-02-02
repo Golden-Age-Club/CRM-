@@ -71,16 +71,18 @@ export const useSidebarContext = () => {
 // Provider component
 export const SidebarProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   React.useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (!mobile) {
         setIsOpen(true);
       }
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -194,12 +196,14 @@ const Sidebar = () => {
       )}
 
       <aside
-        className={`sidebar overflow-hidden border-r border-gray-200 bg-white transition-[width] duration-200 ease-linear dark:border-gray-700 dark:bg-slate-900 ${
-          isMobile ? "fixed bottom-0 top-0 z-50" : "sticky top-0 h-screen"
-        } ${isOpen ? "w-72" : "w-0"}`}
+        className={`sidebar overflow-hidden border-r border-gray-200 bg-white transition-[width,transform] duration-200 ease-linear dark:border-gray-700 dark:bg-slate-900 ${
+          isMobile
+            ? "fixed bottom-0 top-0 left-0 z-50 w-72 -translate-x-full"
+            : "sticky top-0 h-screen"
+        } ${isOpen && isMobile ? "translate-x-0" : ""} ${isMobile ? "" : (isOpen ? "w-64 xl:w-72" : "w-0 lg:w-20")}`}
         aria-label="Main navigation"
-        aria-hidden={!isOpen}
-        inert={!isOpen}
+        aria-hidden={!isOpen && !isMobile}
+        inert={!isOpen && !isMobile}
       >
         <div className="flex h-full flex-col py-6 pl-6 pr-4">
           <div className="relative pr-4.5">

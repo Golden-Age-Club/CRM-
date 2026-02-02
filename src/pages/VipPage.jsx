@@ -83,10 +83,10 @@ export default function VipPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">VIP & Segmentation</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">VIP & Segmentation</h1>
+        <p className="mt-1 sm:mt-2 text-sm text-gray-600 dark:text-gray-400">
           Configure VIP tiers, view high-value players, and manually adjust VIP levels.
         </p>
       </div>
@@ -94,7 +94,7 @@ export default function VipPage() {
       {/* Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="flex -mb-px">
+          <nav className="flex overflow-x-auto -mb-px">
             {[
               { id: "users", label: "High-Value Users" },
               { id: "config", label: "VIP Configuration" },
@@ -102,7 +102,7 @@ export default function VipPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
@@ -114,7 +114,7 @@ export default function VipPage() {
           </nav>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* High-Value Users Tab */}
           {activeTab === "users" && (
             <>
@@ -124,7 +124,7 @@ export default function VipPage() {
                   placeholder="Search by username or VIP level..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
 
@@ -132,32 +132,32 @@ export default function VipPage() {
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-gray-900">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">VIP Level</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Total Deposit</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Total Bets</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Activity</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">VIP</th>
+                      <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Deposit</th>
+                      <th className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Bets</th>
+                      <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Activity</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                     {filteredUsers.map((user) => (
                       <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{user.username}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{getVipBadge(user.currentVip)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${user.totalDeposit.toLocaleString()}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${user.totalBets.toLocaleString()}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{user.lastActivity}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                        <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">{user.id}</td>
+                        <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 dark:text-white">{user.username}</td>
+                        <td className="px-4 py-4 whitespace-nowrap">{getVipBadge(user.currentVip)}</td>
+                        <td className="hidden sm:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">${user.totalDeposit.toLocaleString()}</td>
+                        <td className="hidden lg:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">${user.totalBets.toLocaleString()}</td>
+                        <td className="hidden md:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400">{user.lastActivity}</td>
+                        <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm relative">
                           <ActionsMenu
                             isOpen={openMenu === `vip-${user.id}`}
                             onToggle={() => setOpenMenu(openMenu === `vip-${user.id}` ? null : `vip-${user.id}`)}
                             showIcons={false}
                             actions={[
-                              { 
-                                label: "Adjust VIP", 
+                              {
+                                label: "Adjust VIP",
                                 onClick: () => handleAdjustVip(user)
                               },
                             ]}
@@ -173,38 +173,38 @@ export default function VipPage() {
 
           {/* VIP Configuration Tab */}
           {activeTab === "config" && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">VIP Tier Configuration</h3>
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">VIP Tier Configuration</h3>
                 <button
                   onClick={() => setShowConfigModal(true)}
-                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                  className="px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 text-xs sm:text-sm w-full sm:w-auto"
                 >
                   Edit Configuration
                 </button>
               </div>
 
-              <div className="grid gap-4">
+              <div className="grid gap-3 sm:gap-4">
                 {vipTiers.map((tier) => (
-                  <div key={tier.level} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
+                  <div key={tier.level} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 sm:p-4">
+                    <div className="flex items-center justify-between mb-2 sm:mb-3 gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
                         {getVipBadge(tier.level)}
-                        <h4 className="text-lg font-medium text-gray-900 dark:text-white">{tier.level}</h4>
+                        <h4 className="text-sm sm:text-lg font-medium text-gray-900 dark:text-white truncate">{tier.level}</h4>
                       </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm">
                       <div>
-                        <p className="text-gray-500 dark:text-gray-400">Minimum Deposit</p>
+                        <p className="text-gray-500 dark:text-gray-400">Min Deposit</p>
                         <p className="font-medium text-gray-900 dark:text-white">${tier.minDeposit.toLocaleString()}</p>
                       </div>
                       <div>
-                        <p className="text-gray-500 dark:text-gray-400">Minimum Bets</p>
+                        <p className="text-gray-500 dark:text-gray-400">Min Bets</p>
                         <p className="font-medium text-gray-900 dark:text-white">${tier.minBets.toLocaleString()}</p>
                       </div>
                       <div>
                         <p className="text-gray-500 dark:text-gray-400">Benefits</p>
-                        <p className="font-medium text-gray-900 dark:text-white">{tier.benefits}</p>
+                        <p className="font-medium text-gray-900 dark:text-white truncate">{tier.benefits}</p>
                       </div>
                     </div>
                   </div>
@@ -217,9 +217,9 @@ export default function VipPage() {
 
       {/* VIP Adjustment Modal */}
       {showAdjustModal && selectedUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Adjust VIP Level</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Adjust VIP Level</h2>
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-gray-600 dark:text-gray-400">User: <strong>{selectedUser.username}</strong></p>
@@ -238,20 +238,20 @@ export default function VipPage() {
                 </select>
               </div>
             </div>
-            <div className="mt-6 flex justify-end space-x-3">
+            <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
               <button
                 onClick={() => {
                   setShowAdjustModal(false);
                   setSelectedUser(null);
                   setNewVipLevel("");
                 }}
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 w-full sm:w-auto"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveVipAdjustment}
-                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 w-full sm:w-auto"
               >
                 Save Changes
               </button>
@@ -262,16 +262,16 @@ export default function VipPage() {
 
       {/* Configuration Modal */}
       {showConfigModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Edit VIP Configuration</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-2xl">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">Edit VIP Configuration</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm">
               This would open a detailed configuration interface for editing VIP tier requirements and benefits.
             </p>
             <div className="flex justify-end">
               <button
                 onClick={() => setShowConfigModal(false)}
-                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 w-full sm:w-auto"
               >
                 Close
               </button>

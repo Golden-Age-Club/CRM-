@@ -29,24 +29,24 @@ const UsersIcon = () => (
 // Individual Overview Card Component
 const OverviewCard = ({ label, data, icon }) => {
   const isPositive = data.is_positive ?? true;
-  
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">{label}</p>
-          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mt-1">{data.value}</h3>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-5 md:p-6">
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0">
+          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm truncate">{label}</p>
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 dark:text-white mt-1 break-words">{data.value}</h3>
         </div>
-        <div className={`p-3 rounded-full ${isPositive ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+        <div className={`p-2 sm:p-3 rounded-full shrink-0 ${isPositive ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
           {icon}
         </div>
       </div>
-      
-      <div className="mt-4 flex items-center">
-        <span className={`text-sm ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
+
+      <div className="mt-3 sm:mt-4 flex items-center flex-wrap gap-1">
+        <span className={`text-xs sm:text-sm ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
           {isPositive ? '+' : ''}{data.percentage}%
         </span>
-        <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">from last week</span>
+        <span className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">from last week</span>
       </div>
     </div>
   );
@@ -79,7 +79,7 @@ const OverviewCardsGroup = () => {
   };
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:gap-5 lg:grid-cols-4 2xl:gap-7.5">
       <OverviewCard
         label="Total GGR"
         data={overviewData.ggr}

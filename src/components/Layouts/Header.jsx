@@ -264,48 +264,55 @@ export const Header = () => {
   const { toggleSidebar, isMobile } = useSidebarContext();
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-5 shadow-sm dark:border-gray-700 dark:bg-slate-800 md:px-5">
-      <button
-        onClick={toggleSidebar}
-        className="rounded-lg border px-1.5 py-1 dark:border-gray-700 dark:bg-gray-700 hover:dark:bg-gray-600 lg:hidden"
-      >
-        <MenuIcon />
-        <span className="sr-only">Toggle Sidebar</span>
-      </button>
+    <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 bg-white px-4 py-3 shadow-sm dark:border-gray-700 dark:bg-slate-800 sm:px-5 md:py-4">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <button
+          onClick={toggleSidebar}
+          className="rounded-lg border p-1.5 dark:border-gray-700 dark:bg-gray-700 hover:dark:bg-gray-600 lg:hidden"
+        >
+          <MenuIcon />
+          <span className="sr-only">Toggle Sidebar</span>
+        </button>
 
-      {isMobile && (
-        <a href="/" className="ml-2 max-[430px]:hidden min-[375px]:ml-4">
-          <div className="w-8 h-8 bg-orange-500 rounded-md"></div>
-        </a>
-      )}
+        {isMobile && (
+          <a href="/">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 rounded-md"></div>
+          </a>
+        )}
 
-      <div className="max-xl:hidden">
-        <h1 className="mb-0.5 text-2xl font-bold text-gray-800 dark:text-white">
-          Dashboard
-        </h1>
-        <p className="font-medium text-gray-600 dark:text-gray-300">
-          Slot Machine Admin Console for players, bets, games, and risk.
-        </p>
+        <div className="hidden lg:block">
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white">
+            Dashboard
+          </h1>
+          <p className="hidden xl:block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300">
+            Slot Machine Admin Console for players, bets, games, and risk.
+          </p>
+        </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-end gap-2 min-[375px]:gap-4">
-        <div className="w-full max-w-[360px]">
-          <div className="flex items-center rounded-full border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm text-gray-700 shadow-sm focus-within:border-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus-within:border-orange-500">
-            <SearchIcon className="mr-3 text-gray-400" />
+      <div className="flex flex-1 items-center justify-end gap-2 sm:gap-3 min-w-0">
+        <div className="hidden sm:block w-full max-w-[200px] md:max-w-[280px] lg:max-w-[320px]">
+          <div className="flex items-center rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-700 shadow-sm focus-within:border-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus-within:border-orange-500">
+            <SearchIcon className="mr-2 text-gray-400" />
             <input
               type="search"
               placeholder="Search"
-              className="w-full bg-transparent outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+              className="w-full bg-transparent outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 text-xs sm:text-sm"
             />
           </div>
         </div>
 
-        <ThemeToggle />
-
-        <Notification />
-
-        <div className="shrink-0">
-          <UserInfo />
+        <div className="flex items-center gap-1 sm:gap-2">
+          <div className="sm:hidden">
+            <button className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <SearchIcon className="size-5" />
+            </button>
+          </div>
+          <ThemeToggle />
+          <Notification />
+          <div className="hidden sm:block shrink-0">
+            <UserInfo />
+          </div>
         </div>
       </div>
     </header>

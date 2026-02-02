@@ -75,21 +75,21 @@ const WeeksProfit = ({ className = "" }) => {
   );
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 ${className}`}>
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-white">Profit vs Expenses</h3>
-        <div className="flex space-x-2 text-sm">
-          <button className="px-3 py-1 rounded bg-blue-500 text-white">Week</button>
-          <button className="px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+    <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 sm:p-5 md:p-6 ${className}`}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 sm:mb-6">
+        <h3 className="text-base sm:text-lg font-bold text-gray-800 dark:text-white">Profit vs Expenses</h3>
+        <div className="flex space-x-1 sm:space-x-2 text-xs sm:text-sm">
+          <button className="px-2 sm:px-3 py-1 rounded bg-blue-500 text-white">Week</button>
+          <button className="px-2 sm:px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
             Month
           </button>
-          <button className="px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+          <button className="px-2 sm:px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
             Year
           </button>
         </div>
       </div>
 
-      <div className="h-64">
+      <div className="h-48 sm:h-56 md:h-64">
         <Bar data={data} options={options} />
       </div>
     </div>

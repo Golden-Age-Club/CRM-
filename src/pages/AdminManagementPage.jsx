@@ -161,10 +161,10 @@ export default function AdminManagementPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Admin Management</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Admin Management</h1>
+        <p className="mt-1 sm:mt-2 text-sm text-gray-600 dark:text-gray-400">
           Create and manage admin accounts with role-based permissions.
         </p>
       </div>
@@ -172,7 +172,7 @@ export default function AdminManagementPage() {
       {/* Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="flex -mb-px">
+          <nav className="flex overflow-x-auto -mb-px">
             {[
               { id: "admins", label: "Admin Accounts" },
               { id: "roles", label: "Role Permissions" },
@@ -180,7 +180,7 @@ export default function AdminManagementPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
@@ -192,24 +192,24 @@ export default function AdminManagementPage() {
           </nav>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Admin Accounts Tab */}
           {activeTab === "admins" && (
             <>
               {/* Header with Search and Create Button */}
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
                 <input
                   type="text"
                   placeholder="Search by username, email, or role..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  className="w-full sm:w-auto max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
                 <button
                   onClick={() => setShowCreateModal(true)}
-                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center"
+                  className="px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center text-xs sm:text-sm w-full sm:w-auto"
                 >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                   Create Admin
@@ -221,45 +221,41 @@ export default function AdminManagementPage() {
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-gray-900">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Role</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Login</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Created</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
+                      <th className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Email</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Role</th>
+                      <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
+                      <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Login</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                     {filteredAdmins.map((admin) => (
                       <tr key={admin.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                        <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
                           {admin.username}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                        <td className="hidden lg:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate max-w-[150px]">
                           {admin.email}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-4 py-4 whitespace-nowrap">
                           {getRoleBadge(admin.role)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="hidden sm:table-cell px-4 py-4 whitespace-nowrap">
                           {getStatusBadge(admin.status)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                        <td className="hidden md:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                           {admin.lastLogin}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                          {admin.createdAt}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                        <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm relative">
                           <ActionsMenu
                             isOpen={openMenu === admin.id}
                             onToggle={() => setOpenMenu(openMenu === admin.id ? null : admin.id)}
                             showIcons={false}
                             actions={[
                               { label: "Edit", onClick: () => handleEditAdmin(admin) },
-                              { 
-                                label: admin.status === "active" ? "Deactivate" : "Activate", 
+                              {
+                                label: admin.status === "active" ? "Deactivate" : "Activate",
                                 onClick: () => handleToggleStatus(admin.id, admin.status),
                                 danger: admin.status === "active"
                               },
@@ -276,26 +272,26 @@ export default function AdminManagementPage() {
 
           {/* Role Permissions Tab */}
           {activeTab === "roles" && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Role Permissions Overview</h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-2">Role Permissions Overview</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Each role has specific access permissions to system modules.
                 </p>
               </div>
-              
-              <div className="grid gap-4">
+
+              <div className="grid gap-3 sm:gap-4">
                 {roles.map((role) => (
-                  <div key={role.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
+                  <div key={role.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 sm:p-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2 sm:mb-3">
                       <div>
-                        <h4 className="text-lg font-medium text-gray-900 dark:text-white">{role.name}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{role.description}</p>
+                        <h4 className="text-sm sm:text-lg font-medium text-gray-900 dark:text-white">{role.name}</h4>
+                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{role.description}</p>
                       </div>
                       {getRoleBadge(role.id)}
                     </div>
-                    <div className="text-sm text-gray-700 dark:text-gray-300">
-                      <p><strong>Permissions:</strong> 
+                    <div className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                      <p><strong>Permissions:</strong>
                         {role.id === "super_admin" && " Full access to all modules"}
                         {role.id === "operator" && " Users, Bets, Games, VIP, Promotions"}
                         {role.id === "finance" && " Finance, Wallet, Transactions"}
@@ -313,20 +309,18 @@ export default function AdminManagementPage() {
 
       {/* Create Admin Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Create New Admin</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Create New Admin</h2>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 text-xl"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                ✕
               </button>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -340,7 +334,7 @@ export default function AdminManagementPage() {
                   placeholder="Enter username"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Email
@@ -353,7 +347,7 @@ export default function AdminManagementPage() {
                   placeholder="Enter email"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Role
@@ -369,17 +363,17 @@ export default function AdminManagementPage() {
                 </select>
               </div>
             </div>
-            
-            <div className="flex justify-end space-x-3 mt-6">
+
+            <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 w-full sm:w-auto"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCreateAdmin}
-                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 w-full sm:w-auto"
               >
                 Create Admin
               </button>
@@ -390,20 +384,18 @@ export default function AdminManagementPage() {
 
       {/* Edit Admin Modal */}
       {showEditModal && selectedAdmin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Edit Admin</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Edit Admin</h2>
               <button
                 onClick={() => setShowEditModal(false)}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 text-xl"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                ✕
               </button>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -416,7 +408,7 @@ export default function AdminManagementPage() {
                   className="w-full rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Email
@@ -428,7 +420,7 @@ export default function AdminManagementPage() {
                   className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Role
@@ -443,7 +435,7 @@ export default function AdminManagementPage() {
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Status
@@ -458,17 +450,17 @@ export default function AdminManagementPage() {
                 </select>
               </div>
             </div>
-            
-            <div className="flex justify-end space-x-3 mt-6">
+
+            <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowEditModal(false)}
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 w-full sm:w-auto"
               >
                 Cancel
               </button>
               <button
                 onClick={handleUpdateAdmin}
-                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 w-full sm:w-auto"
               >
                 Update Admin
               </button>

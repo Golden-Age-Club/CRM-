@@ -68,10 +68,10 @@ export default function FinancePage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Wallet & Finance</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Wallet & Finance</h1>
+        <p className="mt-1 sm:mt-2 text-sm text-gray-600 dark:text-gray-400">
           Manage user balances, deposits, withdrawals, and manual adjustments.
         </p>
       </div>
@@ -79,7 +79,7 @@ export default function FinancePage() {
       {/* Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="flex -mb-px">
+          <nav className="flex overflow-x-auto -mb-px">
             {[
               { id: "balances", label: "User Balances" },
               { id: "deposits", label: "Deposit Orders" },
@@ -88,7 +88,7 @@ export default function FinancePage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
@@ -100,7 +100,7 @@ export default function FinancePage() {
           </nav>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Search */}
           <div className="mb-4">
             <input
@@ -108,7 +108,7 @@ export default function FinancePage() {
               placeholder="Search by user ID or username..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
           </div>
 
@@ -118,30 +118,30 @@ export default function FinancePage() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Available</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Frozen</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Total</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Available</th>
+                    <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Frozen</th>
+                    <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Total</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                   {balances.map((bal) => (
                     <tr key={bal.userId} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{bal.userId}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{bal.username}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 dark:text-green-400">${bal.available.toLocaleString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600 dark:text-red-400">${bal.frozen.toLocaleString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">${bal.total.toLocaleString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{bal.userId}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{bal.username}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-green-600 dark:text-green-400">${bal.available.toLocaleString()}</td>
+                      <td className="hidden sm:table-cell px-4 py-4 whitespace-nowrap text-sm text-red-600 dark:text-red-400">${bal.frozen.toLocaleString()}</td>
+                      <td className="hidden md:table-cell px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">${bal.total.toLocaleString()}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm relative">
                         <ActionsMenu
                           isOpen={openMenu === `bal-${bal.userId}`}
                           onToggle={() => setOpenMenu(openMenu === `bal-${bal.userId}` ? null : `bal-${bal.userId}`)}
                           showIcons={false}
                           actions={[
-                            { 
-                              label: "Adjust Balance", 
+                            {
+                              label: "Adjust Balance",
                               onClick: () => {
                                 setAdjustUserId(bal.userId);
                                 setShowAdjustModal(true);
@@ -163,23 +163,23 @@ export default function FinancePage() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Order ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Method</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Date</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Order ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Amount</th>
+                    <th className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Method</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
+                    <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Date</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                   {deposits.map((dep) => (
                     <tr key={dep.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{dep.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dep.username}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${dep.amount.toLocaleString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{dep.method}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(dep.status)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{dep.date}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{dep.id}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dep.username}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${dep.amount.toLocaleString()}</td>
+                      <td className="hidden lg:table-cell px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{dep.method}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{getStatusBadge(dep.status)}</td>
+                      <td className="hidden md:table-cell px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{dep.date}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -193,12 +193,12 @@ export default function FinancePage() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Request ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Date</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Request ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Amount</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
+                    <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Date</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
@@ -206,23 +206,23 @@ export default function FinancePage() {
                     .filter((wd) => wd.status === "pending")
                     .map((wd) => (
                       <tr key={wd.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{wd.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{wd.username}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${wd.amount.toLocaleString()}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(wd.status)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{wd.date}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                        <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{wd.id}</td>
+                        <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{wd.username}</td>
+                        <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${wd.amount.toLocaleString()}</td>
+                        <td className="px-4 py-4 whitespace-nowrap">{getStatusBadge(wd.status)}</td>
+                        <td className="hidden sm:table-cell px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{wd.date}</td>
+                        <td className="px-4 py-4 whitespace-nowrap text-sm relative">
                           <ActionsMenu
                             isOpen={openMenu === `wd-${wd.id}`}
                             onToggle={() => setOpenMenu(openMenu === `wd-${wd.id}` ? null : `wd-${wd.id}`)}
                             showIcons={false}
                             actions={[
-                              { 
-                                label: "Approve", 
+                              {
+                                label: "Approve",
                                 onClick: () => handleWithdrawalAction(wd.id, "approved")
                               },
-                              { 
-                                label: "Reject", 
+                              {
+                                label: "Reject",
                                 onClick: () => handleWithdrawalAction(wd.id, "rejected"),
                                 danger: true
                               },
@@ -240,9 +240,9 @@ export default function FinancePage() {
 
       {/* Manual Balance Adjustment Modal */}
       {showAdjustModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">
               {confirmAdjust ? "Confirm Balance Adjustment" : "Manual Balance Adjustment"}
             </h2>
             {!confirmAdjust ? (
@@ -278,21 +278,21 @@ export default function FinancePage() {
                     />
                   </div>
                 </div>
-                <div className="mt-6 flex justify-end space-x-3">
+                <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
                   <button
                     onClick={() => {
                       setShowAdjustModal(false);
                       setAdjustAmount("");
                       setAdjustReason("");
                     }}
-                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 w-full sm:w-auto"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleAdjustBalance}
                     disabled={!adjustAmount || !adjustReason}
-                    className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                   >
                     Continue
                   </button>
@@ -314,16 +314,16 @@ export default function FinancePage() {
                     Please confirm this adjustment. This action will be logged.
                   </p>
                 </div>
-                <div className="flex justify-end space-x-3">
+                <div className="flex flex-col sm:flex-row justify-end gap-3">
                   <button
                     onClick={() => setConfirmAdjust(false)}
-                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 w-full sm:w-auto"
                   >
                     Back
                   </button>
                   <button
                     onClick={handleAdjustBalance}
-                    className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                    className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 w-full sm:w-auto"
                   >
                     Confirm Adjustment
                   </button>

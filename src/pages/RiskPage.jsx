@@ -158,10 +158,10 @@ export default function RiskPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Risk Control</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Risk Control</h1>
+        <p className="mt-1 sm:mt-2 text-sm text-gray-600 dark:text-gray-400">
           Monitor abnormal users, view triggered risk rules, and apply restrictions.
         </p>
       </div>
@@ -169,7 +169,7 @@ export default function RiskPage() {
       {/* Tabs */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <div className="border-b border-gray-200 dark:border-gray-700">
-          <nav className="flex -mb-px">
+          <nav className="flex overflow-x-auto -mb-px">
             {[
               { id: "abnormal", label: "Abnormal Users" },
               { id: "rules", label: "Risk Rules" },
@@ -178,7 +178,7 @@ export default function RiskPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 sm:px-6 py-3 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? "border-blue-500 text-blue-600 dark:text-blue-400"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
@@ -190,7 +190,7 @@ export default function RiskPage() {
           </nav>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Search */}
           <div className="mb-4">
             <input
@@ -202,7 +202,7 @@ export default function RiskPage() {
               }
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+              className="w-full max-w-md rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
             />
           </div>
 
@@ -212,45 +212,45 @@ export default function RiskPage() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Risk Level</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Risk Reasons</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Win Rate</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Risk</th>
+                    <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Reasons</th>
+                    <th className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Win Rate</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {abnormalUsers.map((user) => (
                     <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{user.username}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{getRiskBadge(user.riskLevel)}</td>
-                      <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs">
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">{user.id}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 dark:text-white">{user.username}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{getRiskBadge(user.riskLevel)}</td>
+                      <td className="hidden sm:table-cell px-4 py-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400 max-w-[150px]">
                         <div className="space-y-1">
                           {user.riskReasons.map((reason, idx) => (
-                            <div key={idx} className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                            <div key={idx} className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded truncate">
                               {reason}
                             </div>
                           ))}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.winRate}%</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(user.status)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                      <td className="hidden lg:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">{user.winRate}%</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{getStatusBadge(user.status)}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm relative">
                         <ActionsMenu
                           isOpen={openMenu === `risk-${user.id}`}
                           onToggle={() => setOpenMenu(openMenu === `risk-${user.id}` ? null : `risk-${user.id}`)}
                           showIcons={false}
                           actions={[
-                            { 
-                              label: "Freeze Account", 
+                            {
+                              label: "Freeze Account",
                               onClick: () => handleUserAction(user, "freeze"),
                               danger: true
                             },
-                            { 
-                              label: "Restrict Account", 
+                            {
+                              label: "Restrict Account",
                               onClick: () => handleUserAction(user, "restrict"),
                               danger: true
                             },
@@ -270,23 +270,23 @@ export default function RiskPage() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Rule ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Rule Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Description</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Severity</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Triggered</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Triggered</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Rule</th>
+                    <th className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Description</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Severity</th>
+                    <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Triggered</th>
+                    <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Last Triggered</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {riskRules.map((rule) => (
                     <tr key={rule.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{rule.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{rule.name}</td>
-                      <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs">{rule.description}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{getSeverityBadge(rule.severity)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{rule.triggered}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{rule.lastTriggered}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">{rule.id}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 dark:text-white truncate max-w-[120px]">{rule.name}</td>
+                      <td className="hidden lg:table-cell px-4 py-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400 max-w-[200px] truncate">{rule.description}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{getSeverityBadge(rule.severity)}</td>
+                      <td className="hidden sm:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">{rule.triggered}</td>
+                      <td className="hidden md:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400">{rule.lastTriggered}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -300,25 +300,25 @@ export default function RiskPage() {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Username</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Rule Triggered</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Severity</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Details</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Timestamp</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">User</th>
+                    <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Rule</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Severity</th>
+                    <th className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Details</th>
+                    <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Time</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Status</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {riskHistory.map((record) => (
                     <tr key={record.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{record.id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{record.username}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{record.rule}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{getSeverityBadge(record.severity)}</td>
-                      <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs">{record.details}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{record.timestamp}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(record.status)}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white">{record.id}</td>
+                      <td className="px-4 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 dark:text-white">{record.username}</td>
+                      <td className="hidden md:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 dark:text-white truncate max-w-[120px]">{record.rule}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{getSeverityBadge(record.severity)}</td>
+                      <td className="hidden lg:table-cell px-4 py-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400 max-w-[150px] truncate">{record.details}</td>
+                      <td className="hidden sm:table-cell px-4 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 dark:text-gray-400">{record.timestamp}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{getStatusBadge(record.status)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -330,9 +330,9 @@ export default function RiskPage() {
 
       {/* Action Modal */}
       {showActionModal && selectedUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 w-full max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">
               {actionType === "freeze" ? "Freeze Account" : "Restrict Account"}
             </h2>
             <div className="space-y-4">
@@ -356,7 +356,7 @@ export default function RiskPage() {
                 </p>
               </div>
             </div>
-            <div className="mt-6 flex justify-end space-x-3">
+            <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
               <button
                 onClick={() => {
                   setShowActionModal(false);
@@ -364,14 +364,14 @@ export default function RiskPage() {
                   setActionType("");
                   setActionReason("");
                 }}
-                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 w-full sm:w-auto"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveAction}
                 disabled={!actionReason.trim()}
-                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {actionType === "freeze" ? "Freeze Account" : "Restrict Account"}
               </button>

@@ -5,6 +5,11 @@
   width: 6px;
 }
 
+/* Prevent layout shift when scrollbars appear/disappear */
+.custom-scrollbar {
+  scrollbar-gutter: stable both-edges;
+}
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
@@ -51,4 +56,7 @@
 /* Focus visible override */
 .focus-visible\:border-primary:focus-visible {
   border-color: #FF6B35;
+}
+button{
+  cursor: pointer
 }

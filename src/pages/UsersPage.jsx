@@ -1,5 +1,9 @@
 import React, { useMemo, useState } from "react";
 import ActionsMenu from "../components/ActionsMenu";
+import { TbUsersGroup } from "react-icons/tb";
+import { FaCalendarCheck } from "react-icons/fa";
+import { FaHourglass } from "react-icons/fa6";
+import { LuCrown } from "react-icons/lu";
 
 export default function UsersPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,10 +35,10 @@ export default function UsersPage() {
     const admins = users.filter((u) => u.role === "Admin").length;
 
     return [
-      { label: "Total Users", value: total, color: "bg-blue-50 text-blue-600", icon: "👥" },
-      { label: "Active", value: active, color: "bg-green-50 text-green-600", icon: "✅" },
-      { label: "Pending", value: pending, color: "bg-yellow-50 text-yellow-600", icon: "⏳" },
-      { label: "Admins", value: admins, color: "bg-purple-50 text-purple-600", icon: "👑" },
+      { label: "Total Users", value: total, color: "bg-blue-50 text-blue-600", icon: TbUsersGroup },
+      { label: "Active", value: active, color: "bg-green-50 text-green-600", icon: FaCalendarCheck },
+      { label: "Pending", value: pending, color: "bg-yellow-50 text-yellow-600", icon: FaHourglass },
+      { label: "Admins", value: admins, color: "bg-purple-50 text-purple-600", icon: LuCrown },
     ];
   }, [users]);
 
@@ -96,8 +100,8 @@ export default function UsersPage() {
                   {stat.value}
                 </p>
               </div>
-              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${stat.color} flex items-center justify-center text-lg sm:text-xl shrink-0`}>
-                {stat.icon}
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${stat.color} flex items-center justify-center shrink-0`}>
+                <stat.icon className="size-5 sm:size-6" />
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSidebarContext } from './Sidebar';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../auth/AuthContext';
 
 // Icon Components
 const SearchIcon = ({ className = "" }) => (
@@ -34,9 +35,9 @@ const MoonIcon = () => (
   </svg>
 );
 
-const UserAvatar = () => (
+const UserAvatar = ({ name }) => (
   <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-gray-300 flex items-center justify-center text-gray-700 font-medium">
-    U
+    {name ? name.charAt(0).toUpperCase() : 'U'}
   </div>
 );
 
@@ -181,6 +182,7 @@ const ThemeToggle = () => {
 const UserInfo = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -195,6 +197,15 @@ const UserInfo = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    setShowDropdown(false);
+    logout();
+  };
+
+  const userName = user?.name || user?.first_name || 'Admin User';
+  const userEmail = user?.email || 'admin@example.com';
+  const userInitials = userName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -202,22 +213,22 @@ const UserInfo = () => {
         className="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors"
       >
         <div className="text-left hidden sm:block">
-          <p className="text-sm font-medium text-gray-800 dark:text-white">Admin User</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">admin@example.com</p>
+          <p className="text-sm font-medium text-gray-800 dark:text-white">{userName}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{userEmail}</p>
         </div>
         <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-medium">
-          AS
+          {userInitials}
         </div>
         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d9l-7="M19  7-7-7" />
         </svg>
       </button>
 
       {showDropdown && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
           <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-            <p className="text-sm font-medium text-gray-900 dark:text-white">Admin User</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">admin@example.com</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{userName}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{userEmail}</p>
           </div>
           <Link
             to="/profile"
@@ -243,11 +254,7 @@ const UserInfo = () => {
           <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
           <button
             className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={() => {
-              setShowDropdown(false);
-              // TODO: Handle sign out
-              alert('Sign out clicked');
-            }}
+            onClick={handleLogout}
           >
             <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -261,13 +268,14 @@ const UserInfo = () => {
 };
 
 export const Header = () => {
-  const { toggleSidebar, isMobile } = useSidebarContext();
+  const { toggleMobile, toggleCollapse, isMobile } = useSidebarContext();
 
   return (
     <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 bg-white px-4 py-3 shadow-sm dark:border-gray-700 dark:bg-slate-800 sm:px-5 md:py-4">
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Mobile hamburger - opens sidebar overlay */}
         <button
-          onClick={toggleSidebar}
+          onClick={toggleMobile}
           className="rounded-lg border p-1.5 dark:border-gray-700 dark:bg-gray-700 hover:dark:bg-gray-600 lg:hidden"
         >
           <MenuIcon />
@@ -276,23 +284,34 @@ export const Header = () => {
 
         {isMobile && (
           <a href="/">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-orange-500 rounded-md"></div>
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-500 rounded-md"></div>
           </a>
         )}
-
-        <div className="hidden lg:block">
-          <h1 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white">
-            Dashboard
-          </h1>
-          <p className="hidden xl:block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300">
-            Slot Machine Admin Console for players, bets, games, and risk.
-          </p>
-        </div>
       </div>
 
-      <div className="flex flex-1 items-center justify-end gap-2 sm:gap-3 min-w-0">
+      <div className="max-xl:hidden">
+        <h1 className="mb-0.5 text-2xl font-bold text-gray-800 dark:text-white">
+          CRM
+        </h1>
+      </div>
+
+      <div className="flex flex-1 items-center gap-2 sm:gap-3 min-w-0">
+        {/* Desktop sidebar toggle - collapses to icon-only */}
+        {!isMobile && (
+          <button
+            onClick={toggleCollapse}
+            className="hidden sm:inline-flex rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+            aria-label="Toggle sidebar compact"
+            title="Toggle sidebar"
+          >
+            <MenuIcon />
+            <span className="sr-only">Toggle Sidebar</span>
+          </button>
+        )}
+
+        {/* Search - moved to left side */}
         <div className="hidden sm:block w-full max-w-[200px] md:max-w-[280px] lg:max-w-[320px]">
-          <div className="flex items-center rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-700 shadow-sm focus-within:border-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus-within:border-orange-500">
+          <div className="flex items-center rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-700 shadow-sm focus-within:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus-within:border-blue-500">
             <SearchIcon className="mr-2 text-gray-400" />
             <input
               type="search"
@@ -302,7 +321,7 @@ export const Header = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex flex-1 items-center justify-end gap-1 sm:gap-2">
           <div className="sm:hidden">
             <button className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
               <SearchIcon className="size-5" />

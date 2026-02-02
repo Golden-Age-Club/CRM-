@@ -22,13 +22,20 @@ import SystemPage from '../pages/SystemPage';
 import VipPage from '../pages/VipPage';
 import ProfilePage from '../pages/ProfilePage';
 import SettingsPage from '../pages/SettingsPage';
+import ProfileSettings from '../pages/settings/ProfileSettings';
+import NotificationsSettings from '../pages/settings/NotificationsSettings';
+import SecuritySettings from '../pages/settings/SecuritySettings';
+import AppearanceSettings from '../pages/settings/AppearanceSettings';
+import PreferencesSettings from '../pages/settings/PreferencesSettings';
 import AdminManagementPage from '../pages/AdminManagementPage';
 
 // Layout Wrapper Component
 const LayoutWrapper = () => (
-  <MainLayout>
-    <Outlet />
-  </MainLayout>
+  <ProtectedRoute>
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
+  </ProtectedRoute>
 );
 
 export default function AppRoutes() {
@@ -124,6 +131,28 @@ export default function AppRoutes() {
         {
           path: 'settings',
           element: <SettingsPage />,
+          children: [
+            {
+              path: '',
+              element: <ProfileSettings />,
+            },
+            {
+              path: 'notifications',
+              element: <NotificationsSettings />,
+            },
+            {
+              path: 'security',
+              element: <SecuritySettings />,
+            },
+            {
+              path: 'appearance',
+              element: <AppearanceSettings />,
+            },
+            {
+              path: 'preferences',
+              element: <PreferencesSettings />,
+            },
+          ],
         },
         {
           path: 'admin-management',

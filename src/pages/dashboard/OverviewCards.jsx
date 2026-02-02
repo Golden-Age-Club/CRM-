@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../api/axios';
 
-// Icon Components for Overview Cards
 const ViewsIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -26,16 +26,25 @@ const UsersIcon = () => (
   </svg>
 );
 
-// Individual Overview Card Component
-const OverviewCard = ({ label, data, icon }) => {
-  const isPositive = data.is_positive ?? true;
-  
+const OverviewCard = ({ label, value, percentage, isPositive, icon, format = 'number' }) => {
+  const formatValue = (val) => {
+    if (format === 'currency') return `$${val.toLocaleString()}`;
+    if (format === 'percentage') return `${val}%`;
+    if (format === 'compact') {
+      return Intl.NumberFormat('en-US', {
+        notation: "compact",
+        maximumFractionDigits: 1
+      }).format(val);
+    }
+    return val.toLocaleString();
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-500 dark:text-gray-400 text-sm">{label}</p>
-          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mt-1">{data.value}</h3>
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-white mt-1">{formatValue(value)}</h3>
         </div>
         <div className={`p-3 rounded-full ${isPositive ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
           {icon}
@@ -44,7 +53,7 @@ const OverviewCard = ({ label, data, icon }) => {
       
       <div className="mt-4 flex items-center">
         <span className={`text-sm ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-          {isPositive ? '+' : ''}{data.percentage}%
+          {isPositive ? '+' : ''}{percentage}%
         </span>
         <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">from last week</span>
       </div>
@@ -52,56 +61,60 @@ const OverviewCard = ({ label, data, icon }) => {
   );
 };
 
-// Overview Cards Group Component
 const OverviewCardsGroup = () => {
-  // Casino admin KPIs (mock data for now)
-  const overviewData = {
-    ggr: {
-      value: "$452,318",
-      percentage: 14.2,
-      is_positive: true,
-    },
-    rtp: {
-      value: "96.4%",
-      percentage: 0.3,
-      is_positive: true,
-    },
-    dau: {
-      value: "2,350",
-      percentage: 5.1,
-      is_positive: true,
-    },
-    bets: {
-      value: "12.4K",
-      percentage: 3.7,
-      is_positive: true,
-    },
-  };
+  const [stats, setStats] = useState({
+    ggr: { value: 0, percentage: 0, is_positive: true },
+    rtp: { value: 0, percentage: 0, is_positive: true },
+    dau: { value: 0, percentage: 0, is_positive: true },
+    bets: { value: 0, percentage: 0, is_positive: true },
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const data = await api.get('/api/admin/stats');
+        if (data) {
+          setStats(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch dashboard stats:', error);
+      }
+    };
+    fetchStats();
+  }, []);
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-      <OverviewCard
-        label="Total GGR"
-        data={overviewData.ggr}
-        icon={<ProfitIcon />}
+      <OverviewCard 
+        label="Total GGR" 
+        value={stats?.ggr?.value || 0} 
+        percentage={stats?.ggr?.percentage || 0} 
+        isPositive={stats?.ggr?.is_positive} 
+        icon={<ProfitIcon />} 
+        format="currency" 
       />
-
-      <OverviewCard
-        label="RTP"
-        data={overviewData.rtp}
-        icon={<ViewsIcon />}
+      <OverviewCard 
+        label="RTP" 
+        value={stats?.rtp?.value || 0} 
+        percentage={stats?.rtp?.percentage || 0} 
+        isPositive={stats?.rtp?.is_positive} 
+        icon={<ViewsIcon />} 
+        format="percentage" 
       />
-
-      <OverviewCard
-        label="Active Users (DAU)"
-        data={overviewData.dau}
-        icon={<UsersIcon />}
+      <OverviewCard 
+        label="Active Users (DAU)" 
+        value={stats?.dau?.value || 0} 
+        percentage={stats?.dau?.percentage || 0} 
+        isPositive={stats?.dau?.is_positive} 
+        icon={<UsersIcon />} 
       />
-
-      <OverviewCard
-        label="Total Bets"
-        data={overviewData.bets}
-        icon={<ProductIcon />}
+      <OverviewCard 
+        label="Total Bets" 
+        value={stats?.bets?.value || 0} 
+        percentage={stats?.bets?.percentage || 0} 
+        isPositive={stats?.bets?.is_positive} 
+        icon={<ProductIcon />} 
+        format="compact" 
       />
     </div>
   );

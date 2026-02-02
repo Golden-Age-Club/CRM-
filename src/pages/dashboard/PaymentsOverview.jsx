@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,20 +9,41 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import api from "../../api/axios";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const VALUES = [3800, 2500, 1900, 2800, 2100, 2600, 3400, 4000, 3700, 4600, 5100, 5900];
-
 const PaymentsOverview = ({ className = "" }) => {
+  const [chartData, setChartData] = useState({
+    labels: [],
+    revenue: []
+  });
+  const [period, setPeriod] = useState('year'); // week, month, year
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`/api/admin/charts?range=${period}`);
+        if (response) {
+          setChartData({
+            labels: response.labels || [],
+            revenue: response.revenue || []
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch payments overview data:', error);
+      }
+    };
+    fetchData();
+  }, [period]);
+
   const data = useMemo(
     () => ({
-      labels: LABELS,
+      labels: chartData.labels,
       datasets: [
         {
           label: "Revenue",
-          data: VALUES,
+          data: chartData.revenue,
           fill: true,
           tension: 0.35,
           borderColor: "#3b82f6",
@@ -40,7 +61,7 @@ const PaymentsOverview = ({ className = "" }) => {
         },
       ],
     }),
-    []
+    [chartData]
   );
 
   const options = useMemo(
@@ -48,14 +69,8 @@ const PaymentsOverview = ({ className = "" }) => {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: "#6b7280" },
-        },
-        y: {
-          grid: { color: "rgba(148,163,184,0.25)" },
-          ticks: { color: "#6b7280", callback: (v) => `${v}` },
-        },
+        x: { grid: { display: false }, ticks: { color: "#6b7280" } },
+        y: { grid: { color: "rgba(148,163,184,0.25)" }, ticks: { color: "#6b7280", callback: (v) => `${v}` } },
       },
       plugins: {
         legend: { display: false },
@@ -64,9 +79,7 @@ const PaymentsOverview = ({ className = "" }) => {
           borderColor: "#1f2937",
           borderWidth: 1,
           padding: 10,
-          callbacks: {
-            label: (ctx) => `Revenue: $${ctx.parsed.y.toLocaleString()}`,
-          },
+          callbacks: { label: (ctx) => `Revenue: $${ctx.parsed.y.toLocaleString()}` },
         },
       },
     }),
@@ -78,16 +91,26 @@ const PaymentsOverview = ({ className = "" }) => {
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-gray-800 dark:text-white">Revenue Overview</h3>
         <div className="flex space-x-2 text-sm">
-          <button className="px-3 py-1 rounded bg-blue-500 text-white">Week</button>
-          <button className="px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+          <button 
+            onClick={() => setPeriod('week')}
+            className={`px-3 py-1 rounded ${period === 'week' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
+          >
+            Week
+          </button>
+          <button 
+            onClick={() => setPeriod('month')}
+            className={`px-3 py-1 rounded ${period === 'month' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
+          >
             Month
           </button>
-          <button className="px-3 py-1 rounded bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+          <button 
+            onClick={() => setPeriod('year')}
+            className={`px-3 py-1 rounded ${period === 'year' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
+          >
             Year
           </button>
         </div>
       </div>
-
       <div className="h-64">
         <Line data={data} options={options} />
       </div>

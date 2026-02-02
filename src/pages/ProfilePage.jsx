@@ -1,19 +1,104 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../auth/AuthContext";
+import api from "../api/axios";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("details");
+  const { user, refreshProfile } = useAuth();
+  
+  const [profileForm, setProfileForm] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    location: "",
+    bio: ""
+  });
+
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: ""
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState({ type: "", content: "" });
+
+  useEffect(() => {
+    if (user) {
+      setProfileForm({
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        email: user.email || "",
+        phone: user.phone || "",
+        location: user.location || "",
+        bio: user.bio || ""
+      });
+    }
+  }, [user]);
 
   const profileData = {
-    name: "Sarah Johnson",
-    title: "Senior Product Designer at TechCorp Inc.",
-    email: "sarah.johnson@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    joinDate: "January 2024",
-    avatar: "SJ",
-    verified: true,
-    bio: "Senior Product Designer with 8+ years of experience in creating user-centered designs for web and mobile applications. Passionate about building intuitive and accessible interfaces.",
+    name: user?.name || user?.first_name || "Admin User",
+    title: user?.title || "Administrator",
+    email: user?.email || "admin@example.com",
+    phone: user?.phone || "Not provided",
+    location: user?.location || "Not provided",
+    joinDate: user?.joinDate || "Recently",
+    avatar: (user?.name || user?.first_name || "AU").substring(0, 2).toUpperCase(),
+    verified: user?.verified || false,
+    bio: user?.bio || "No bio available.",
+    first_name: user?.first_name || "",
+    last_name: user?.last_name || ""
+  };
 
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setProfileForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setMessage({ type: "", content: "" });
+
+    try {
+      await api.put('/api/admin/auth/profile', profileForm);
+      await refreshProfile();
+      setMessage({ type: "success", content: "Profile updated successfully!" });
+    } catch (error) {
+      setMessage({ type: "error", content: error.response?.data?.message || "Failed to update profile." });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setMessage({ type: "error", content: "New passwords do not match." });
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage({ type: "", content: "" });
+
+    try {
+      await api.put('/api/admin/auth/password', {
+        currentPassword: passwordForm.currentPassword,
+        newPassword: passwordForm.newPassword
+      });
+      setMessage({ type: "success", content: "Password updated successfully!" });
+      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    } catch (error) {
+      setMessage({ type: "error", content: error.response?.data?.message || "Failed to update password." });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -32,16 +117,17 @@ export default function ProfilePage() {
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile</h1>
               <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-                Manage your profile information and settings.
+                Manage your profile information and security.
               </p>
             </div>
-            <button className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm">
-              <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              Edit Profile
-            </button>
           </div>
+
+          {/* Message Alert */}
+          {message.content && (
+            <div className={`p-4 rounded-lg ${message.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+              {message.content}
+            </div>
+          )}
 
           {/* Profile Card */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-10">
@@ -103,8 +189,6 @@ export default function ProfilePage() {
                 </div>
               </div>
             </div>
-
-  
           </div>
 
           {/* Tabs */}
@@ -113,7 +197,6 @@ export default function ProfilePage() {
               <nav className="flex -mb-px">
                 {[
                   { id: "details", label: "Profile Details" },
-                  { id: "settings", label: "Account Settings" },
                   { id: "security", label: "Security" },
                 ].map((tab) => (
                   <button
@@ -133,104 +216,179 @@ export default function ProfilePage() {
 
             <div className="p-10">
               {activeTab === "details" && (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                  {/* Personal Information */}
-                  <div className="lg:col-span-2">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Personal Information</h3>
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleProfileSubmit}>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    {/* Personal Information */}
+                    <div className="lg:col-span-2">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Personal Information</h3>
+                      <div className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">First Name</label>
+                            <input
+                              type="text"
+                              name="first_name"
+                              value={profileForm.first_name}
+                              onChange={handleProfileChange}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
+                            <input
+                              type="text"
+                              name="last_name"
+                              value={profileForm.last_name}
+                              onChange={handleProfileChange}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            />
+                          </div>
+                        </div>
                         <div>
-                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">First Name</label>
+                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                           <input
-                            type="text"
-                            defaultValue="Sarah"
+                            type="email"
+                            name="email"
+                            value={profileForm.email}
+                            onChange={handleProfileChange}
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                           />
                         </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
+                                <input
+                                type="text"
+                                name="phone"
+                                value={profileForm.phone}
+                                onChange={handleProfileChange}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Location</label>
+                                <input
+                                type="text"
+                                name="location"
+                                value={profileForm.location}
+                                onChange={handleProfileChange}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                            </div>
+                        </div>
                         <div>
-                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
-                          <input
-                            type="text"
-                            defaultValue="Johnson"
+                          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Bio</label>
+                          <textarea
+                            rows={5}
+                            name="bio"
+                            value={profileForm.bio}
+                            onChange={handleProfileChange}
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                           />
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Brief description for your profile. Max 160 characters.</p>
+                        </div>
+                        <div className="flex justify-end">
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm disabled:opacity-50"
+                            >
+                                {isLoading ? "Saving..." : "Save Changes"}
+                            </button>
                         </div>
                       </div>
-                      <div>
-                        <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
-                        <input
-                          type="email"
-                          defaultValue={profileData.email}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        />
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Your email is private</p>
-                      </div>
-                      <div>
-                        <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Bio</label>
-                        <textarea
-                          rows={5}
-                          defaultValue={profileData.bio}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        />
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Brief description for your profile. Max 160 characters.</p>
-                      </div>
-
                     </div>
-                  </div>
 
-                  {/* Recent Activity */}
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Activity</h3>
-                    <div className="space-y-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
-                          <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
+                    {/* Recent Activity */}
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Activity</h3>
+                      <div className="space-y-6">
+                        <div className="flex items-start space-x-4">
+                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-base font-medium text-gray-900 dark:text-white">Completed project review</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">2 hours ago</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-base font-medium text-gray-900 dark:text-white">Completed project review</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">2 hours ago</p>
+                        <div className="flex items-start space-x-4">
+                          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-base font-medium text-gray-900 dark:text-white">Updated profile information</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">1 day ago</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-start space-x-4">
-                        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                          <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="text-base font-medium text-gray-900 dark:text-white">Updated profile information</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">1 day ago</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-4">
-                        <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center flex-shrink-0">
-                          <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="text-base font-medium text-gray-900 dark:text-white">Joined new team</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">3 days ago</p>
+                        <div className="flex items-start space-x-4">
+                          <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-base font-medium text-gray-900 dark:text-white">Joined new team</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">3 days ago</p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-
-              {activeTab === "settings" && (
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Account Settings</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400">Account settings content would go here.</p>
-                </div>
+                </form>
               )}
 
               {activeTab === "security" && (
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Security Settings</h3>
-                  <p className="text-base text-gray-600 dark:text-gray-400">Security settings content would go here.</p>
+                <div className="max-w-2xl">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Change Password</h3>
+                  <form onSubmit={handlePasswordSubmit} className="space-y-6">
+                    <div>
+                      <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
+                      <input
+                        type="password"
+                        name="currentPassword"
+                        value={passwordForm.currentPassword}
+                        onChange={handlePasswordChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
+                      <input
+                        type="password"
+                        name="newPassword"
+                        value={passwordForm.newPassword}
+                        onChange={handlePasswordChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        value={passwordForm.confirmPassword}
+                        onChange={handlePasswordChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm disabled:opacity-50"
+                      >
+                        {isLoading ? "Updating..." : "Update Password"}
+                      </button>
+                    </div>
+                  </form>
                 </div>
               )}
             </div>

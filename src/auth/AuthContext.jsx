@@ -69,6 +69,17 @@ export function AuthProvider({ children }) {
     navigate('/auth/sign-in');
   };
 
+  const refreshProfile = async () => {
+    try {
+      const userData = await api.get('/api/admin/auth/me');
+      setUser(userData);
+      return true;
+    } catch (error) {
+      console.error('Failed to refresh profile:', error);
+      return false;
+    }
+  };
+
   const value = {
     user,
     role: user?.role || 'guest',
@@ -76,7 +87,8 @@ export function AuthProvider({ children }) {
     isAuthed: !!user,
     isLoading,
     login,
-    logout
+    logout,
+    refreshProfile
   };
 
   return (

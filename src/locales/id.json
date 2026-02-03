@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "Dasbor",
+    "users": "Pengguna",
+    "user_management": "Manajemen Pengguna",
+    "finance": "Keuangan",
+    "wallet_finance": "Dompet & Keuangan",
+    "bets": "Taruhan",
+    "bets_games": "Taruhan & Permainan",
+    "promotions": "Promosi",
+    "bonus_promotions": "Bonus & Promosi",
+    "reports": "Laporan",
+    "risk": "Manajemen Risiko",
+    "risk_control": "Kontrol Risiko",
+    "system": "Sistem",
+    "system_logs": "Sistem & Log",
+    "admin_management": "Manajemen Admin",
+    "vip": "VIP",
+    "vip_segmentation": "VIP & Segmentasi",
+    "settings": "Pengaturan",
+    "logout": "Keluar",
+    "profile": "Profil",
+    "notifications": "Notifikasi",
+    "language": "Bahasa",
+    "search": "Cari...",
+    "admin": "ADMIN",
+    "operations": "OPERASI"
+  },
+  "dashboard": {
+    "total_ggr": "Total GGR",
+    "rtp": "RTP",
+    "dau": "Pengguna Aktif (DAU)",
+    "total_bets": "Total Taruhan",
+    "from_last_week": "dari minggu lalu",
+    "revenue_overview": "Ikhtisar Pendapatan",
+    "revenue": "Pendapatan",
+    "profit_vs_expenses": "Laba vs Pengeluaran",
+    "expenses_wins": "Pengeluaran (Kemenangan)",
+    "profit_ggr": "Laba (GGR)",
+    "week": "Minggu",
+    "month": "Bulan",
+    "year": "Tahun"
+  },
+  "header": {
+    "search": "Cari",
+    "notifications": {
+      "title": "Notifikasi",
+      "new": "baru",
+      "view_all": "Lihat semua notifikasi",
+      "withdrawal_approved": "Penarikan Disetujui",
+      "high_risk_alert": "Peringatan Risiko Tinggi",
+      "large_deposit": "Deposit Besar",
+      "jackpot_hit": "Jackpot Hit",
+      "withdrawal_msg": "Permintaan penarikan #WD1234 telah disetujui",
+      "risk_msg": "Pemain 'player002' ditandai karena pola taruhan mencurigakan",
+      "deposit_msg": "Pemain 'vip_player' deposit $5,000 - Status VIP diperbarui",
+      "jackpot_msg": "Jackpot Mega Fortune dimenangkan: $25,000 oleh 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "Profil Anda",
+      "settings": "Pengaturan",
+      "sign_out": "Keluar"
+    }
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "preferences": "Preferensi",
+    "security": "Keamanan",
+    "appearance": "Tampilan",
+    "notifications": "Notifikasi",
+    "profile": "Profil",
+    "language_region": "Bahasa & Wilayah",
+    "select_language": "Pilih Bahasa",
+    "time_zone": "Zona Waktu",
+    "date_format": "Format Tanggal",
+    "data_privacy": "Data & Privasi",
+    "download_data": "Unduh Data Anda",
+    "export_data": "Ekspor Data Akun",
+    "delete_account": "Hapus Akun",
+    "delete_warning": "Hapus akun Anda dan semua data terkait secara permanen."
+  }
+}

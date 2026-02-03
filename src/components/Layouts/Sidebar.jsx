@@ -1,7 +1,7 @@
-/* eslint-disable react-refresh/only-export-components */
 import React, { useMemo, useState, createContext, useContext } from 'react';
 import { NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
+import { useTranslation } from 'react-i18next';
 import { MdOutlineDashboard } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { BiWallet } from "react-icons/bi";
@@ -12,7 +12,6 @@ import { TbLogs } from "react-icons/tb";
 import { RiAdminLine } from "react-icons/ri";
 
 // Icon Components
-
 const Table = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
@@ -44,8 +43,8 @@ const UserGroup = () => (
   </svg>
 );
 
-const ArrowLeftIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
+const ArrowLeftIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className || "size-7"}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
   </svg>
 );
@@ -54,6 +53,15 @@ const ChevronUp = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-5 ${className}`}>
     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
   </svg>
+);
+
+const Logo = () => (
+  <div className="flex items-center gap-2 font-bold text-xl text-blue-600 dark:text-blue-400">
+    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+      C
+    </div>
+    <span className="hidden min-[850px]:block">CRM</span>
+  </div>
 );
 
 // Define the context for sidebar state
@@ -100,70 +108,59 @@ export const SidebarProvider = ({ children }) => {
 const NAV_DATA = [
   {
     label: "ADMIN",
+    key: "admin",
     items: [
-      { title: "Dashboard", url: "/", icon: MdOutlineDashboard, items: [], permission: "dashboard" },
-      { title: "User Management", url: "/users", icon: FiUsers, items: [], permission: "users" },
-      { title: "Wallet & Finance", url: "/finance", icon: BiWallet, items: [], permission: "finance" },
-      { title: "Bets & Games", url: "/bets", icon: IoGameControllerOutline, items: [], permission: "bets" },
-      { title: "VIP & Segmentation", url: "/vip", icon: RiVipCrownLine, items: [], permission: "vip" },
+      { title: "Dashboard", key: "dashboard", url: "/", icon: MdOutlineDashboard, items: [], permission: "dashboard" },
+      { title: "User Management", key: "user_management", url: "/users", icon: FiUsers, items: [], permission: "users" },
+      { title: "Wallet & Finance", key: "wallet_finance", url: "/finance", icon: BiWallet, items: [], permission: "finance" },
+      { title: "Bets & Games", key: "bets_games", url: "/bets", icon: IoGameControllerOutline, items: [], permission: "bets" },
+      { title: "VIP & Segmentation", key: "vip_segmentation", url: "/vip", icon: RiVipCrownLine, items: [], permission: "vip" },
     ],
   },
   {
     label: "OPERATIONS",
+    key: "operations",
     items: [
-      { title: "Risk Control", url: "/risk", icon: Authentication, items: [], permission: "risk" },
-      { title: "Bonus & Promotions", url: "/promotions", icon: UserGroup, items: [], permission: "promotions" },
-      { title: "Reports", url: "/reports", icon: TbReport, items: [], permission: "reports" },
-      { title: "System & Logs", url: "/system", icon: TbLogs, items: [], permission: "system" },
-      { title: "Admin Management", url: "/admin-management", icon: RiAdminLine, items: [], permission: "system" },
+      { title: "Risk Control", key: "risk_control", url: "/risk", icon: Authentication, items: [], permission: "risk" },
+      { title: "Bonus & Promotions", key: "bonus_promotions", url: "/promotions", icon: UserGroup, items: [], permission: "promotions" },
+      { title: "Reports", key: "reports", url: "/reports", icon: TbReport, items: [], permission: "reports" },
+      { title: "System & Logs", key: "system_logs", url: "/system", icon: TbLogs, items: [], permission: "system" },
+      { title: "Admin Management", key: "admin_management", url: "/admin-management", icon: RiAdminLine, items: [], permission: "system" },
     ],
   },
 ];
 
-// MenuItem Component
-const MenuItem = ({ children, isActive, onClick, as = 'button', href, className = '', onNavigate }) => {
-  const menuItemClasses = `flex items-center gap-2 py-3 px-3 rounded-lg transition-colors ${
-    isActive 
-      ? 'bg-blue-500 text-white' 
-      : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
-  }`;
-
-  if (as === 'link' && href) {
-    return (
-      <NavLink
-        to={href}
-        onClick={onNavigate}
-        className={({ isActive: navActive }) => `${menuItemClasses} ${navActive ? 'bg-blue-500 text-white' : ''} ${className}`}
-      >
-        {children}
-      </NavLink>
-    );
-  }
-
-  return (
-    <button 
-      onClick={onClick} 
-      className={`${menuItemClasses} ${className}`}
-      type="button"
+const MenuItem = ({ as, href, onNavigate, isActive, onClick, children, className }) => {
+  return as === 'link' ? (
+    <NavLink
+      to={href}
+      onClick={onNavigate}
+      className={({ isActive: navActive }) =>
+        `group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-slate-800 ${
+          isActive || navActive ? 'bg-gray-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-400'
+        } ${className || ''}`
+      }
+    >
+      {children}
+    </NavLink>
+  ) : (
+    <button
+      onClick={onClick}
+      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-slate-800 w-full text-left ${
+        isActive ? 'bg-gray-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-400'
+      } ${className || ''}`}
     >
       {children}
     </button>
   );
 };
 
-// Logo Component
-const Logo = () => (
-  <div className="flex items-center gap-2">
-    <div className="w-8 h-8 bg-blue-500 rounded-md"></div>
-    <span className="text-xl font-bold text-gray-800 dark:text-white">Golden Cash Casino</span>
-  </div>
-);
-
-const Sidebar = () => {
+export const Sidebar = () => {
   const { isOpen, setIsOpen, isMobile, toggleSidebar } = useSidebarContext();
   const [expandedItems, setExpandedItems] = useState([]);
   const { permissions } = useAuth();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const navSections = useMemo(() => {
     const hasPerm = (item) => !item.permission || permissions.includes(item.permission);
@@ -171,10 +168,14 @@ const Sidebar = () => {
     return NAV_DATA
       .map((section) => ({
         ...section,
-        items: section.items.filter(hasPerm),
+        label: t(`common.${section.key}`),
+        items: section.items.filter(hasPerm).map(item => ({
+           ...item,
+           title: t(`common.${item.key}`)
+        })),
       }))
       .filter((section) => section.items.length);
-  }, [permissions]);
+  }, [permissions, t]);
 
   const toggleExpanded = (title) => {
     setExpandedItems((prev) =>
@@ -199,14 +200,17 @@ const Sidebar = () => {
         } ${isOpen ? "w-72" : "w-0"}`}
         aria-label="Main navigation"
         aria-hidden={!isOpen}
-        inert={!isOpen}
+        inert={!isOpen ? "true" : undefined}
       >
         <div className="flex h-full flex-col py-6 pl-6 pr-4">
           <div className="relative pr-4.5">
             <a
               href="/"
-              onClick={() => isMobile && toggleSidebar()}
-              className="px-0 py-2.5 min-[850px]:py-0"
+              onClick={(e) => {
+                e.preventDefault();
+                if(isMobile) toggleSidebar();
+              }}
+              className="px-0 py-2.5 min-[850px]:py-0 block"
             >
               <Logo />
             </a>
@@ -225,7 +229,7 @@ const Sidebar = () => {
           {/* Navigation */}
           <div className="custom-scrollbar mt-6 flex-1 overflow-y-auto pr-3 min-[850px]:mt-10">
             {navSections.map((section) => (
-              <div key={section.label} className="mb-6">
+              <div key={section.key} className="mb-6">
                 <h2 className="mb-5 text-sm font-medium text-gray-500 dark:text-gray-400">
                   {section.label}
                 </h2>
@@ -234,10 +238,9 @@ const Sidebar = () => {
                   <ul className="space-y-2">
                     {section.items.map((item) => {
                       // If item has multiple sub-items, show as dropdown
-                      // Otherwise, show as direct link
                       if (item.items && item.items.length > 1) {
                         return (
-                          <li key={item.title}>
+                          <li key={item.key}>
                             <div>
                               <MenuItem
                                 isActive={item.items.some(
@@ -266,7 +269,7 @@ const Sidebar = () => {
                                   role="menu"
                                 >
                                   {item.items.map((subItem) => (
-                                    <li key={subItem.title} role="none">
+                                    <li key={subItem.key} role="none">
                                       <MenuItem
                                         as="link"
                                         href={subItem.url}
@@ -284,26 +287,19 @@ const Sidebar = () => {
                         );
                       }
 
-                      // Direct link (no dropdown or single item)
-                      const href =
-                        "url" in item && item.url
-                          ? item.url
-                          : "/" + item.title.toLowerCase().split(" ").join("-");
-
+                      // Direct link
                       return (
-                        <li key={item.title}>
+                        <li key={item.key}>
                           <MenuItem
-                            className="flex items-center gap-3 py-3 px-4"
                             as="link"
-                            href={href}
+                            href={item.url}
                             onNavigate={() => isMobile && toggleSidebar()}
-                            isActive={location.pathname === href}
+                            isActive={location.pathname === item.url}
                           >
                             <item.icon
                               className="size-6 shrink-0"
                               aria-hidden="true"
                             />
-
                             <span className="whitespace-nowrap">{item.title}</span>
                           </MenuItem>
                         </li>
@@ -320,4 +316,4 @@ const Sidebar = () => {
   );
 };
 
-export { Sidebar };
+export default Sidebar;

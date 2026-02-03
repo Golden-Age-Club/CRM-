@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "users": "Mga User",
+    "user_management": "Pamamahala ng User",
+    "finance": "Pananalapi",
+    "wallet_finance": "Wallet at Pananalapi",
+    "bets": "Mga Pusta",
+    "bets_games": "Pusta at Laro",
+    "promotions": "Mga Promosyon",
+    "bonus_promotions": "Bonus at Promosyon",
+    "reports": "Mga Ulat",
+    "risk": "Pamamahala sa Panganib",
+    "risk_control": "Kontrol sa Panganib",
+    "system": "Sistema",
+    "system_logs": "Sistema at Mga Log",
+    "admin_management": "Pamamahala ng Admin",
+    "vip": "VIP",
+    "vip_segmentation": "VIP at Segmentasyon",
+    "settings": "Mga Setting",
+    "logout": "Mag-logout",
+    "profile": "Profile",
+    "notifications": "Mga Abiso",
+    "language": "Wika",
+    "search": "Maghanap...",
+    "admin": "ADMIN",
+    "operations": "OPERASYON"
+  },
+  "dashboard": {
+    "total_ggr": "Kabuuang GGR",
+    "rtp": "RTP",
+    "dau": "Aktibong User (DAU)",
+    "total_bets": "Kabuuang Pusta",
+    "from_last_week": "mula noong nakaraang linggo",
+    "revenue_overview": "Pangkalahatang-ideya ng Kita",
+    "revenue": "Kita",
+    "profit_vs_expenses": "Kita vs Gastos",
+    "expenses_wins": "Gastos (Panalo)",
+    "profit_ggr": "Kita (GGR)",
+    "week": "Linggo",
+    "month": "Buwan",
+    "year": "Taon"
+  },
+  "header": {
+    "search": "Maghanap",
+    "notifications": {
+      "title": "Mga Abiso",
+      "new": "bago",
+      "view_all": "Tingnan ang lahat ng abiso",
+      "withdrawal_approved": "Inaprubahan ang Pag-withdraw",
+      "high_risk_alert": "Alerto sa Mataas na Panganib",
+      "large_deposit": "Malaking Deposito",
+      "jackpot_hit": "Tumama sa Jackpot",
+      "withdrawal_msg": "Ang kahilingan sa pag-withdraw ng player #WD1234 ay inaprubahan",
+      "risk_msg": "Ang player na 'player002' ay minarkahan para sa kahina-hinalang pustahan",
+      "deposit_msg": "Ang player na 'vip_player' ay nagdeposito ng $5,000 - Na-update ang status ng VIP",
+      "jackpot_msg": "Nanalo ng Mega Fortune jackpot: $25,000 ni 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "Iyong Profile",
+      "settings": "Mga Setting",
+      "sign_out": "Mag-sign out"
+    }
+  },
+  "settings": {
+    "title": "Mga Setting",
+    "preferences": "Mga Kagustuhan",
+    "security": "Seguridad",
+    "appearance": "Hitsura",
+    "notifications": "Mga Abiso",
+    "profile": "Profile",
+    "language_region": "Wika at Rehiyon",
+    "select_language": "Piliin ang Wika",
+    "time_zone": "Time Zone",
+    "date_format": "Format ng Petsa",
+    "data_privacy": "Data at Privacy",
+    "download_data": "I-download ang Iyong Data",
+    "export_data": "I-export ang Data ng Account",
+    "delete_account": "I-delete ang Account",
+    "delete_warning": "Permanenteng i-delete ang iyong account at lahat ng nauugnay na data."
+  }
+}

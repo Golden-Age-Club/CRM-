@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,6 +15,7 @@ import api from "../../api/axios";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 const PaymentsOverview = ({ className = "" }) => {
+  const { t } = useTranslation();
   const [chartData, setChartData] = useState({
     labels: [],
     revenue: []
@@ -42,7 +44,7 @@ const PaymentsOverview = ({ className = "" }) => {
       labels: chartData.labels,
       datasets: [
         {
-          label: "Revenue",
+          label: t('dashboard.revenue'),
           data: chartData.revenue,
           fill: true,
           tension: 0.35,
@@ -79,7 +81,7 @@ const PaymentsOverview = ({ className = "" }) => {
           borderColor: "#1f2937",
           borderWidth: 1,
           padding: 10,
-          callbacks: { label: (ctx) => `Revenue: $${ctx.parsed.y.toLocaleString()}` },
+          callbacks: { label: (ctx) => `${t('dashboard.revenue')}: $${ctx.parsed.y.toLocaleString()}` },
         },
       },
     }),
@@ -89,25 +91,25 @@ const PaymentsOverview = ({ className = "" }) => {
   return (
     <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 ${className}`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-white">Revenue Overview</h3>
+        <h3 className="text-lg font-bold text-gray-800 dark:text-white">{t('dashboard.revenue_overview')}</h3>
         <div className="flex space-x-2 text-sm">
           <button 
             onClick={() => setPeriod('week')}
             className={`px-3 py-1 rounded ${period === 'week' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
           >
-            Week
+            {t('dashboard.week')}
           </button>
           <button 
             onClick={() => setPeriod('month')}
             className={`px-3 py-1 rounded ${period === 'month' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
           >
-            Month
+            {t('dashboard.month')}
           </button>
           <button 
             onClick={() => setPeriod('year')}
             className={`px-3 py-1 rounded ${period === 'year' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
           >
-            Year
+            {t('dashboard.year')}
           </button>
         </div>
       </div>

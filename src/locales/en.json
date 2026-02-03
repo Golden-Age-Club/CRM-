@@ -1,0 +1,893 @@
+{
+  "system": {
+      "title": "System Configuration",
+      "subtitle": "Manage system settings, maintenance mode, and backups.",
+      "settings": {
+          "title": "System Settings",
+          "subtitle": "Manage global system configurations",
+          "saved_success": "Settings saved successfully",
+          "save_failed": "Failed to save settings",
+          "maintenance": {
+            "title": "Maintenance Mode",
+            "desc": "Disable user access for maintenance"
+          },
+          "backup": {
+            "title": "Auto Backup",
+            "desc": "Enable daily automated backups"
+          },
+          "email_notifications": {
+            "title": "Email Notifications",
+            "desc": "Receive system alerts via email"
+          },
+          "registration": {
+            "title": "User Registration",
+            "desc": "Allow new users to register"
+          },
+          "max_login": {
+            "title": "Max Login Attempts",
+            "desc": "Maximum failed login attempts before lockout"
+          },
+          "session_timeout": {
+            "title": "Session Timeout (minutes)",
+            "desc": "Automatically log out inactive users"
+          },
+          "messages": {
+            "saved": "Settings saved successfully",
+            "save_failed": "Failed to save settings"
+          },
+          "save": "Save Settings"
+      },
+      "info": {
+          "title": "System Information",
+          "version": "Version",
+          "uptime": "Uptime",
+          "server_status": "Server Status",
+          "database": "Database",
+          "last_backup": "Last Backup",
+          "online": "Online",
+          "connected": "Connected"
+      },
+      "actions": {
+          "title": "System Actions",
+          "clear_cache": "Clear Cache",
+          "cache_desc": "Clear system cache to refresh data",
+          "run_backup": "Backup Now",
+          "backup_desc": "Create an immediate system backup",
+          "view_logs": "View Logs",
+          "logs_desc": "View system activity logs",
+          "cache_success": "Cache cleared successfully",
+          "backup_success": "Backup created successfully"
+      },
+      "logs": {
+          "title": "System Logs",
+          "subtitle": "Track system activities and administrative actions",
+          "filter_placeholder": "Filter by action...",
+          "no_logs": "No logs found",
+          "headers": {
+            "time": "Time",
+            "admin": "Admin",
+            "action": "Action",
+            "target": "Target",
+            "ip": "IP Address"
+          },
+          "messages": {
+              "load_failed": "Failed to load system logs"
+          },
+          "unknown_user": "Unknown"
+      }
+    },
+    "admin_management": {
+      "title": "Admin Management",
+      "subtitle": "Manage admin accounts, roles, and permissions",
+      "add_admin": "Add New Admin",
+      "table": {
+          "admin": "Admin",
+          "role": "Role",
+          "permissions": "Permissions",
+          "status": "Status",
+          "last_active": "Last Active",
+          "actions": "Actions"
+      },
+      "form": {
+          "create_title": "Create New Admin",
+          "edit_title": "Edit Admin",
+          "email": "Email",
+          "password": "Password",
+          "first_name": "First Name",
+          "last_name": "Last Name",
+          "role": "Role",
+          "permissions": "Permissions",
+          "select_all": "Select All",
+          "save": "Save Admin",
+          "cancel": "Cancel",
+          "password_placeholder": "Leave empty to keep current"
+      },
+      "messages": {
+          "load_failed": "Failed to load admins",
+          "create_success": "Admin created successfully",
+          "update_success": "Admin updated successfully",
+          "delete_success": "Admin deleted successfully",
+          "delete_confirm": "Are you sure you want to delete this admin?",
+          "save_failed": "Failed to save admin",
+          "delete_failed": "Failed to delete admin",
+          "password_required": "Password is required for new admin"
+      }
+    },
+    "common": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "user_management": "User Management",
+    "finance": "Finance",
+    "wallet_finance": "Wallet & Finance",
+    "bets": "Bets",
+    "bets_games": "Bets & Games",
+    "promotions": "Promotions",
+    "bonus_promotions": "Bonus & Promotions",
+    "reports": "Reports",
+    "risk": "Risk Management",
+    "risk_control": "Risk Control",
+    "system": "System",
+    "system_logs": "System & Logs",
+    "admin_management": "Admin Management",
+    "vip": "VIP",
+    "vip_segmentation": "VIP & Segmentation",
+    "settings": "Settings",
+    "logout": "Logout",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "language": "Language",
+    "search": "Search...",
+    "admin": "ADMIN",
+    "operations": "OPERATIONS",
+    "export": "Export",
+    "reset": "Reset",
+    "previous": "Previous",
+    "next": "Next",
+    "page_info": "Page {{page}} of {{totalPages}}",
+    "close_menu": "Close Menu",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading..."
+  },
+  "dashboard": {
+    "total_ggr": "Total GGR",
+    "rtp": "RTP",
+    "dau": "Active Users (DAU)",
+    "total_bets": "Total Bets",
+    "from_last_week": "from last week",
+    "revenue_overview": "Revenue Overview",
+    "revenue": "Revenue",
+    "profit_vs_expenses": "Profit vs Expenses",
+    "expenses_wins": "Expenses (Wins)",
+    "profit_ggr": "Profit (GGR)",
+    "revenue_ggr": "Revenue (GGR)",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year"
+  },
+  "promotions": {
+    "layout": {
+      "title": "Promotions",
+      "subtitle": "Manage promotions and view user bonus status",
+      "tabs": {
+        "management": "Promotion Management",
+        "bonuses": "User Bonuses"
+      }
+    },
+    "title": "Active Promotions",
+    "create_btn": "Create Promotion",
+    "no_promotions": "No promotions found. Create one to get started.",
+    "active": "Active",
+    "inactive": "Inactive",
+    "type": "Type",
+    "value": "Value",
+    "wager_req": "Wager Req",
+    "min_deposit": "Min Deposit",
+    "validity": "Validity",
+    "days": "Days",
+    "description": "Description",
+    "no_description": "No description provided.",
+    "edit_title": "Edit Promotion",
+    "new_title": "New Promotion",
+    "form": {
+      "title": "Title",
+      "type": "Type",
+      "value": "Value",
+      "wager": "Wager (x)",
+      "min_deposit": "Min Deposit ($)",
+      "validity": "Validity (Days)",
+      "description": "Description",
+      "save": "Save Promotion",
+      "cancel": "Cancel"
+    },
+    "types": {
+      "deposit_match": "Deposit Match",
+      "free_spins": "Free Spins",
+      "cashback": "Cashback",
+      "referral": "Referral"
+    },
+    "messages": {
+      "fetch_failed": "Failed to fetch promotions",
+      "update_success": "Promotion updated",
+      "create_success": "Promotion created",
+      "operation_failed": "Operation failed",
+      "delete_success": "Promotion deleted",
+      "delete_failed": "Failed to delete",
+      "status_failed": "Failed to update status",
+      "disabled": "disabled",
+      "enabled": "enabled",
+      "confirm_delete": "Are you sure?"
+    },
+    "user_bonuses": {
+      "title": "User Bonus Status",
+      "search_placeholder": "Search users...",
+      "headers": {
+        "user": "User",
+        "promotion": "Promotion",
+        "amount": "Amount",
+        "wager_progress": "Wager Progress",
+        "status": "Status",
+        "expires": "Expires"
+      },
+      "loading": "Loading...",
+      "no_bonuses": "No active user bonuses found",
+      "unknown_user": "Unknown",
+      "status": {
+        "active": "Active",
+        "completed": "Completed",
+        "expired": "Expired",
+        "forfeited": "Forfeited"
+      }
+    }
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitle": "Analytics and Statistics",
+    "dashboard": "Dashboard",
+    "overview": "Overview",
+    "overview_subtitle": "Monitor your key performance metrics",
+    "revenue_trend": "Revenue Trend",
+    "export_failed": "Failed to export data"
+  },
+  "periods": {
+    "last_7_days": "Last 7 Days",
+    "last_30_days": "Last 30 Days",
+    "last_year": "Last Year",
+    "last_24_hours": "Last 24 hours"
+  },
+  "users_page": {
+    "title": "User Management",
+    "subtitle": "View user status, VIP level, and risk level.",
+    "add_new_user": "Add New User",
+    "add_user_btn": "Add User",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "vip_level": "VIP Level",
+    "risk_level": "Risk Level",
+    "initial_balance": "Initial Balance",
+    "cancel": "Cancel",
+    "create_user": "Create User",
+    "creating": "Creating...",
+    "success_create": "User created successfully",
+    "failed_create": "Failed to create user",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "total_users": "Total Users",
+    "active_users": "Active Users",
+    "vip_users": "VIP Users",
+    "frozen_users": "Frozen Users",
+    "confirm_delete": "Are you sure you want to delete this user?",
+    "success_delete": "User deleted successfully",
+    "failed_delete": "Failed to delete user",
+    "confirm_action": "Are you sure you want to {{action}} this user?",
+    "success_action": "User {{action}}d successfully",
+    "failed_action": "Failed to {{action}} user",
+    "freeze": "freeze",
+    "unfreeze": "unfreeze",
+    "failed_load": "Failed to load users",
+    "user_col": "User",
+    "status_col": "Status",
+    "balance_col": "Balance",
+    "joined_col": "Joined",
+    "actions_col": "Actions",
+    "view_details": "View Details",
+    "edit_user": "Edit User",
+    "unfreeze_user": "Unfreeze User",
+    "freeze_user": "Freeze User",
+    "delete_user": "Delete User",
+    "loading": "Loading users...",
+    "no_users": "No users found.",
+    "showing_page": "Showing page {{page}} of {{totalPages}}",
+    "previous": "Previous",
+    "next": "Next",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "frozen": "Frozen"
+    },
+    "details": {
+      "title": "User Details",
+      "info": "User Information",
+      "account_settings": "Account Settings",
+      "status_overview": "Status Overview",
+      "account_status": "Account Status",
+      "joined_date": "Joined Date",
+      "last_updated": "Last Updated",
+      "save_changes": "Save Changes",
+      "saving": "Saving...",
+      "success_update": "User updated successfully",
+      "failed_update": "Failed to update user",
+      "failed_load": "Failed to load user details",
+      "confirm_delete_permanent": "Are you sure you want to delete this user? This action cannot be undone.",
+    "loading_details": "Loading user details..."
+  }
+},
+"profile_page": {
+  "title": "Profile",
+  "subtitle": "Manage your profile information and security.",
+  "verified": "Verified",
+  "tabs": {
+    "details": "Profile Details",
+    "security": "Security"
+  },
+  "personal_info": "Personal Information",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "email": "Email Address",
+  "phone": "Phone",
+  "location": "Location",
+  "bio": "Bio",
+  "bio_hint": "Brief description for your profile. Max 160 characters.",
+  "save_changes": "Save Changes",
+  "saving": "Saving...",
+  "recent_activity": "Recent Activity",
+  "change_password": "Change Password",
+  "current_password": "Current Password",
+  "new_password": "New Password",
+  "confirm_password": "Confirm New Password",
+  "update_password": "Update Password",
+  "updating": "Updating...",
+  "success_profile": "Profile updated successfully!",
+  "failed_profile": "Failed to update profile.",
+  "password_mismatch": "New passwords do not match.",
+  "success_password": "Password updated successfully!",
+  "failed_password": "Failed to update password.",
+  "home": "Home",
+  "joined": "Joined"
+},
+
+  "finance_page": {
+    "title": "Wallet & Finance",
+    "subtitle": "Manage user balances, deposits, withdrawals, and manual adjustments.",
+    "tabs": {
+      "balances": "User Balances",
+      "deposits": "Deposit Orders",
+      "withdrawals": "Withdrawal Requests"
+    }
+  },
+  "user_balances": {
+    "search_placeholder": "Search by username or email...",
+    "headers": {
+      "user": "User",
+      "total_balance": "Total Balance",
+      "available_balance": "Available Balance",
+      "bonus_balance": "Bonus Balance",
+      "currency": "Currency",
+      "status": "Status",
+      "last_updated": "Last Updated",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view_history": "View History",
+      "adjust_balance": "Adjust Balance",
+      "freeze_account": "Freeze Account",
+      "success_adjust": "Balance adjusted successfully",
+      "failed_adjust": "Failed to adjust balance",
+      "failed_load": "Failed to load balances"
+    },
+    "adjust_modal": {
+        "title": "Manual Balance Adjustment",
+        "confirm_title": "Confirm Adjustment",
+        "type": "Adjustment Type",
+        "amount": "Amount (+/-)",
+        "amount_placeholder": "e.g., 100 or -50",
+        "reason": "Reason",
+        "reason_placeholder": "Reason for adjustment...",
+        "user_id": "User ID",
+        "next": "Next",
+        "back": "Back",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "warning": "Warning: This action will immediately affect the user's wallet."
+    }
+  },
+  "transaction_table": {
+    "search_placeholder": "Search by Order ID or User...",
+    "headers": {
+      "order_id": "Order ID",
+      "user": "User",
+      "amount": "Amount",
+      "currency": "Currency",
+      "status": "Status",
+      "date": "Date",
+      "actions": "Actions"
+    },
+    "status": {
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed",
+      "rejected": "Rejected",
+      "expired": "Expired"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "view": "View",
+      "confirm_approve": "Are you sure you want to approve this request?",
+      "confirm_reject": "Are you sure you want to reject this request?",
+      "success_approve": "Transaction Approved",
+      "success_reject": "Transaction Rejected",
+      "failed_update": "Failed to update status",
+      "failed_load": "Failed to load transactions"
+    },
+    "loading": "Loading...",
+    "no_transactions": "No transactions found.",
+    "page_info": "Page {{page}} of {{totalPages}}",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "transaction_details": {
+    "title": "Transaction Details",
+    "id": "ID",
+    "total_amount": "Total Amount",
+    "user_info": "User Information",
+    "username": "Username",
+    "payment_details": "Payment Details",
+    "payment_address": "Payment Address",
+    "wallet_address": "Wallet Address",
+    "copy_clipboard": "Copied to clipboard!",
+    "copy_address": "Copy Address",
+    "technical_details": "View Technical Details (JSON)",
+    "close": "Close"
+  },
+  "auth": {
+    "sign_in": "Sign In",
+    "welcome_back": "Welcome back to the admin dashboard",
+    "email": "Email",
+    "password": "Password",
+    "signing_in": "Signing In..."
+  },
+  "vip": {
+    "title": "VIP & Segmentation",
+    "subtitle": "Configure VIP tiers, view high-value players, and manually adjust VIP levels.",
+    "tabs": {
+      "users": "High-Value Users",
+      "config": "VIP Configuration"
+    },
+    "users": {
+      "search_placeholder": "Search by username or VIP level...",
+      "headers": {
+        "user_id": "User ID",
+        "username": "Username",
+        "vip_level": "VIP Level",
+        "total_deposit": "Total Deposit",
+        "total_bets": "Total Bets",
+        "last_activity": "Last Activity",
+        "actions": "Actions"
+      },
+      "actions": {
+        "adjust_vip": "Adjust VIP"
+      },
+      "modal": {
+        "title": "Adjust VIP Level",
+        "user": "User",
+        "current_vip": "Current VIP",
+        "new_vip_level": "New VIP Level",
+        "cancel": "Cancel",
+        "save": "Save Changes"
+      },
+      "messages": {
+        "fetch_tiers_failed": "Failed to load VIP tiers",
+        "fetch_users_failed": "Failed to load VIP users",
+        "update_success": "VIP level for {{username}} updated to {{tier}}",
+        "update_failed": "Failed to update VIP level"
+      }
+    },
+    "config": {
+      "title": "VIP Tier Configuration",
+      "edit_btn": "Edit Configuration",
+      "min_deposit": "Minimum Deposit",
+      "min_bets": "Minimum Bets",
+      "benefits": "Benefits",
+      "modal": {
+        "title": "Edit VIP Configuration",
+        "level": "Level",
+        "name": "Name",
+        "color": "Color (Tailwind Classes)",
+        "min_deposit": "Min Deposit",
+        "min_bets": "Min Bets",
+        "benefits": "Benefits",
+        "cancel": "Cancel",
+        "save": "Save All Changes",
+        "saving": "Saving..."
+      },
+      "messages": {
+        "fetch_failed": "Failed to load VIP tiers",
+        "save_success": "VIP configuration updated successfully",
+        "save_failed": "Failed to save configuration"
+      }
+    }
+  },
+  "settings": {
+    "home": "Home",
+    "title": "Settings",
+    "description": "Manage your account settings and preferences.",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "security": "Security",
+    "appearance": "Appearance",
+    "preferences": "Preferences",
+    "language_region": "Language & Region",
+    "select_language": "Select Language",
+    "time_zone": "Time Zone",
+    "date_format": "Date Format",
+    "data_privacy": "Data & Privacy",
+    "download_data": "Download My Data",
+    "export_data": "Export Data",
+    "delete_account": "Delete Account",
+    "delete_warning": "Warning: Deleting your account is permanent and cannot be undone.",
+    "formats": {
+      "mm_dd_yyyy": "MM/DD/YYYY",
+      "dd_mm_yyyy": "DD/MM/YYYY",
+      "yyyy_mm_dd": "YYYY-MM-DD"
+    },
+    "time_zones": {
+      "est": "Eastern Standard Time (EST)",
+      "pst": "Pacific Standard Time (PST)",
+      "cst": "Central Standard Time (CST)",
+      "mst": "Mountain Standard Time (MST)"
+    }
+  },
+  "appearance": {
+    "theme": "Theme",
+    "choose_theme": "Choose your theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "display": "Display",
+    "font_size": "Font Size",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "sidebar_position": "Sidebar Position",
+    "left": "Left",
+    "right": "Right"
+  },
+  "security": {
+    "password": "Password",
+    "current_password": "Current Password",
+    "enter_current_password": "Enter current password",
+    "new_password": "New Password",
+    "enter_new_password": "Enter new password",
+    "confirm_new_password": "Confirm New Password",
+    "confirm_new_password_placeholder": "Confirm new password",
+    "password_length_hint": "Must be at least 8 characters",
+    "update_password": "Update Password",
+    "updating": "Updating...",
+    "two_factor": "Two-Factor Authentication",
+    "enable_2fa": "Enable 2FA",
+    "passwords_do_not_match": "New passwords do not match",
+    "password_too_short": "Password must be at least 8 characters",
+    "success_update": "Password updated successfully",
+    "failed_update": "Failed to update password"
+  },
+  "profile": {
+    "title": "Profile Information",
+    "description": "Update your account's profile information and email address.",
+    "photo": "Photo",
+    "change_photo": "Change Photo",
+    "remove_photo": "Remove",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "location": "Location",
+    "bio": "Bio",
+    "bio_placeholder": "Write a few sentences about yourself...",
+    "job_title": "Job Title",
+    "position": "Position",
+    "click_camera_hint": "Click the camera icon to upload a new photo.",
+    "email_privacy_hint": "Your email is private",
+    "contact_number_hint": "Contact number",
+    "bio_hint": "Brief description for your profile. Max 160 characters.",
+    "position_managed_hint": "Position is managed by administration",
+    "save_changes": "Save Changes",
+    "saving": "Saving...",
+    "success_update": "Profile updated successfully!",
+    "failed_update": "Failed to update profile."
+  },
+  "notifications": {
+    "title": "Email Notifications",
+    "email_notifications": "Email Notifications",
+    "email_desc": "Receive notifications via email",
+    "push_notifications": "Push Notifications",
+    "push_desc": "Receive push notifications on your devices"
+  },
+  "errors": {
+    "fetch_failed": "Failed to fetch data",
+    "403": {
+      "title": "403",
+      "message": "You don't have permission to access this page.",
+      "back_home": "Back to Dashboard"
+    },
+    "404": {
+      "title": "404",
+      "message": "Page not found.",
+      "back_home": "Back to Dashboard"
+    }
+  },
+  "header": {
+    "crm_title": "CRM",
+    "search": "Search",
+    "notifications": {
+      "title": "Notifications",
+      "new": "new",
+      "view_all": "View all notifications",
+      "withdrawal_approved": "Withdrawal Approved",
+      "high_risk_alert": "High Risk Alert",
+      "large_deposit": "Large Deposit",
+      "jackpot_hit": "Jackpot Hit",
+      "withdrawal_msg": "Player withdrawal request #WD1234 has been approved",
+      "risk_msg": "Player 'player002' flagged for suspicious betting patterns",
+      "deposit_msg": "Player 'vip_player' deposited $5,000 - VIP status updated",
+      "jackpot_msg": "Mega Fortune jackpot won: $25,000 by 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "Your Profile",
+      "settings": "Settings",
+      "sign_out": "Sign out"
+    },
+    "theme_toggle": "Switch to {{theme}} mode",
+    "default_user": "Admin User",
+    "theme_toggle": "Switch to {{theme}} mode",
+    "profile": {
+      "your_profile": "Your Profile",
+      "settings": "Settings",
+      "sign_out": "Sign out"
+    }
+  },
+  "bets": {
+    "title": "Bets & Games",
+    "subtitle": "View bet records, single-round details, and manage game status.",
+    "tabs": {
+      "records": "Bet Records",
+      "games": "Games Management"
+    },
+    "records": {
+      "search_placeholder": "Search by Order ID, User, or Game...",
+      "headers": {
+        "order_id": "Order ID",
+        "user": "User",
+        "game": "Game",
+        "amount": "Amount",
+        "win": "Win",
+        "balance": "Balance",
+        "result": "Result",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "status": {
+        "loss": "LOSS",
+        "win": "WIN",
+        "bet": "BET",
+        "refunded": "REFUNDED",
+        "pending": "PENDING"
+      },
+      "actions": {
+        "view_details": "View Details"
+      },
+      "loading": "Loading...",
+      "no_bets": "No bets found.",
+      "failed_load": "Failed to load bets"
+    },
+    "games": {
+      "search_placeholder": "Search by game name...",
+      "headers": {
+        "provider_id": "Provider ID",
+        "game_name": "Game Name",
+        "status": "Status",
+        "total_bets": "Total Bets",
+        "rtp": "RTP",
+        "actions": "Actions"
+      },
+      "status": {
+        "provider_frozen": "Provider Frozen",
+        "enabled": "Enabled",
+        "disabled": "Disabled"
+      },
+      "actions": {
+        "enable": "Enable",
+        "disable": "Disable",
+        "confirm_toggle": "Are you sure you want to {{status}} this game?",
+        "success_toggle": "Game {{status}}",
+        "failed_toggle": "Failed to update game status"
+      },
+      "loading": "Loading...",
+      "no_games": "No games found.",
+      "failed_load": "Failed to load games"
+    },
+    "details": {
+      "title": "Transaction Details",
+      "order_id": "Order ID",
+      "game_id": "Game ID",
+      "user": "User",
+      "result": "Result",
+      "amount": "Amount",
+      "win_amount": "Win Amount",
+      "balance_after": "Balance After",
+      "date": "Date",
+      "raw_info": "Raw Bet Info",
+      "close": "Close"
+    }
+  },
+  "risk": {
+    "levels": {
+      "Low": "Low",
+      "Medium": "Medium",
+      "High": "High"
+    },
+    "status": {
+      "active": "Active",
+      "restricted": "Restricted",
+      "frozen": "Frozen",
+      "investigating": "Investigating",
+      "resolved": "Resolved"
+    },
+    "abnormal_users": {
+      "title": "Abnormal Users",
+      "search_placeholder": "Search by username...",
+      "no_users": "No abnormal users found",
+      "no_reasons": "No specific reasons listed",
+      "headers": {
+        "user_id": "User ID",
+        "username": "Username",
+        "risk_level": "Risk Level",
+        "risk_reasons": "Risk Reasons",
+        "win_rate": "Win Rate",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "freeze": "Freeze Account",
+        "restrict": "Restrict Access",
+        "unfreeze": "Unfreeze Account"
+      },
+      "modal": {
+        "title": "Confirm {{action}}",
+        "user": "User",
+        "risk_level": "Risk Level",
+        "reason_label": "Reason",
+        "reason_placeholder": "Enter reason for this action...",
+        "warning": "Warning: This action will immediately affect the user's account status.",
+        "success": "Action {{action}} on {{username}} successful",
+        "fail": "Failed to perform action"
+      },
+      "messages": {
+        "load_failed": "Failed to load abnormal users"
+      }
+    },
+    "risk_history": {
+      "title": "Risk History",
+      "search_placeholder": "Search history...",
+      "headers": {
+        "username": "Username",
+        "rule_triggered": "Rule Triggered",
+        "severity": "Severity",
+        "details": "Details",
+        "timestamp": "Timestamp",
+        "status": "Status"
+      },
+      "messages": {
+        "load_failed": "Failed to load risk history"
+      }
+    },
+    "risk_rules": {
+      "title": "Risk Rules",
+      "search_placeholder": "Search rules...",
+      "headers": {
+        "rule_name": "Rule Name",
+        "description": "Description",
+        "severity": "Severity",
+        "triggered_count": "Triggered Count"
+      },
+      "messages": {
+        "load_failed": "Failed to load risk rules"
+      }
+    }
+  },
+  "system": {
+    "title": "System Management",
+    "subtitle": "Configure system settings, manage maintenance, and monitor system health.",
+    "settings": {
+      "title": "System Settings",
+      "maintenance_mode": "Maintenance Mode",
+      "maintenance_desc": "Enable maintenance mode for system updates",
+      "auto_backup": "Auto Backup",
+      "backup_desc": "Enable automatic daily backups",
+      "email_notifications": "Email Notifications",
+      "email_desc": "Send system notifications via email",
+      "user_registration": "User Registration",
+      "registration_desc": "Allow new user registrations",
+      "max_login_attempts": "Max Login Attempts",
+      "login_attempts_desc": "Maximum failed login attempts before account lockout",
+      "session_timeout": "Session Timeout (minutes)",
+      "timeout_desc": "Time before user session expires",
+      "save": "Save Settings",
+      "saved_success": "System settings saved successfully!",
+      "messages": {
+        "saved": "System settings saved successfully!",
+        "save_failed": "Failed to save system settings",
+        "load_failed": "Failed to load system settings"
+      }
+    },
+    "actions": {
+      "title": "System Actions",
+      "clear_cache": "Clear Cache",
+      "cache_desc": "Clear application cache and temporary files",
+      "run_backup": "Run Backup",
+      "backup_desc": "Manually trigger a system backup",
+      "view_logs": "View Logs",
+      "logs_desc": "View system logs and error reports",
+      "cache_success": "Cache cleared successfully!",
+      "backup_success": "Backup started successfully!"
+    },
+    "info": {
+      "title": "System Information",
+      "version": "Version",
+      "uptime": "Uptime",
+      "server_status": "Server Status",
+      "database": "Database",
+      "last_backup": "Last Backup",
+      "online": "Online",
+      "connected": "Connected"
+    },
+    "logs": {
+      "title": "Audit Logs",
+      "subtitle": "Track system activities and administrative actions",
+      "filter_placeholder": "Filter by action...",
+      "headers": {
+        "time": "Time",
+        "admin": "Admin",
+        "action": "Action",
+        "target": "Target",
+        "ip": "IP Address"
+      },
+      "no_logs": "No logs found",
+      "loading": "Loading...",
+      "messages": {
+        "load_failed": "Failed to load system logs"
+      }
+    }
+  },
+  "settings": {
+    "language_region": "Language & Region",
+    "select_language": "Select Language",
+    "time_zone": "Time Zone",
+    "time_zones": {
+      "est": "Eastern Standard Time (EST)",
+      "pst": "Pacific Standard Time (PST)",
+      "cst": "Central Standard Time (CST)",
+      "mst": "Mountain Standard Time (MST)"
+    },
+    "date_format": "Date Format",
+    "data_privacy": "Data & Privacy",
+    "download_data": "Download My Data",
+    "export_data": "Export Data",
+    "delete_account": "Delete Account",
+    "delete_warning": "Warning: Deleting your account is permanent and cannot be undone."
+  }
+}

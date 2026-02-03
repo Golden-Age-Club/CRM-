@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import api from '../../api/axios';
 
 const ViewsIcon = () => (
@@ -27,6 +28,8 @@ const UsersIcon = () => (
 );
 
 const OverviewCard = ({ label, value, percentage, isPositive, icon, format = 'number' }) => {
+  const { t } = useTranslation();
+  
   const formatValue = (val) => {
     if (format === 'currency') return `$${val.toLocaleString()}`;
     if (format === 'percentage') return `${val}%`;
@@ -55,13 +58,14 @@ const OverviewCard = ({ label, value, percentage, isPositive, icon, format = 'nu
         <span className={`text-sm ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
           {isPositive ? '+' : ''}{percentage}%
         </span>
-        <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">from last week</span>
+        <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">{t('dashboard.from_last_week')}</span>
       </div>
     </div>
   );
 };
 
 const OverviewCardsGroup = () => {
+  const { t } = useTranslation();
   const [stats, setStats] = useState({
     ggr: { value: 0, percentage: 0, is_positive: true },
     rtp: { value: 0, percentage: 0, is_positive: true },
@@ -86,7 +90,7 @@ const OverviewCardsGroup = () => {
   return (
     <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 2xl:gap-7.5">
       <OverviewCard 
-        label="Total GGR" 
+        label={t('dashboard.total_ggr')} 
         value={stats?.ggr?.value || 0} 
         percentage={stats?.ggr?.percentage || 0} 
         isPositive={stats?.ggr?.is_positive} 
@@ -94,7 +98,7 @@ const OverviewCardsGroup = () => {
         format="currency" 
       />
       <OverviewCard 
-        label="RTP" 
+        label={t('dashboard.rtp')} 
         value={stats?.rtp?.value || 0} 
         percentage={stats?.rtp?.percentage || 0} 
         isPositive={stats?.rtp?.is_positive} 
@@ -102,14 +106,14 @@ const OverviewCardsGroup = () => {
         format="percentage" 
       />
       <OverviewCard 
-        label="Active Users (DAU)" 
+        label={t('dashboard.dau')} 
         value={stats?.dau?.value || 0} 
         percentage={stats?.dau?.percentage || 0} 
         isPositive={stats?.dau?.is_positive} 
         icon={<UsersIcon />} 
       />
       <OverviewCard 
-        label="Total Bets" 
+        label={t('dashboard.total_bets')} 
         value={stats?.bets?.value || 0} 
         percentage={stats?.bets?.percentage || 0} 
         isPositive={stats?.bets?.is_positive} 

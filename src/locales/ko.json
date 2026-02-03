@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "대시보드",
+    "users": "사용자",
+    "user_management": "사용자 관리",
+    "finance": "재무",
+    "wallet_finance": "지갑 및 재무",
+    "bets": "베팅",
+    "bets_games": "베팅 및 게임",
+    "promotions": "프로모션",
+    "bonus_promotions": "보너스 및 프로모션",
+    "reports": "보고서",
+    "risk": "리스크 관리",
+    "risk_control": "리스크 제어",
+    "system": "시스템",
+    "system_logs": "시스템 및 로그",
+    "admin_management": "관리자 관리",
+    "vip": "VIP",
+    "vip_segmentation": "VIP 및 세분화",
+    "settings": "설정",
+    "logout": "로그아웃",
+    "profile": "프로필",
+    "notifications": "알림",
+    "language": "언어",
+    "search": "검색...",
+    "admin": "관리자",
+    "operations": "운영"
+  },
+  "dashboard": {
+    "total_ggr": "총 GGR",
+    "rtp": "RTP",
+    "dau": "활성 사용자 (DAU)",
+    "total_bets": "총 베팅",
+    "from_last_week": "지난 주 대비",
+    "revenue_overview": "수익 개요",
+    "revenue": "수익",
+    "profit_vs_expenses": "이익 대 비용",
+    "expenses_wins": "비용 (당첨금)",
+    "profit_ggr": "이익 (GGR)",
+    "week": "주",
+    "month": "월",
+    "year": "년"
+  },
+  "header": {
+    "search": "검색",
+    "notifications": {
+      "title": "알림",
+      "new": "신규",
+      "view_all": "모든 알림 보기",
+      "withdrawal_approved": "출금 승인됨",
+      "high_risk_alert": "고위험 경고",
+      "large_deposit": "고액 입금",
+      "jackpot_hit": "잭팟 당첨",
+      "withdrawal_msg": "플레이어 출금 요청 #WD1234가 승인되었습니다",
+      "risk_msg": "플레이어 'player002'의 의심스러운 베팅 패턴이 감지되었습니다",
+      "deposit_msg": "플레이어 'vip_player' $5,000 입금 - VIP 상태 업데이트",
+      "jackpot_msg": "Mega Fortune 잭팟 당첨: $25,000 ('lucky_player')"
+    },
+    "profile": {
+      "your_profile": "내 프로필",
+      "settings": "설정",
+      "sign_out": "로그아웃"
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "preferences": "환경 설정",
+    "security": "보안",
+    "appearance": "모양",
+    "notifications": "알림",
+    "profile": "프로필",
+    "language_region": "언어 및 지역",
+    "select_language": "언어 선택",
+    "time_zone": "시간대",
+    "date_format": "날짜 형식",
+    "data_privacy": "데이터 및 개인정보 보호",
+    "download_data": "데이터 다운로드",
+    "export_data": "계정 데이터 내보내기",
+    "delete_account": "계정 삭제",
+    "delete_warning": "계정과 관련된 모든 데이터를 영구적으로 삭제합니다."
+  }
+}

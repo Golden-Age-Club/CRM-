@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "แดชบอร์ด",
+    "users": "ผู้ใช้",
+    "user_management": "การจัดการผู้ใช้",
+    "finance": "การเงิน",
+    "wallet_finance": "กระเป๋าเงินและการเงิน",
+    "bets": "การเดิมพัน",
+    "bets_games": "การเดิมพันและเกม",
+    "promotions": "โปรโมชั่น",
+    "bonus_promotions": "โบนัสและโปรโมชั่น",
+    "reports": "รายงาน",
+    "risk": "การจัดการความเสี่ยง",
+    "risk_control": "การควบคุมความเสี่ยง",
+    "system": "ระบบ",
+    "system_logs": "ระบบและบันทึก",
+    "admin_management": "การจัดการผู้ดูแลระบบ",
+    "vip": "VIP",
+    "vip_segmentation": "VIP และการแบ่งกลุ่ม",
+    "settings": "การตั้งค่า",
+    "logout": "ออกจากระบบ",
+    "profile": "โปรไฟล์",
+    "notifications": "การแจ้งเตือน",
+    "language": "ภาษา",
+    "search": "ค้นหา...",
+    "admin": "ผู้ดูแลระบบ",
+    "operations": "การดำเนินงาน"
+  },
+  "dashboard": {
+    "total_ggr": "GGR รวม",
+    "rtp": "RTP",
+    "dau": "ผู้ใช้ที่ใช้งานอยู่ (DAU)",
+    "total_bets": "ยอดเดิมพันรวม",
+    "from_last_week": "จากสัปดาห์ที่แล้ว",
+    "revenue_overview": "ภาพรวมรายได้",
+    "revenue": "รายได้",
+    "profit_vs_expenses": "กำไร vs ค่าใช้จ่าย",
+    "expenses_wins": "ค่าใช้จ่าย (ชนะ)",
+    "profit_ggr": "กำไร (GGR)",
+    "week": "สัปดาห์",
+    "month": "เดือน",
+    "year": "ปี"
+  },
+  "header": {
+    "search": "ค้นหา",
+    "notifications": {
+      "title": "การแจ้งเตือน",
+      "new": "ใหม่",
+      "view_all": "ดูการแจ้งเตือนทั้งหมด",
+      "withdrawal_approved": "อนุมัติการถอนเงิน",
+      "high_risk_alert": "แจ้งเตือนความเสี่ยงสูง",
+      "large_deposit": "ฝากเงินจำนวนมาก",
+      "jackpot_hit": "แจ็คพอตแตก",
+      "withdrawal_msg": "คำขอถอนเงิน #WD1234 ได้รับการอนุมัติ",
+      "risk_msg": "ผู้เล่น 'player002' ถูกระบุว่ามีรูปแบบการเดิมพันที่น่าสงสัย",
+      "deposit_msg": "ผู้เล่น 'vip_player' ฝากเงิน $5,000 - อัปเดตสถานะ VIP",
+      "jackpot_msg": "แจ็คพอต Mega Fortune แตก: $25,000 โดย 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "โปรไฟล์ของคุณ",
+      "settings": "การตั้งค่า",
+      "sign_out": "ออกจากระบบ"
+    }
+  },
+  "settings": {
+    "title": "การตั้งค่า",
+    "preferences": "การตั้งค่าทั่วไป",
+    "security": "ความปลอดภัย",
+    "appearance": "รูปลักษณ์",
+    "notifications": "การแจ้งเตือน",
+    "profile": "โปรไฟล์",
+    "language_region": "ภาษาและภูมิภาค",
+    "select_language": "เลือกภาษา",
+    "time_zone": "เขตเวลา",
+    "date_format": "รูปแบบวันที่",
+    "data_privacy": "ข้อมูลและความเป็นส่วนตัว",
+    "download_data": "ดาวน์โหลดข้อมูลของคุณ",
+    "export_data": "ส่งออกข้อมูลบัญชี",
+    "delete_account": "ลบบัญชี",
+    "delete_warning": "ลบบัญชีและข้อมูลที่เกี่ยวข้องทั้งหมดอย่างถาวร"
+  }
+}

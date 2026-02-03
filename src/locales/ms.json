@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "Papan Pemuka",
+    "users": "Pengguna",
+    "user_management": "Pengurusan Pengguna",
+    "finance": "Kewangan",
+    "wallet_finance": "Dompet & Kewangan",
+    "bets": "Pertaruhan",
+    "bets_games": "Pertaruhan & Permainan",
+    "promotions": "Promosi",
+    "bonus_promotions": "Bonus & Promosi",
+    "reports": "Laporan",
+    "risk": "Pengurusan Risiko",
+    "risk_control": "Kawalan Risiko",
+    "system": "Sistem",
+    "system_logs": "Sistem & Log",
+    "admin_management": "Pengurusan Admin",
+    "vip": "VIP",
+    "vip_segmentation": "VIP & Segmentasi",
+    "settings": "Tetapan",
+    "logout": "Log Keluar",
+    "profile": "Profil",
+    "notifications": "Pemberitahuan",
+    "language": "Bahasa",
+    "search": "Cari...",
+    "admin": "ADMIN",
+    "operations": "OPERASI"
+  },
+  "dashboard": {
+    "total_ggr": "Jumlah GGR",
+    "rtp": "RTP",
+    "dau": "Pengguna Aktif (DAU)",
+    "total_bets": "Jumlah Pertaruhan",
+    "from_last_week": "dari minggu lepas",
+    "revenue_overview": "Gambaran Keseluruhan Hasil",
+    "revenue": "Hasil",
+    "profit_vs_expenses": "Keuntungan vs Perbelanjaan",
+    "expenses_wins": "Perbelanjaan (Kemenangan)",
+    "profit_ggr": "Keuntungan (GGR)",
+    "week": "Minggu",
+    "month": "Bulan",
+    "year": "Tahun"
+  },
+  "header": {
+    "search": "Cari",
+    "notifications": {
+      "title": "Pemberitahuan",
+      "new": "baru",
+      "view_all": "Lihat semua pemberitahuan",
+      "withdrawal_approved": "Pengeluaran Diluluskan",
+      "high_risk_alert": "Amaran Risiko Tinggi",
+      "large_deposit": "Deposit Besar",
+      "jackpot_hit": "Jackpot Hit",
+      "withdrawal_msg": "Permintaan pengeluaran pemain #WD1234 telah diluluskan",
+      "risk_msg": "Pemain 'player002' ditandakan kerana corak pertaruhan yang mencurigakan",
+      "deposit_msg": "Pemain 'vip_player' mendepositkan $5,000 - Status VIP dikemas kini",
+      "jackpot_msg": "Jackpot Mega Fortune dimenangi: $25,000 oleh 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "Profil Anda",
+      "settings": "Tetapan",
+      "sign_out": "Log Keluar"
+    }
+  },
+  "settings": {
+    "title": "Tetapan",
+    "preferences": "Keutamaan",
+    "security": "Keselamatan",
+    "appearance": "Penampilan",
+    "notifications": "Pemberitahuan",
+    "profile": "Profil",
+    "language_region": "Bahasa & Wilayah",
+    "select_language": "Pilih Bahasa",
+    "time_zone": "Zon Masa",
+    "date_format": "Format Tarikh",
+    "data_privacy": "Data & Privasi",
+    "download_data": "Muat Turun Data Anda",
+    "export_data": "Eksport Data Akaun",
+    "delete_account": "Padam Akaun",
+    "delete_warning": "Padamkan akaun anda dan semua data berkaitan secara kekal."
+  }
+}

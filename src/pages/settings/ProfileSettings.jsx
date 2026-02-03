@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/AuthContext';
+import { useTranslation } from 'react-i18next';
 import api from '../../api/axios';
 
 export default function ProfileSettings() {
   const { user, refreshProfile } = useAuth();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", content: "" });
   
@@ -61,9 +63,9 @@ export default function ProfileSettings() {
       
       await api.put('/api/admin/auth/profile', payload);
       await refreshProfile();
-      setMessage({ type: "success", content: "Profile updated successfully!" });
+      setMessage({ type: "success", content: t('profile.success_update') });
     } catch (error) {
-      setMessage({ type: "error", content: error.response?.data?.message || "Failed to update profile." });
+      setMessage({ type: "error", content: error.response?.data?.message || t('profile.failed_update') });
     } finally {
       setIsLoading(false);
     }
@@ -78,9 +80,9 @@ export default function ProfileSettings() {
     <div className="p-10">
       <div className="flex justify-between items-center mb-10">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Profile Information</h2>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">{t('profile.title')}</h2>
           <p className="text-base text-gray-600 dark:text-gray-400 mt-2">
-            Update your account's profile information and email address.
+            {t('profile.description')}
           </p>
         </div>
         <span className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
@@ -98,7 +100,7 @@ export default function ProfileSettings() {
       <form onSubmit={handleProfileSubmit} className="space-y-10">
         {/* Profile Photo */}
         <div>
-          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">Profile Photo</label>
+          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">{t('profile.photo')}</label>
           <div className="flex items-center space-x-6">
             <div className="relative">
               <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center text-white text-2xl font-semibold overflow-hidden flex-shrink-0">
@@ -111,7 +113,7 @@ export default function ProfileSettings() {
               <label 
                 htmlFor="avatar-upload" 
                 className="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-md cursor-pointer transition-colors"
-                title="Change Photo"
+                title={t('profile.change_photo')}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -128,7 +130,7 @@ export default function ProfileSettings() {
             </div>
             <div className="flex-1 max-w-md">
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Click the camera icon to upload a new photo.
+                {t('profile.click_camera_hint')}
               </p>
             </div>
           </div>
@@ -137,7 +139,7 @@ export default function ProfileSettings() {
         {/* Name Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">First Name</label>
+            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.first_name')}</label>
             <input
               type="text"
               name="first_name"
@@ -147,7 +149,7 @@ export default function ProfileSettings() {
             />
           </div>
           <div>
-            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
+            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.last_name')}</label>
             <input
               type="text"
               name="last_name"
@@ -161,7 +163,7 @@ export default function ProfileSettings() {
         {/* Email and Phone */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.email')}</label>
             <input
               type="email"
               name="email"
@@ -169,10 +171,10 @@ export default function ProfileSettings() {
               onChange={handleProfileChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Your email is private</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('profile.email_privacy_hint')}</p>
           </div>
           <div>
-            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
+            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.phone')}</label>
             <input
               type="text"
               name="phone"
@@ -180,13 +182,13 @@ export default function ProfileSettings() {
               onChange={handleProfileChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
-             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Contact number</p>
+             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('profile.contact_number_hint')}</p>
           </div>
         </div>
 
         {/* Bio */}
         <div>
-          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Bio</label>
+          <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.bio')}</label>
           <textarea
             rows={5}
             name="bio"
@@ -194,13 +196,13 @@ export default function ProfileSettings() {
             onChange={handleProfileChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Brief description for your profile. Max 160 characters.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('profile.bio_hint')}</p>
         </div>
 
         {/* Location and Position */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Location</label>
+            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.location')}</label>
             <input
               type="text"
               name="location"
@@ -210,7 +212,7 @@ export default function ProfileSettings() {
             />
           </div>
            <div>
-            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">Position</label>
+            <label className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">{t('profile.position')}</label>
             <input
               type="text"
               name="position"
@@ -218,7 +220,7 @@ export default function ProfileSettings() {
               disabled
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-base bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-not-allowed"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Position is managed by administration</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t('profile.position_managed_hint')}</p>
           </div>
         </div>
 
@@ -239,19 +241,18 @@ export default function ProfileSettings() {
                         position: user.title || "",
                         avatar: user.avatar || ""
                     });
-                    setIsEditingAvatar(false);
                 }
             }}
             className="px-6 py-3 text-base font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
           >
-            Reset
+            {t('common.reset')}
           </button>
           <button 
             type="submit"
             disabled={isLoading}
             className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Saving..." : "Save Changes"}
+            {isLoading ? t('profile.saving') : t('profile.save_changes')}
           </button>
         </div>
       </form>

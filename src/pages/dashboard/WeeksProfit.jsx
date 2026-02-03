@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +14,7 @@ import api from "../../api/axios";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const WeeksProfit = ({ className = "" }) => {
+  const { t } = useTranslation();
   const [chartData, setChartData] = useState({
     labels: [],
     expenses: [],
@@ -43,7 +45,7 @@ const WeeksProfit = ({ className = "" }) => {
       labels: chartData.labels,
       datasets: [
         {
-          label: "Expenses (Wins)",
+          label: t('dashboard.expenses_wins'),
           data: chartData.expenses,
           backgroundColor: "#6b7280",
           borderRadius: 6,
@@ -51,7 +53,7 @@ const WeeksProfit = ({ className = "" }) => {
           categoryPercentage: 0.6,
         },
         {
-          label: "Profit (GGR)",
+          label: t('dashboard.profit_ggr'),
           data: chartData.revenue,
           backgroundColor: "#2563eb",
           borderRadius: 6,
@@ -88,25 +90,25 @@ const WeeksProfit = ({ className = "" }) => {
   return (
     <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 ${className}`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-white">Profit vs Expenses</h3>
+        <h3 className="text-lg font-bold text-gray-800 dark:text-white">{t('dashboard.profit_vs_expenses')}</h3>
         <div className="flex space-x-2 text-sm">
           <button 
             onClick={() => setPeriod('week')}
             className={`px-3 py-1 rounded ${period === 'week' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
           >
-            Week
+            {t('dashboard.week')}
           </button>
           <button 
             onClick={() => setPeriod('month')}
             className={`px-3 py-1 rounded ${period === 'month' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
           >
-            Month
+            {t('dashboard.month')}
           </button>
           <button 
             onClick={() => setPeriod('year')}
             className={`px-3 py-1 rounded ${period === 'year' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200'}`}
           >
-            Year
+            {t('dashboard.year')}
           </button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useSidebarContext } from './Sidebar';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../auth/AuthContext';
@@ -17,11 +18,7 @@ const MenuIcon = () => (
   </svg>
 );
 
-const NotificationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-  </svg>
-);
+
 
 const SunIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
@@ -41,137 +38,18 @@ const UserAvatar = ({ name }) => (
   </div>
 );
 
-// Notification Component
-const Notification = () => {
-  const [showNotifications, setShowNotifications] = useState(false);
-  const notificationRef = useRef(null);
 
-  const notifications = [
-    {
-      id: 1,
-      type: "withdrawal",
-      title: "Withdrawal Approved",
-      message: "Player withdrawal request #WD1234 has been approved",
-      time: "5 minutes ago",
-      icon: "✅",
-      color: "bg-green-100 text-green-600",
-      unread: true
-    },
-    {
-      id: 2,
-      type: "risk",
-      title: "High Risk Alert",
-      message: "Player 'player002' flagged for suspicious betting patterns",
-      time: "30 minutes ago",
-      icon: "⚠️",
-      color: "bg-red-100 text-red-600",
-      unread: true
-    },
-    {
-      id: 3,
-      type: "deposit",
-      title: "Large Deposit",
-      message: "Player 'vip_player' deposited $5,000 - VIP status updated",
-      time: "2 hours ago",
-      icon: "💰",
-      color: "bg-yellow-100 text-yellow-600",
-      unread: false
-    },
-    {
-      id: 4,
-      type: "jackpot",
-      title: "Jackpot Hit",
-      message: "Mega Fortune jackpot won: $25,000 by 'lucky_player'",
-      time: "5 hours ago",
-      icon: "🎰",
-      color: "bg-purple-100 text-purple-600",
-      unread: false
-    }
-  ];
-
-  const unreadCount = notifications.filter(n => n.unread).length;
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
-        setShowNotifications(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  return (
-    <div className="relative" ref={notificationRef}>
-      <button 
-        onClick={() => setShowNotifications(!showNotifications)}
-        className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 relative"
-      >
-        <NotificationIcon />
-        {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
-            {unreadCount}
-          </span>
-        )}
-      </button>
-
-      {showNotifications && (
-        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Notifications</h3>
-            {unreadCount > 0 && (
-              <span className="px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                {unreadCount} new
-              </span>
-            )}
-          </div>
-          <div className="max-h-96 overflow-y-auto">
-            {notifications.map((notification) => (
-              <div key={notification.id} className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                <div className="flex items-start space-x-3">
-                  <div className={`w-10 h-10 rounded-lg ${notification.color} flex items-center justify-center text-lg flex-shrink-0`}>
-                    {notification.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">{notification.title}</p>
-                      {notification.unread && (
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      )}
-                    </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{notification.message}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">{notification.time}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-            <button 
-              className="w-full text-center text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              onClick={() => setShowNotifications(false)}
-            >
-              View all notifications
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
 
 // Theme Toggle Component
 const ThemeToggle = () => {
   const { actualTheme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <button 
       onClick={toggleTheme}
       className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-      title={`Switch to ${actualTheme === 'light' ? 'dark' : 'light'} mode`}
+      title={t('header.theme_toggle', { theme: actualTheme === 'light' ? 'dark' : 'light' })}
     >
       {actualTheme === 'light' ? <MoonIcon /> : <SunIcon />}
     </button>
@@ -180,6 +58,7 @@ const ThemeToggle = () => {
 
 // User Info Component
 const UserInfo = () => {
+  const { t } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const { user, logout } = useAuth();
@@ -202,7 +81,7 @@ const UserInfo = () => {
     logout();
   };
 
-  const userName = user?.name || user?.first_name || 'Admin User';
+  const userName = user?.name || user?.first_name || t('header.default_user');
   const userEmail = user?.email || 'admin@example.com';
   const userInitials = userName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
@@ -238,7 +117,7 @@ const UserInfo = () => {
             <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            Your Profile
+            {t('header.profile.your_profile')}
           </Link>
           <Link
             to="/settings"
@@ -249,7 +128,7 @@ const UserInfo = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            Settings
+            {t('header.profile.settings')}
           </Link>
           <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
           <button
@@ -259,7 +138,7 @@ const UserInfo = () => {
             <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-            Sign out
+            {t('header.profile.sign_out')}
           </button>
         </div>
       )}
@@ -269,6 +148,7 @@ const UserInfo = () => {
 
 export const Header = () => {
   const { toggleSidebar, isMobile } = useSidebarContext();
+  const { t } = useTranslation();
 
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-5 shadow-sm dark:border-gray-700 dark:bg-slate-800 md:px-5">
@@ -288,7 +168,7 @@ export const Header = () => {
 
       <div className="max-xl:hidden">
         <h1 className="mb-0.5 text-2xl font-bold text-gray-800 dark:text-white">
-          CRM
+          {t('header.crm_title')}
         </h1>
         {/* <p className="font-medium text-gray-600 dark:text-gray-300">
           Customer Relationship Management
@@ -301,7 +181,7 @@ export const Header = () => {
             <SearchIcon className="mr-3 text-gray-400" />
             <input
               type="search"
-              placeholder="Search"
+              placeholder={t('header.search')}
               className="w-full bg-transparent outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
           </div>
@@ -309,7 +189,7 @@ export const Header = () => {
 
         <ThemeToggle />
 
-        <Notification />
+
 
         <div className="shrink-0">
           <UserInfo />

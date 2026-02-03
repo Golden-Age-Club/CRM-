@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "Bảng điều khiển",
+    "users": "Người dùng",
+    "user_management": "Quản lý người dùng",
+    "finance": "Tài chính",
+    "wallet_finance": "Ví & Tài chính",
+    "bets": "Đặt cược",
+    "bets_games": "Đặt cược & Trò chơi",
+    "promotions": "Khuyến mãi",
+    "bonus_promotions": "Tiền thưởng & Khuyến mãi",
+    "reports": "Báo cáo",
+    "risk": "Quản lý rủi ro",
+    "risk_control": "Kiểm soát rủi ro",
+    "system": "Hệ thống",
+    "system_logs": "Hệ thống & Nhật ký",
+    "admin_management": "Quản lý quản trị viên",
+    "vip": "VIP",
+    "vip_segmentation": "VIP & Phân khúc",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "profile": "Hồ sơ",
+    "notifications": "Thông báo",
+    "language": "Ngôn ngữ",
+    "search": "Tìm kiếm...",
+    "admin": "QUẢN TRỊ",
+    "operations": "VẬN HÀNH"
+  },
+  "dashboard": {
+    "total_ggr": "Tổng GGR",
+    "rtp": "RTP",
+    "dau": "Người dùng hoạt động (DAU)",
+    "total_bets": "Tổng cược",
+    "from_last_week": "so với tuần trước",
+    "revenue_overview": "Tổng quan doanh thu",
+    "revenue": "Doanh thu",
+    "profit_vs_expenses": "Lợi nhuận vs Chi phí",
+    "expenses_wins": "Chi phí (Thắng)",
+    "profit_ggr": "Lợi nhuận (GGR)",
+    "week": "Tuần",
+    "month": "Tháng",
+    "year": "Năm"
+  },
+  "header": {
+    "search": "Tìm kiếm",
+    "notifications": {
+      "title": "Thông báo",
+      "new": "mới",
+      "view_all": "Xem tất cả thông báo",
+      "withdrawal_approved": "Rút tiền đã duyệt",
+      "high_risk_alert": "Cảnh báo rủi ro cao",
+      "large_deposit": "Nạp tiền lớn",
+      "jackpot_hit": "Trúng Jackpot",
+      "withdrawal_msg": "Yêu cầu rút tiền #WD1234 đã được phê duyệt",
+      "risk_msg": "Người chơi 'player002' bị đánh dấu cược đáng ngờ",
+      "deposit_msg": "Người chơi 'vip_player' nạp $5,000 - Cập nhật VIP",
+      "jackpot_msg": "Jackpot Mega Fortune thắng: $25,000 bởi 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "Hồ sơ của bạn",
+      "settings": "Cài đặt",
+      "sign_out": "Đăng xuất"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "preferences": "Tùy chọn",
+    "security": "Bảo mật",
+    "appearance": "Giao diện",
+    "notifications": "Thông báo",
+    "profile": "Hồ sơ",
+    "language_region": "Ngôn ngữ & Khu vực",
+    "select_language": "Chọn ngôn ngữ",
+    "time_zone": "Múi giờ",
+    "date_format": "Định dạng ngày",
+    "data_privacy": "Dữ liệu & Quyền riêng tư",
+    "download_data": "Tải xuống dữ liệu",
+    "export_data": "Xuất dữ liệu tài khoản",
+    "delete_account": "Xóa tài khoản",
+    "delete_warning": "Xóa vĩnh viễn tài khoản và dữ liệu liên quan."
+  }
+}

@@ -5,14 +5,17 @@ import { MdOutlineShield } from "react-icons/md";
 import { LuPalette } from "react-icons/lu";
 import { SlGlobe } from "react-icons/sl";
 import { Outlet, NavLink } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 export default function SettingsPage() {
+  const { t } = useTranslation();
+
   const sidebarItems = [
-    { id: "profile", label: "Profile", icon: <FaRegUser />, path: "/settings" },
-    { id: "notifications", label: "Notifications", icon: <IoMdNotificationsOutline />, path: "/settings/notifications" },
-    { id: "security", label: "Security", icon: <MdOutlineShield />, path: "/settings/security" },
-    { id: "appearance", label: "Appearance", icon: <LuPalette />, path: "/settings/appearance" },
-    { id: "preferences", label: "Preferences", icon: <SlGlobe />, path: "/settings/preferences" },
+    { id: "profile", label: t('settings.profile'), icon: <FaRegUser />, path: "/settings" },
+    { id: "notifications", label: t('settings.notifications'), icon: <IoMdNotificationsOutline />, path: "/settings/notifications" },
+    { id: "security", label: t('settings.security'), icon: <MdOutlineShield />, path: "/settings/security" },
+    { id: "appearance", label: t('settings.appearance'), icon: <LuPalette />, path: "/settings/appearance" },
+    { id: "preferences", label: t('settings.preferences'), icon: <SlGlobe />, path: "/settings/preferences" },
   ];
 
   return (
@@ -21,16 +24,16 @@ export default function SettingsPage() {
         <div className="space-y-10">
           {/* Breadcrumb */}
           <nav className="flex text-base text-gray-500 dark:text-gray-400">
-            <a href="/" className="hover:text-gray-700 dark:hover:text-gray-300">Home</a>
+            <a href="/" className="hover:text-gray-700 dark:hover:text-gray-300">{t('settings.home')}</a>
             <span className="mx-2">/</span>
-            <span className="text-gray-900 dark:text-white">Settings</span>
+            <span className="text-gray-900 dark:text-white">{t('settings.title')}</span>
           </nav>
 
           {/* Header */}
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Settings</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('settings.title')}</h1>
             <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-              Manage your account settings and preferences.
+              {t('settings.description')}
             </p>
           </div>
 

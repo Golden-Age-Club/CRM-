@@ -1,16 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function NotificationsSettings() {
+  const { t } = useTranslation();
   return (
     <div className="p-10">
-      <h2 className="text-2xl font-medium text-gray-900 dark:text-white mb-6">Email Notifications</h2>
+      <h2 className="text-2xl font-medium text-gray-900 dark:text-white mb-6">{t('notifications.title')}</h2>
       
       <div className="space-y-8">
         {/* Email Notifications */}
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-medium text-gray-900 dark:text-white">Email Notifications</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Receive notifications via email</p>
+            <h3 className="text-base font-medium text-gray-900 dark:text-white">{t('notifications.email_notifications')}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('notifications.email_desc')}</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input type="checkbox" className="sr-only peer" defaultChecked />
@@ -21,8 +23,8 @@ export default function NotificationsSettings() {
         {/* Push Notifications */}
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-medium text-gray-900 dark:text-white">Push Notifications</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Receive push notifications on your devices</p>
+            <h3 className="text-base font-medium text-gray-900 dark:text-white">{t('notifications.push_notifications')}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('notifications.push_desc')}</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input type="checkbox" className="sr-only peer" />

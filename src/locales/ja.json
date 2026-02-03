@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "ダッシュボード",
+    "users": "ユーザー",
+    "user_management": "ユーザー管理",
+    "finance": "財務",
+    "wallet_finance": "ウォレット＆財務",
+    "bets": "ベット",
+    "bets_games": "ベット＆ゲーム",
+    "promotions": "プロモーション",
+    "bonus_promotions": "ボーナス＆プロモーション",
+    "reports": "レポート",
+    "risk": "リスク管理",
+    "risk_control": "リスク管理",
+    "system": "システム",
+    "system_logs": "システム＆ログ",
+    "admin_management": "管理者管理",
+    "vip": "VIP",
+    "vip_segmentation": "VIP＆セグメンテーション",
+    "settings": "設定",
+    "logout": "ログアウト",
+    "profile": "プロフィール",
+    "notifications": "通知",
+    "language": "言語",
+    "search": "検索...",
+    "admin": "管理者",
+    "operations": "オペレーション"
+  },
+  "dashboard": {
+    "total_ggr": "総GGR",
+    "rtp": "RTP",
+    "dau": "アクティブユーザー (DAU)",
+    "total_bets": "総ベット額",
+    "from_last_week": "先週比",
+    "revenue_overview": "収益概要",
+    "revenue": "収益",
+    "profit_vs_expenses": "利益 vs 費用",
+    "expenses_wins": "費用 (勝利金)",
+    "profit_ggr": "利益 (GGR)",
+    "week": "週",
+    "month": "月",
+    "year": "年"
+  },
+  "header": {
+    "search": "検索",
+    "notifications": {
+      "title": "通知",
+      "new": "新着",
+      "view_all": "すべての通知を表示",
+      "withdrawal_approved": "出金承認済み",
+      "high_risk_alert": "高リスクアラート",
+      "large_deposit": "高額入金",
+      "jackpot_hit": "ジャックポット当選",
+      "withdrawal_msg": "プレイヤーの出金リクエスト #WD1234 が承認されました",
+      "risk_msg": "プレイヤー 'player002' に疑わしい賭けパターンが検出されました",
+      "deposit_msg": "プレイヤー 'vip_player' が $5,000 入金 - VIPステータス更新",
+      "jackpot_msg": "Mega Fortune ジャックポット当選: $25,000 ('lucky_player')"
+    },
+    "profile": {
+      "your_profile": "プロフィール",
+      "settings": "設定",
+      "sign_out": "ログアウト"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "preferences": "環境設定",
+    "security": "セキュリティ",
+    "appearance": "外観",
+    "notifications": "通知",
+    "profile": "プロフィール",
+    "language_region": "言語と地域",
+    "select_language": "言語を選択",
+    "time_zone": "タイムゾーン",
+    "date_format": "日付形式",
+    "data_privacy": "データとプライバシー",
+    "download_data": "データをダウンロード",
+    "export_data": "アカウントデータをエクスポート",
+    "delete_account": "アカウント削除",
+    "delete_warning": "アカウントと関連データを完全に削除します。"
+  }
+}

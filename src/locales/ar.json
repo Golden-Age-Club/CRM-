@@ -1,0 +1,82 @@
+{
+  "common": {
+    "dashboard": "لوحة القيادة",
+    "users": "المستخدمين",
+    "user_management": "إدارة المستخدمين",
+    "finance": "المالية",
+    "wallet_finance": "المحفظة والمالية",
+    "bets": "الرهانات",
+    "bets_games": "الرهانات والألعاب",
+    "promotions": "العروض الترويجية",
+    "bonus_promotions": "المكافآت والعروض",
+    "reports": "التقارير",
+    "risk": "إدارة المخاطر",
+    "risk_control": "مراقبة المخاطر",
+    "system": "النظام",
+    "system_logs": "النظام والسجلات",
+    "admin_management": "إدارة المشرفين",
+    "vip": "VIP",
+    "vip_segmentation": "VIP والتصنيف",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "profile": "الملف الشخصي",
+    "notifications": "الإشعارات",
+    "language": "اللغة",
+    "search": "بحث...",
+    "admin": "المشرف",
+    "operations": "العمليات"
+  },
+  "dashboard": {
+    "total_ggr": "إجمالي GGR",
+    "rtp": "RTP",
+    "dau": "المستخدمين النشطين (DAU)",
+    "total_bets": "إجمالي الرهانات",
+    "from_last_week": "من الأسبوع الماضي",
+    "revenue_overview": "نظرة عامة على الإيرادات",
+    "revenue": "الإيرادات",
+    "profit_vs_expenses": "الربح مقابل المصروفات",
+    "expenses_wins": "المصروفات (الفوائد)",
+    "profit_ggr": "الربح (GGR)",
+    "week": "أسبوع",
+    "month": "شهر",
+    "year": "سنة"
+  },
+  "header": {
+    "search": "بحث",
+    "notifications": {
+      "title": "الإشعارات",
+      "new": "جديد",
+      "view_all": "عرض جميع الإشعارات",
+      "withdrawal_approved": "تمت الموافقة على السحب",
+      "high_risk_alert": "تنبيه مخاطر عالية",
+      "large_deposit": "إيداع كبير",
+      "jackpot_hit": "فوز بالجائزة الكبرى",
+      "withdrawal_msg": "تمت الموافقة على طلب السحب #WD1234",
+      "risk_msg": "تم تمييز اللاعب 'player002' بأنماط رهان مشبوهة",
+      "deposit_msg": "أودع اللاعب 'vip_player' 5000 دولار - تم تحديث حالة VIP",
+      "jackpot_msg": "تم الفوز بالجائزة الكبرى Mega Fortune: 25000 دولار بواسطة 'lucky_player'"
+    },
+    "profile": {
+      "your_profile": "ملفك الشخصي",
+      "settings": "الإعدادات",
+      "sign_out": "تسجيل الخروج"
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "preferences": "التفضيلات",
+    "security": "الأمان",
+    "appearance": "المظهر",
+    "notifications": "الإشعارات",
+    "profile": "الملف الشخصي",
+    "language_region": "اللغة والمنطقة",
+    "select_language": "اختر اللغة",
+    "time_zone": "المنطقة الزمنية",
+    "date_format": "تنسيق التاريخ",
+    "data_privacy": "البيانات والخصوصية",
+    "download_data": "تنزيل بياناتك",
+    "export_data": "تصدير بيانات الحساب",
+    "delete_account": "حذف الحساب",
+    "delete_warning": "حذف حسابك وجميع البيانات المرتبطة به نهائيًا."
+  }
+}

@@ -12,7 +12,7 @@ const MainLayout = ({ children }) => {
           <div className="flex-1 bg-gray-100 dark:bg-black">
             <Header />
             
-            <main className="isolate w-full max-w-none overflow-hidden p-4 md:p-6 2xl:p-10">
+            <main className="w-full max-w-none overflow-hidden p-4 md:p-6 2xl:p-10">
               {children}
             </main>
           </div>

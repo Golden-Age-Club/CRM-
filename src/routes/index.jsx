@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRoutes, Outlet } from 'react-router-dom';
+import { useRoutes, Outlet, Navigate } from 'react-router-dom';
 
 // Layouts
 import MainLayout from '../components/Layouts/MainLayout';
@@ -13,13 +13,17 @@ import NotAuthorized from '../pages/NotAuthorized';
 import NotFound from '../pages/NotFound';
 import SignIn from '../pages/SignIn';
 import UsersPage from '../pages/UsersPage';
-import BetsPage from '../pages/BetsPage';
-import FinancePage from '../pages/FinancePage';
-import PromotionsPage from '../pages/PromotionsPage';
-import ReportsPage from '../pages/ReportsPage';
-import RiskPage from '../pages/RiskPage';
-import SystemPage from '../pages/SystemPage';
-import VipPage from '../pages/VipPage';
+import UserDetailsPage from '../pages/UserDetailsPage';
+import BetsPage, { BetRecords, GamesManagement } from '../pages/bets';
+import RiskPage, { AbnormalUsers, RiskRules, RiskHistory } from '../pages/risk';
+import FinancePage, { UserBalances, DepositOrders, WithdrawalRequests } from '../pages/finance';
+import SystemLayout from '../pages/system/SystemLayout';
+import SystemSettings from '../pages/system/SystemSettings';
+import AdminManagement from '../pages/system/AdminManagement';
+import SystemLogs from '../pages/system/SystemLogs';
+import VipPage, { HighValueUsers, VipConfig } from '../pages/vip';
+import { ReportsLayout, Dashboard } from '../pages/reports';
+import { PromotionsLayout, PromotionsList, UserBonuses } from '../pages/promotions';
 import ProfilePage from '../pages/ProfilePage';
 import SettingsPage from '../pages/SettingsPage';
 import ProfileSettings from '../pages/settings/ProfileSettings';
@@ -49,6 +53,14 @@ export default function AppRoutes() {
       element: <NotAuthorized />,
     },
     {
+      path: '/users/:id',
+      element: (
+        <ProtectedRoute requiredPermission="users">
+          <UserDetailsPage />
+        </ProtectedRoute>
+      ),
+    },
+    {
       path: '/',
       element: <LayoutWrapper />,
       children: [
@@ -68,6 +80,7 @@ export default function AppRoutes() {
             </ProtectedRoute>
           ),
         },
+
         {
           path: 'finance',
           element: (
@@ -75,6 +88,24 @@ export default function AppRoutes() {
               <FinancePage />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <Navigate to="balances" replace />,
+            },
+            {
+              path: 'balances',
+              element: <UserBalances />,
+            },
+            {
+              path: 'deposits',
+              element: <DepositOrders />,
+            },
+            {
+              path: 'withdrawals',
+              element: <WithdrawalRequests />,
+            },
+          ],
         },
         {
           path: 'bets',
@@ -83,6 +114,20 @@ export default function AppRoutes() {
               <BetsPage />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <Navigate to="records" replace />,
+            },
+            {
+              path: 'records',
+              element: <BetRecords />,
+            },
+            {
+              path: 'games',
+              element: <GamesManagement />,
+            },
+          ],
         },
         {
           path: 'vip',
@@ -91,6 +136,20 @@ export default function AppRoutes() {
               <VipPage />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <Navigate to="users" replace />,
+            },
+            {
+              path: 'users',
+              element: <HighValueUsers />,
+            },
+            {
+              path: 'config',
+              element: <VipConfig />,
+            },
+          ],
         },
         {
           path: 'risk',
@@ -99,30 +158,78 @@ export default function AppRoutes() {
               <RiskPage />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <Navigate to="users" replace />,
+            },
+            {
+              path: 'users',
+              element: <AbnormalUsers />,
+            },
+            {
+              path: 'rules',
+              element: <RiskRules />,
+            },
+            {
+              path: 'history',
+              element: <RiskHistory />,
+            },
+          ],
         },
         {
           path: 'promotions',
           element: (
             <ProtectedRoute requiredPermission="promotions">
-              <PromotionsPage />
+              <PromotionsLayout />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <PromotionsList />,
+            },
+            {
+              path: 'user-bonuses',
+              element: <UserBonuses />,
+            },
+          ],
         },
         {
           path: 'reports',
           element: (
             <ProtectedRoute requiredPermission="reports">
-              <ReportsPage />
+              <ReportsLayout />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <Dashboard />,
+            },
+          ],
         },
         {
           path: 'system',
           element: (
             <ProtectedRoute requiredPermission="system">
-              <SystemPage />
+              <SystemLayout />
             </ProtectedRoute>
           ),
+          children: [
+            {
+              path: '',
+              element: <SystemSettings />,
+            },
+            {
+              path: 'admins',
+              element: <AdminManagement />,
+            },
+            {
+              path: 'logs',
+              element: <SystemLogs />,
+            },
+          ],
         },
         {
           path: 'profile',

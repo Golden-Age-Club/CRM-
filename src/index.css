@@ -5,6 +5,11 @@
   width: 6px;
 }
 
+/* Prevent layout shift when scrollbars appear/disappear */
+.custom-scrollbar {
+  scrollbar-gutter: stable both-edges;
+}
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }

@@ -11,21 +11,44 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Check for existing session on mount
+  // Check for existing session or Telegram WebApp on mount
   useEffect(() => {
     const initAuth = async () => {
       const token = getCookie('access_token');
+
+      // 1. Existing Session
       if (token) {
         try {
-          // Verify token and get user profile
           const userData = await api.get('/api/admin/auth/me');
           setUser(userData);
+          setIsLoading(false);
+          return;
         } catch (error) {
           console.error('Auth initialization failed:', error);
           removeCookie('access_token');
           setUser(null);
         }
       }
+
+      // 2. Telegram Auto-Login (if no valid session)
+      if (window.Telegram?.WebApp?.initData) {
+        try {
+          console.log('Detected Telegram WebApp, attempting auto-login...');
+          const initData = window.Telegram.WebApp.initData;
+          const response = await api.post('/api/auth/login/telegram', { init_data: initData });
+
+          const { token: newToken, ...userData } = response;
+          setCookie('access_token', newToken, 24);
+          setUser(userData);
+
+          // Notify Telegram we are ready
+          window.Telegram.WebApp.ready();
+          window.Telegram.WebApp.expand(); // Optional: expand to full height
+        } catch (error) {
+          console.error('Telegram auto-login failed:', error);
+        }
+      }
+
       setIsLoading(false);
     };
 
@@ -48,17 +71,17 @@ export function AuthProvider({ children }) {
     try {
       const response = await api.post('/api/admin/auth/login', { email, password });
       const { token, ...userData } = response;
-      
-      setCookie('access_token', token, 12/24); // 12 hours (same as backend)
+
+      setCookie('access_token', token, 12 / 24); // 12 hours (same as backend)
       setUser(userData);
-      
+
       // Navigate to dashboard or return url
       navigate('/', { replace: true });
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        message: error.message || 'Login failed' 
+      return {
+        success: false,
+        message: error.message || 'Login failed'
       };
     }
   };

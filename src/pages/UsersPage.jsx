@@ -214,8 +214,8 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-start">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">{t('users_page.title')}</h1>
           <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -241,8 +241,8 @@ export default function UsersPage() {
         ))}
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="relative max-w-md">
             <FaSearch className="absolute left-3 top-3 text-gray-400" />
             <input
@@ -255,7 +255,7 @@ export default function UsersPage() {
           </div>
         </div>
 
-        <div className="overflow-visible">
+        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-gray-900">
               <tr>

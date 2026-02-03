@@ -99,7 +99,7 @@ const UserInfo = () => {
           {userInitials}
         </div>
         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d9l-7="M19  7-7-7" />
         </svg>
       </button>
 
@@ -147,52 +147,70 @@ const UserInfo = () => {
 };
 
 export const Header = () => {
-  const { toggleSidebar, isMobile } = useSidebarContext();
   const { t } = useTranslation();
+  const { toggleMobile, toggleCollapse, isMobile } = useSidebarContext();
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-5 shadow-sm dark:border-gray-700 dark:bg-slate-800 md:px-5">
-      <button
-        onClick={toggleSidebar}
-        className="rounded-lg border px-1.5 py-1 dark:border-gray-700 dark:bg-gray-700 hover:dark:bg-gray-600 lg:hidden"
-      >
-        <MenuIcon />
-        <span className="sr-only">Toggle Sidebar</span>
-      </button>
-
-      {isMobile && (
-        <a href="/" className="ml-2 max-[430px]:hidden min-[375px]:ml-4">
-          <div className="w-8 h-8 bg-orange-500 rounded-md"></div>
-        </a>
-      )}
-
-      <div className="max-xl:hidden">
-        <h1 className="mb-0.5 text-2xl font-bold text-gray-800 dark:text-white">
-          {t('header.crm_title')}
-        </h1>
-        {/* <p className="font-medium text-gray-600 dark:text-gray-300">
-          Customer Relationship Management
-        </p> */}
+    <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-4 border-b border-gray-200/80 bg-white/80 px-4 py-3 backdrop-blur-xl transition-all dark:border-gray-700/80 dark:bg-slate-900/80 sm:px-6 md:py-4">
+      <div className="flex items-center gap-3">
+        {isMobile ? (
+          <>
+            <button
+              onClick={toggleMobile}
+              className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            >
+              <MenuIcon />
+              <span className="sr-only">Toggle Sidebar</span>
+            </button>
+            <a href="/">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-500/30">
+                <span className="font-bold">C</span>
+              </div>
+            </a>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={toggleCollapse}
+              className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+              aria-label="Toggle sidebar compact"
+              title="Toggle sidebar"
+            >
+              <MenuIcon />
+            </button>
+            <a href="/" className="hidden md:block">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-500/30">
+                <span className="font-bold">C</span>
+              </div>
+            </a>
+          </>
+        )}
       </div>
 
-      <div className="flex flex-1 items-center justify-end gap-2 min-[375px]:gap-4">
-        <div className="w-full max-w-[360px]">
-          <div className="flex items-center rounded-full border border-gray-300 bg-gray-50 px-4 py-2.5 text-sm text-gray-700 shadow-sm focus-within:border-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus-within:border-orange-500">
-            <SearchIcon className="mr-3 text-gray-400" />
+      <div className="hidden xl:block">
+        <h1 className="text-xl font-bold text-gray-800 dark:text-white">
+          {t('header.crm_title')}
+        </h1>
+      </div>
+
+      <div className="flex flex-1 items-center justify-end gap-3 sm:gap-4">
+        {/* Search */}
+        <div className="hidden w-full max-w-md sm:block lg:max-w-xs">
+          <div className="group flex items-center rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm transition-all focus-within:border-blue-500 focus-within:bg-white focus-within:ring-4 focus-within:ring-blue-500/10 dark:border-gray-700 dark:bg-gray-800/50 dark:focus-within:bg-gray-800">
+            <SearchIcon className="mr-3 text-gray-400 transition-colors group-focus-within:text-blue-500" />
             <input
               type="search"
               placeholder={t('header.search')}
-              className="w-full bg-transparent outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+              className="w-full bg-transparent text-gray-800 outline-none placeholder:text-gray-400 dark:text-white dark:placeholder:text-gray-500"
             />
           </div>
         </div>
 
-        <ThemeToggle />
-
-
-
-        <div className="shrink-0">
-          <UserInfo />
+        <div className="flex items-center gap-2 border-l border-gray-200 pl-4 dark:border-gray-700">
+          <ThemeToggle />
+          <div className="shrink-0">
+            <UserInfo />
+          </div>
         </div>
       </div>
     </header>

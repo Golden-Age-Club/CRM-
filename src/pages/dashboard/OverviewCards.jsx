@@ -49,7 +49,7 @@ const OverviewCard = ({ label, value, percentage, isPositive, icon, format = 'nu
           <p className="text-gray-500 dark:text-gray-400 text-sm">{label}</p>
           <h3 className="text-2xl font-bold text-gray-800 dark:text-white mt-1">{formatValue(value)}</h3>
         </div>
-        <div className={`p-3 rounded-full ${isPositive ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+        <div className={`p-2 sm:p-3 rounded-full shrink-0 ${isPositive ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
           {icon}
         </div>
       </div>

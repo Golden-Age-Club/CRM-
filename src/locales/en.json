@@ -145,6 +145,8 @@
     "next": "Next",
     "page_info": "Page {{page}} of {{totalPages}}",
     "close_menu": "Close Menu",
+    "edit": "Edit",
+    "delete": "Delete",
     "cancel": "Cancel",
     "save": "Save",
     "loading": "Loading..."

@@ -9,36 +9,37 @@ import { IoGameControllerOutline } from "react-icons/io5";
 import { RiVipCrownLine } from "react-icons/ri";
 import { TbReport } from "react-icons/tb";
 import { TbLogs } from "react-icons/tb";
-import { RiAdminLine } from "react-icons/ri";
+import { RiAdminLine, RiCloseLine } from "react-icons/ri";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Icon Components
-const Table = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+const Table = ({ className = "size-7" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
   </svg>
 );
 
-const PieChart = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+const PieChart = ({ className = "size-7" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
   </svg>
 );
 
-const FourCircle = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+const FourCircle = ({ className = "size-7" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
   </svg>
 );
 
-const Authentication = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+const Authentication = ({ className = "size-7" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
   </svg>
 );
 
-const UserGroup = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+const UserGroup = ({ className = "size-7" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.525m0 0A5.971 5.971 0 0 0 6.058 18.72M18 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
   </svg>
 );
@@ -55,12 +56,27 @@ const ChevronUp = ({ className }) => (
   </svg>
 );
 
-const Logo = () => (
-  <div className="flex items-center gap-2 font-bold text-xl text-blue-600 dark:text-blue-400">
-    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
-      C
+const Logo = ({ showText = true }) => (
+  <div className="flex items-center gap-3 px-2">
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30">
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
     </div>
-    <span className="hidden min-[850px]:block">CRM</span>
+    <AnimatePresence>
+      {showText && (
+        <motion.div
+          initial={{ opacity: 0, width: 0 }}
+          animate={{ opacity: 1, width: "auto" }}
+          exit={{ opacity: 0, width: 0 }}
+          className="overflow-hidden whitespace-nowrap"
+        >
+          <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+            CRM<span className="text-blue-600">.Pro</span>
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
   </div>
 );
 
@@ -78,27 +94,39 @@ export const useSidebarContext = () => {
 
 // Provider component
 export const SidebarProvider = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   React.useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) {
-        setIsOpen(true);
-      }
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      // Desktop never closes - only collapses
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+  const toggleMobile = () => {
+    setIsMobileOpen(!isMobileOpen);
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
-    <SidebarContext.Provider value={{ isOpen, setIsOpen, isMobile, toggleSidebar }}>
+    <SidebarContext.Provider value={{
+      isMobileOpen,
+      setIsMobileOpen,
+      isCollapsed,
+      toggleCollapse,
+      toggleMobile,
+      isMobile
+    }}>
       {children}
     </SidebarContext.Provider>
   );
@@ -130,37 +158,88 @@ const NAV_DATA = [
   },
 ];
 
-const MenuItem = ({ as, href, onNavigate, isActive, onClick, children, className }) => {
-  return as === 'link' ? (
-    <NavLink
-      to={href}
-      onClick={onNavigate}
-      className={({ isActive: navActive }) =>
-        `group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-slate-800 ${
-          isActive || navActive ? 'bg-gray-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-400'
-        } ${className || ''}`
-      }
-    >
+// Tooltip Component
+const Tooltip = ({ text, isVisible }) => (
+  <AnimatePresence>
+    {isVisible && (
+      <motion.div
+        initial={{ opacity: 0, x: 10 }}
+        animate={{ opacity: 1, x: 20 }}
+        exit={{ opacity: 0, x: 10 }}
+        transition={{ duration: 0.2 }}
+        className="absolute left-full top-1/2 z-50 -translate-y-1/2 whitespace-nowrap rounded-md bg-gray-900 px-3 py-1.5 text-xs font-medium text-white shadow-lg dark:bg-white dark:text-gray-900"
+      >
+        {text}
+        {/* Arrow */}
+        <div className="absolute left-0 top-1/2 -ml-1 -mt-1 h-2 w-2 -rotate-45 bg-gray-900 dark:bg-white" />
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
+// MenuItem Component
+const MenuItem = ({ children, isActive, onClick, as = 'button', href, className = '', onNavigate, title, isCompact }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const baseClasses = isCompact
+    ? `relative mx-auto flex h-14 w-14 items-center justify-center rounded-xl p-3 transition-all duration-200 group outline-none focus:ring-2 focus:ring-blue-500/20`
+    : `relative mx-1 flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 group outline-none focus:ring-2 focus:ring-blue-500/20`;
+  
+  const activeClasses = isActive 
+    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white';
+
+  const content = (
+    <>
       {children}
-    </NavLink>
-  ) : (
-    <button
-      onClick={onClick}
-      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out hover:bg-gray-100 dark:hover:bg-slate-800 w-full text-left ${
-        isActive ? 'bg-gray-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-400'
-      } ${className || ''}`}
+      {isCompact && title && <Tooltip text={title} isVisible={isHovered} />}
+    </>
+  );
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
+  if (as === 'link' && href) {
+    return (
+      <NavLink
+        to={href}
+        onClick={onNavigate}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={({ isActive: navActive }) => 
+          `${baseClasses} ${navActive ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white'} ${className}`
+        }
+      >
+        {content}
+      </NavLink>
+    );
+  }
+
+  return (
+    <button 
+      onClick={onClick} 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`${baseClasses} ${activeClasses} ${className}`}
+      type="button"
     >
-      {children}
+      {content}
     </button>
   );
 };
 
-export const Sidebar = () => {
-  const { isOpen, setIsOpen, isMobile, toggleSidebar } = useSidebarContext();
+
+
+const Sidebar = () => {
+  const { isMobileOpen, setIsMobileOpen, isCollapsed, toggleCollapse, toggleMobile, isMobile } = useSidebarContext();
   const [expandedItems, setExpandedItems] = useState([]);
   const { permissions } = useAuth();
   const location = useLocation();
   const { t } = useTranslation();
+
+  // Force expanded mode on mobile - isCompact is only true on desktop when collapsed
+  const isCompact = !isMobile && isCollapsed;
+  const isOpen = isMobile ? isMobileOpen : true;
 
   const navSections = useMemo(() => {
     const hasPerm = (item) => !item.permission || permissions.includes(item.permission);
@@ -183,59 +262,90 @@ export const Sidebar = () => {
     );
   };
 
+  // Desktop sidebar width animation
+  const sidebarWidth = isCompact ? 115 : 320; // Slightly wider for better spacing
+
   return (
     <>
       {/* Mobile Overlay */}
-      {isMobile && isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 transition-opacity duration-300"
-          onClick={() => setIsOpen(false)}
-          aria-hidden="true"
-        />
-      )}
+      <AnimatePresence>
+        {isMobile && isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            onClick={() => setIsMobileOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
 
-      <aside
-        className={`sidebar overflow-hidden border-r border-gray-200 bg-white transition-[width] duration-200 ease-linear dark:border-gray-700 dark:bg-slate-900 ${
-          isMobile ? "fixed bottom-0 top-0 z-50" : "sticky top-0 h-screen"
-        } ${isOpen ? "w-72" : "w-0"}`}
+      <motion.aside
+        className={`
+          sidebar bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-gray-700
+          ${isMobile
+            ? "fixed inset-y-0 left-0 z-50 h-full shadow-2xl"
+            : "sticky top-0 h-screen"
+          }
+        `}
+        animate={{
+          x: isMobile ? (isMobileOpen ? 0 : -320) : 0,
+          width: isMobile ? 320 : (isCompact ? sidebarWidth : 280),
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+        }}
         aria-label="Main navigation"
-        aria-hidden={!isOpen}
         inert={!isOpen ? "true" : undefined}
+        aria-hidden={!isMobileOpen && !isMobile}
       >
-        <div className="flex h-full flex-col py-6 pl-6 pr-4">
-          <div className="relative pr-4.5">
+        <div className="flex h-full flex-col py-6 px-4">
+          {/* Header with logo and close button */}
+          <div className={`flex items-center ${isMobile ? 'justify-between px-2' : 'justify-center'} mb-8`}>
             <a
               href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                if(isMobile) toggleSidebar();
-              }}
-              className="px-0 py-2.5 min-[850px]:py-0 block"
+              className="block"
+              onClick={() => isMobile && toggleMobile()}
             >
-              <Logo />
+              <Logo showText={!isCompact} />
             </a>
 
             {isMobile && (
               <button
-                onClick={toggleSidebar}
-                className="absolute left-3/4 right-4.5 top-1/2 -translate-y-1/2 text-right"
+                onClick={() => setIsMobileOpen(false)}
+                className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                <span className="sr-only">Close Menu</span>
-                <ArrowLeftIcon className="ml-auto size-7" />
+                <RiCloseLine className="size-6 text-gray-500" />
               </button>
             )}
           </div>
 
           {/* Navigation */}
-          <div className="custom-scrollbar mt-6 flex-1 overflow-y-auto pr-3 min-[850px]:mt-10">
+          <div
+            className="custom-scrollbar flex-1 overflow-y-auto overflow-x-hidden px-2 pr-4"
+            style={{ scrollbarGutter: 'stable' }}
+          >
             {navSections.map((section) => (
-              <div key={section.key} className="mb-6">
-                <h2 className="mb-5 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {section.label}
-                </h2>
+              <div key={section.label} className="mb-6">
+                {/* Section headers - hide when compact (desktop collapsed) */}
+                <AnimatePresence mode="wait">
+                  {!isCompact && (
+                    <motion.h2
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mb-3 px-4 text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500"
+                    >
+                      {section.label}
+                    </motion.h2>
+                  )}
+                </AnimatePresence>
 
                 <nav role="navigation" aria-label={section.label}>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5">
                     {section.items.map((item) => {
                       // If item has multiple sub-items, show as dropdown
                       if (item.items && item.items.length > 1) {
@@ -247,41 +357,63 @@ export const Sidebar = () => {
                                   ({ url }) => location.pathname === url
                                 )}
                                 onClick={() => toggleExpanded(item.title)}
+                                className={isCompact ? 'justify-center' : 'px-4'}
+                                title={item.title}
+                                isCompact={isCompact}
                               >
                                 <item.icon
-                                  className="size-6 shrink-0"
+                                  className="size-7 shrink-0 transition-all"
                                   aria-hidden="true"
                                 />
 
-                                <span className="whitespace-nowrap">{item.title}</span>
+                                <AnimatePresence>
+                                  {!isCompact && (
+                                    <motion.span
+                                      initial={{ opacity: 0, width: 0 }}
+                                      animate={{ opacity: 1, width: 'auto' }}
+                                      exit={{ opacity: 0, width: 0 }}
+                                      className="whitespace-nowrap font-medium"
+                                    >
+                                      {item.title}
+                                    </motion.span>
+                                  )}
+                                </AnimatePresence>
 
-                                <ChevronUp
-                                  className={`ml-auto rotate-180 transition-transform duration-200 ${
-                                    expandedItems.includes(item.title) ? "rotate-0" : ""
-                                  }`}
-                                  aria-hidden="true"
-                                />
+                                {!isCompact && (
+                                  <ChevronUp
+                                    className={`ml-auto rotate-180 transition-transform duration-200 ${
+                                      expandedItems.includes(item.title) ? 'rotate-0' : ''
+                                    }`}
+                                    aria-hidden="true"
+                                  />
+                                )}
                               </MenuItem>
 
-                              {expandedItems.includes(item.title) && (
-                                <ul
-                                  className="ml-9 mr-0 space-y-1.5 pb-[15px] pr-0 pt-2"
-                                  role="menu"
-                                >
-                                  {item.items.map((subItem) => (
-                                    <li key={subItem.key} role="none">
-                                      <MenuItem
-                                        as="link"
-                                        href={subItem.url}
-                                        onNavigate={() => isMobile && toggleSidebar()}
-                                        isActive={location.pathname === subItem.url}
-                                      >
-                                        <span className="whitespace-nowrap">{subItem.title}</span>
-                                      </MenuItem>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
+                              <AnimatePresence>
+                                {!isCompact && expandedItems.includes(item.title) && (
+                                  <motion.ul
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="ml-4 mt-1 space-y-1 border-l-2 border-gray-100 dark:border-gray-800 pl-3"
+                                    role="menu"
+                                  >
+                                    {item.items.map((subItem) => (
+                                      <li key={subItem.title} role="none">
+                                        <MenuItem
+                                          as="link"
+                                          href={subItem.url}
+                                          onNavigate={() => isMobile && toggleMobile()}
+                                          isActive={location.pathname === subItem.url}
+                                          className="py-2 text-sm"
+                                        >
+                                          <span className="whitespace-nowrap">{subItem.title}</span>
+                                        </MenuItem>
+                                      </li>
+                                    ))}
+                                  </motion.ul>
+                                )}
+                              </AnimatePresence>
                             </div>
                           </li>
                         );
@@ -291,16 +423,31 @@ export const Sidebar = () => {
                       return (
                         <li key={item.key}>
                           <MenuItem
+                            className={isCompact ? 'justify-center' : 'px-4'}
                             as="link"
                             href={item.url}
-                            onNavigate={() => isMobile && toggleSidebar()}
+                            onNavigate={() => isMobile && toggleMobile()}
                             isActive={location.pathname === item.url}
+                            title={item.title}
+                            isCompact={isCompact}
                           >
                             <item.icon
-                              className="size-6 shrink-0"
+                              className="size-7 shrink-0 transition-all"
                               aria-hidden="true"
                             />
-                            <span className="whitespace-nowrap">{item.title}</span>
+
+                            <AnimatePresence>
+                              {!isCompact && (
+                                <motion.span
+                                  initial={{ opacity: 0, width: 0 }}
+                                  animate={{ opacity: 1, width: 'auto' }}
+                                  exit={{ opacity: 0, width: 0 }}
+                                  className="whitespace-nowrap font-medium text-sm"
+                                >
+                                  {item.title}
+                                </motion.span>
+                              )}
+                            </AnimatePresence>
                           </MenuItem>
                         </li>
                       );
@@ -311,9 +458,9 @@ export const Sidebar = () => {
             ))}
           </div>
         </div>
-      </aside>
+      </motion.aside>
     </>
   );
 };
 
-export default Sidebar;
+export {Sidebar};

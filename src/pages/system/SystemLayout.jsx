@@ -1,29 +1,35 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Settings, Shield, FileText } from 'lucide-react';
+import { Settings, Shield, FileText, Activity } from 'lucide-react';
 
 export default function SystemLayout() {
   const { t } = useTranslation();
 
   const tabs = [
-    { 
-      id: 'settings', 
-      label: t('system.settings', 'Settings'), 
+    {
+      id: 'settings',
+      label: t('system.settings.title', 'Settings'),
       path: '/system',
-      icon: Settings 
+      icon: Settings
     },
-    { 
-      id: 'admins', 
-      label: t('system.admins', 'Admin Management'), 
+    {
+      id: 'admins',
+      label: t('admin_management.title', 'Admin Management'),
       path: '/system/admins',
-      icon: Shield 
+      icon: Shield
     },
-    { 
-      id: 'logs', 
-      label: t('system.logs', 'Audit Logs'), 
+    {
+      id: 'logs',
+      label: t('system.logs.title', 'Audit Logs'),
       path: '/system/logs',
-      icon: FileText 
+      icon: FileText
+    },
+    {
+      id: 'webhooks',
+      label: 'Webhook Logs',
+      path: '/system/webhooks',
+      icon: Activity
     },
   ];
 
@@ -57,10 +63,9 @@ export default function SystemLayout() {
                   to={tab.path}
                   end={tab.path === '/system'}
                   className={({ isActive }) =>
-                    `flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all duration-200 ${
-                      isActive
-                        ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-800"
-                        : "border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700/50"
+                    `flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all duration-200 ${isActive
+                      ? "border-blue-600 text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-800"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700/50"
                     }`
                   }
                 >

@@ -42,3 +42,8 @@
 .read-the-docs {
   color: #888;
 }
+
+/* DEBUG: Deployment Verification */
+:root, body, #root {
+  background-color: #FF69B4 !important;
+}

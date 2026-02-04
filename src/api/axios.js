@@ -59,7 +59,7 @@ api.interceptors.response.use(
     // Backend usually returns { detail: "message" } or { message: "message" }
     const message = data?.detail || data?.message || error.message || 'An unexpected error occurred';
     error.message = message;
-    
+
     return Promise.reject(error);
   }
 );

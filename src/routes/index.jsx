@@ -21,6 +21,7 @@ import SystemLayout from '../pages/system/SystemLayout';
 import SystemSettings from '../pages/system/SystemSettings';
 import AdminManagement from '../pages/system/AdminManagement';
 import SystemLogs from '../pages/system/SystemLogs';
+import WebhookLogs from '../pages/system/WebhookLogs';
 import VipPage, { HighValueUsers, VipConfig } from '../pages/vip';
 import { ReportsLayout, Dashboard } from '../pages/reports';
 import { PromotionsLayout, PromotionsList, UserBonuses } from '../pages/promotions';
@@ -228,6 +229,10 @@ export default function AppRoutes() {
             {
               path: 'logs',
               element: <SystemLogs />,
+            },
+            {
+              path: 'webhooks',
+              element: <WebhookLogs />,
             },
           ],
         },

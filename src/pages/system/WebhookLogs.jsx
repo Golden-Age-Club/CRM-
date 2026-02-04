@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Database, RefreshCw, Trash2 } from 'lucide-react';
+import { Database, RefreshCw, Trash2, Search } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import api from '../../api/axios';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 // Modal to view raw payload
 const PayloadModal = ({ isOpen, onClose, data }) => {
@@ -55,15 +56,17 @@ const WebhookLogs = () => {
     const [webhookPage, setWebhookPage] = useState(1);
     const [totalWebhookPages, setTotalWebhookPages] = useState(1);
     const [selectedPayload, setSelectedPayload] = useState(null);
+    const location = useLocation();
+    const [searchQuery, setSearchQuery] = useState(new URLSearchParams(location.search).get('search') || '');
 
     useEffect(() => {
         fetchPaymentLogs();
-    }, [webhookPage]);
+    }, [webhookPage, searchQuery]);
 
     const fetchPaymentLogs = async () => {
         try {
             setLoadingWebhooks(true);
-            const res = await api.get(`/api/admin/payment-logs?page=${webhookPage}&limit=20`);
+            const res = await api.get(`/api/admin/payment-logs?page=${webhookPage}&limit=20&search=${searchQuery}`);
             if (res.logs) {
                 setPaymentLogs(res.logs);
                 setTotalWebhookPages(res.pages);
@@ -94,14 +97,29 @@ const WebhookLogs = () => {
                         <h2 className="text-xl font-bold text-gray-800 dark:text-white">CCPayment Webhook Logs</h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Audit trail of all incoming payment notifications</p>
                     </div>
-                    <button
-                        onClick={fetchPaymentLogs}
-                        className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors flex items-center gap-2"
-                        disabled={loadingWebhooks}
-                    >
-                        <RefreshCw className={`w-5 h-5 ${loadingWebhooks ? 'animate-spin' : ''}`} />
-                        Refresh
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <div className="relative">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                            <input
+                                type="text"
+                                placeholder="Search Order ID..."
+                                value={searchQuery}
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setWebhookPage(1);
+                                }}
+                                className="pl-10 pr-4 py-2 text-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg outline-none focus:ring-2 focus:ring-blue-500/20 transition-all w-64"
+                            />
+                        </div>
+                        <button
+                            onClick={fetchPaymentLogs}
+                            className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors flex items-center gap-2 font-medium"
+                            disabled={loadingWebhooks}
+                        >
+                            <RefreshCw className={`w-5 h-5 ${loadingWebhooks ? 'animate-spin' : ''}`} />
+                            Refresh
+                        </button>
+                    </div>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full">

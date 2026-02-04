@@ -2,12 +2,12 @@ import axios from 'axios';
 import { getCookie, removeCookie } from './cookies';
 
 export const backendUrl = () => {
-  // if (typeof window !== 'undefined') {
-  //   const hostname = window.location.hostname;
-  //   if (hostname === 'localhost' || hostname === '127.0.0.1') {
-  //     return 'http://localhost:8000';
-  //   }
-  // }
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://127.0.0.1:8000';
+    }
+  }
   return 'https://golden-age-club-f8a5bb71b60a.herokuapp.com';
 };
 
@@ -59,7 +59,7 @@ api.interceptors.response.use(
     // Backend usually returns { detail: "message" } or { message: "message" }
     const message = data?.detail || data?.message || error.message || 'An unexpected error occurred';
     error.message = message;
-    
+
     return Promise.reject(error);
   }
 );

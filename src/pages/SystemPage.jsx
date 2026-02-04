@@ -13,7 +13,7 @@ import {
   Clock
 } from 'lucide-react';
 import api from '../utils/api'; // Use the configured axios instance
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 // Modal to view raw payload
 const PayloadModal = ({ isOpen, onClose, data }) => {

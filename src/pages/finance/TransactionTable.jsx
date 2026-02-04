@@ -34,15 +34,15 @@ const TransactionTable = ({ type }) => {
   };
 
   const handleAction = async (id, status) => {
-    const confirmMsg = status === 'completed' 
-      ? t('transaction_table.actions.confirm_approve') 
+    const confirmMsg = status === 'completed'
+      ? t('transaction_table.actions.confirm_approve')
       : t('transaction_table.actions.confirm_reject');
-      
-    if(!window.confirm(confirmMsg)) return;
+
+    if (!window.confirm(confirmMsg)) return;
     try {
       await api.put(`/api/admin/finance/withdrawals/${id}`, { status }); // 'completed' or 'failed' (rejected)
-      const successMsg = status === 'completed' 
-        ? t('transaction_table.actions.success_approve') 
+      const successMsg = status === 'completed'
+        ? t('transaction_table.actions.success_approve')
         : t('transaction_table.actions.success_reject');
       toast.success(successMsg);
       fetchTransactions(page, searchTerm);
@@ -55,6 +55,7 @@ const TransactionTable = ({ type }) => {
     const colors = {
       completed: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
       pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+      processing: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
       failed: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
       rejected: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
       expired: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200",
@@ -65,7 +66,7 @@ const TransactionTable = ({ type }) => {
   return (
     <div>
       <div className="mb-4">
-         <input
+        <input
           type="text"
           placeholder={t('transaction_table.search_placeholder')}
           value={searchTerm}
@@ -115,13 +116,13 @@ const TransactionTable = ({ type }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm" onClick={(e) => e.stopPropagation()}>
                     {type === 'withdrawal' && tx.status === 'pending' ? (
-                       <div className="flex space-x-2">
-                          <button onClick={() => handleAction(tx.id, 'completed')} className="text-green-600 hover:text-green-800" title={t('transaction_table.actions.approve')}><FaCheck /></button>
-                          <button onClick={() => handleAction(tx.id, 'failed')} className="text-red-600 hover:text-red-800" title={t('transaction_table.actions.reject')}><FaTimes /></button>
-                          <button onClick={() => setSelectedTx(tx)} className="text-blue-600 hover:text-blue-800" title={t('transaction_table.actions.view')}><FaEye /></button>
-                       </div>
+                      <div className="flex space-x-2">
+                        <button onClick={() => handleAction(tx.id, 'completed')} className="text-green-600 hover:text-green-800" title={t('transaction_table.actions.approve')}><FaCheck /></button>
+                        <button onClick={() => handleAction(tx.id, 'failed')} className="text-red-600 hover:text-red-800" title={t('transaction_table.actions.reject')}><FaTimes /></button>
+                        <button onClick={() => setSelectedTx(tx)} className="text-blue-600 hover:text-blue-800" title={t('transaction_table.actions.view')}><FaEye /></button>
+                      </div>
                     ) : (
-                       <button onClick={() => setSelectedTx(tx)} className="text-blue-600 hover:text-blue-800 flex items-center gap-1"><FaEye /> {t('transaction_table.actions.view')}</button>
+                      <button onClick={() => setSelectedTx(tx)} className="text-blue-600 hover:text-blue-800 flex items-center gap-1"><FaEye /> {t('transaction_table.actions.view')}</button>
                     )}
                   </td>
                 </tr>
@@ -131,21 +132,21 @@ const TransactionTable = ({ type }) => {
         </table>
       </div>
 
-       {/* Pagination */}
-       <div className="flex justify-between items-center mt-4">
+      {/* Pagination */}
+      <div className="flex justify-between items-center mt-4">
         <div className="text-sm text-gray-500">
           {t('transaction_table.page_info', { page, totalPages })}
         </div>
         <div className="space-x-2">
-          <button 
-            disabled={page === 1} 
+          <button
+            disabled={page === 1}
             onClick={() => fetchTransactions(page - 1, searchTerm)}
             className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-white"
           >
             {t('transaction_table.prev')}
           </button>
-          <button 
-            disabled={page === totalPages} 
+          <button
+            disabled={page === totalPages}
             onClick={() => fetchTransactions(page + 1, searchTerm)}
             className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-white"
           >
@@ -154,9 +155,9 @@ const TransactionTable = ({ type }) => {
         </div>
       </div>
 
-      <TransactionDetailsModal 
-        selectedTx={selectedTx} 
-        onClose={() => setSelectedTx(null)} 
+      <TransactionDetailsModal
+        selectedTx={selectedTx}
+        onClose={() => setSelectedTx(null)}
         getStatusBadge={getStatusBadge}
       />
     </div>

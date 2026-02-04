@@ -16,7 +16,7 @@ export default function SignIn() {
     setError("");
 
     const result = await login(email, password);
-    
+
     if (!result.success) {
       setError(result.message);
       setIsLoading(false);
@@ -60,9 +60,8 @@ export default function SignIn() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full rounded-lg bg-blue-500 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-              isLoading ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            className={`w-full rounded-lg bg-blue-500 px-4 py-3 font-medium text-white transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isLoading ? "opacity-70 cursor-not-allowed" : ""
+              }`}
           >
             {isLoading ? t('auth.signing_in') : t('auth.sign_in')}
           </button>

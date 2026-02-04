@@ -1,119 +1,119 @@
 {
   "system": {
-      "title": "System Configuration",
-      "subtitle": "Manage system settings, maintenance mode, and backups.",
-      "settings": {
-          "title": "System Settings",
-          "subtitle": "Manage global system configurations",
-          "saved_success": "Settings saved successfully",
-          "save_failed": "Failed to save settings",
-          "maintenance": {
-            "title": "Maintenance Mode",
-            "desc": "Disable user access for maintenance"
-          },
-          "backup": {
-            "title": "Auto Backup",
-            "desc": "Enable daily automated backups"
-          },
-          "email_notifications": {
-            "title": "Email Notifications",
-            "desc": "Receive system alerts via email"
-          },
-          "registration": {
-            "title": "User Registration",
-            "desc": "Allow new users to register"
-          },
-          "max_login": {
-            "title": "Max Login Attempts",
-            "desc": "Maximum failed login attempts before lockout"
-          },
-          "session_timeout": {
-            "title": "Session Timeout (minutes)",
-            "desc": "Automatically log out inactive users"
-          },
-          "messages": {
-            "saved": "Settings saved successfully",
-            "save_failed": "Failed to save settings"
-          },
-          "save": "Save Settings"
+    "title": "System Configuration",
+    "subtitle": "Manage system settings, maintenance mode, and backups.",
+    "settings": {
+      "title": "System Settings",
+      "subtitle": "Manage global system configurations",
+      "saved_success": "Settings saved successfully",
+      "save_failed": "Failed to save settings",
+      "maintenance": {
+        "title": "Maintenance Mode",
+        "desc": "Disable user access for maintenance"
       },
-      "info": {
-          "title": "System Information",
-          "version": "Version",
-          "uptime": "Uptime",
-          "server_status": "Server Status",
-          "database": "Database",
-          "last_backup": "Last Backup",
-          "online": "Online",
-          "connected": "Connected"
+      "backup": {
+        "title": "Auto Backup",
+        "desc": "Enable daily automated backups"
       },
-      "actions": {
-          "title": "System Actions",
-          "clear_cache": "Clear Cache",
-          "cache_desc": "Clear system cache to refresh data",
-          "run_backup": "Backup Now",
-          "backup_desc": "Create an immediate system backup",
-          "view_logs": "View Logs",
-          "logs_desc": "View system activity logs",
-          "cache_success": "Cache cleared successfully",
-          "backup_success": "Backup created successfully"
+      "email_notifications": {
+        "title": "Email Notifications",
+        "desc": "Receive system alerts via email"
       },
-      "logs": {
-          "title": "System Logs",
-          "subtitle": "Track system activities and administrative actions",
-          "filter_placeholder": "Filter by action...",
-          "no_logs": "No logs found",
-          "headers": {
-            "time": "Time",
-            "admin": "Admin",
-            "action": "Action",
-            "target": "Target",
-            "ip": "IP Address"
-          },
-          "messages": {
-              "load_failed": "Failed to load system logs"
-          },
-          "unknown_user": "Unknown"
-      }
-    },
-    "admin_management": {
-      "title": "Admin Management",
-      "subtitle": "Manage admin accounts, roles, and permissions",
-      "add_admin": "Add New Admin",
-      "table": {
-          "admin": "Admin",
-          "role": "Role",
-          "permissions": "Permissions",
-          "status": "Status",
-          "last_active": "Last Active",
-          "actions": "Actions"
+      "registration": {
+        "title": "User Registration",
+        "desc": "Allow new users to register"
       },
-      "form": {
-          "create_title": "Create New Admin",
-          "edit_title": "Edit Admin",
-          "email": "Email",
-          "password": "Password",
-          "first_name": "First Name",
-          "last_name": "Last Name",
-          "role": "Role",
-          "permissions": "Permissions",
-          "select_all": "Select All",
-          "save": "Save Admin",
-          "cancel": "Cancel",
-          "password_placeholder": "Leave empty to keep current"
+      "max_login": {
+        "title": "Max Login Attempts",
+        "desc": "Maximum failed login attempts before lockout"
+      },
+      "session_timeout": {
+        "title": "Session Timeout (minutes)",
+        "desc": "Automatically log out inactive users"
       },
       "messages": {
-          "load_failed": "Failed to load admins",
-          "create_success": "Admin created successfully",
-          "update_success": "Admin updated successfully",
-          "delete_success": "Admin deleted successfully",
-          "delete_confirm": "Are you sure you want to delete this admin?",
-          "save_failed": "Failed to save admin",
-          "delete_failed": "Failed to delete admin",
-          "password_required": "Password is required for new admin"
-      }
+        "saved": "Settings saved successfully",
+        "save_failed": "Failed to save settings"
+      },
+      "save": "Save Settings"
     },
-    "common": {
+    "info": {
+      "title": "System Information",
+      "version": "Version",
+      "uptime": "Uptime",
+      "server_status": "Server Status",
+      "database": "Database",
+      "last_backup": "Last Backup",
+      "online": "Online",
+      "connected": "Connected"
+    },
+    "actions": {
+      "title": "System Actions",
+      "clear_cache": "Clear Cache",
+      "cache_desc": "Clear system cache to refresh data",
+      "run_backup": "Backup Now",
+      "backup_desc": "Create an immediate system backup",
+      "view_logs": "View Logs",
+      "logs_desc": "View system activity logs",
+      "cache_success": "Cache cleared successfully",
+      "backup_success": "Backup created successfully"
+    },
+    "logs": {
+      "title": "System Logs",
+      "subtitle": "Track system activities and administrative actions",
+      "filter_placeholder": "Filter by action...",
+      "no_logs": "No logs found",
+      "headers": {
+        "time": "Time",
+        "admin": "Admin",
+        "action": "Action",
+        "target": "Target",
+        "ip": "IP Address"
+      },
+      "messages": {
+        "load_failed": "Failed to load system logs"
+      },
+      "unknown_user": "Unknown"
+    }
+  },
+  "admin_management": {
+    "title": "Admin Management",
+    "subtitle": "Manage admin accounts, roles, and permissions",
+    "add_admin": "Add New Admin",
+    "table": {
+      "admin": "Admin",
+      "role": "Role",
+      "permissions": "Permissions",
+      "status": "Status",
+      "last_active": "Last Active",
+      "actions": "Actions"
+    },
+    "form": {
+      "create_title": "Create New Admin",
+      "edit_title": "Edit Admin",
+      "email": "Email",
+      "password": "Password",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "role": "Role",
+      "permissions": "Permissions",
+      "select_all": "Select All",
+      "save": "Save Admin",
+      "cancel": "Cancel",
+      "password_placeholder": "Leave empty to keep current"
+    },
+    "messages": {
+      "load_failed": "Failed to load admins",
+      "create_success": "Admin created successfully",
+      "update_success": "Admin updated successfully",
+      "delete_success": "Admin deleted successfully",
+      "delete_confirm": "Are you sure you want to delete this admin?",
+      "save_failed": "Failed to save admin",
+      "delete_failed": "Failed to delete admin",
+      "password_required": "Password is required for new admin"
+    }
+  },
+  "common": {
     "dashboard": "Dashboard",
     "users": "Users",
     "user_management": "User Management",
@@ -325,43 +325,42 @@
       "failed_update": "Failed to update user",
       "failed_load": "Failed to load user details",
       "confirm_delete_permanent": "Are you sure you want to delete this user? This action cannot be undone.",
-    "loading_details": "Loading user details..."
-  }
-},
-"profile_page": {
-  "title": "Profile",
-  "subtitle": "Manage your profile information and security.",
-  "verified": "Verified",
-  "tabs": {
-    "details": "Profile Details",
-    "security": "Security"
+      "loading_details": "Loading user details..."
+    }
   },
-  "personal_info": "Personal Information",
-  "first_name": "First Name",
-  "last_name": "Last Name",
-  "email": "Email Address",
-  "phone": "Phone",
-  "location": "Location",
-  "bio": "Bio",
-  "bio_hint": "Brief description for your profile. Max 160 characters.",
-  "save_changes": "Save Changes",
-  "saving": "Saving...",
-  "recent_activity": "Recent Activity",
-  "change_password": "Change Password",
-  "current_password": "Current Password",
-  "new_password": "New Password",
-  "confirm_password": "Confirm New Password",
-  "update_password": "Update Password",
-  "updating": "Updating...",
-  "success_profile": "Profile updated successfully!",
-  "failed_profile": "Failed to update profile.",
-  "password_mismatch": "New passwords do not match.",
-  "success_password": "Password updated successfully!",
-  "failed_password": "Failed to update password.",
-  "home": "Home",
-  "joined": "Joined"
-},
-
+  "profile_page": {
+    "title": "Profile",
+    "subtitle": "Manage your profile information and security.",
+    "verified": "Verified",
+    "tabs": {
+      "details": "Profile Details",
+      "security": "Security"
+    },
+    "personal_info": "Personal Information",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone",
+    "location": "Location",
+    "bio": "Bio",
+    "bio_hint": "Brief description for your profile. Max 160 characters.",
+    "save_changes": "Save Changes",
+    "saving": "Saving...",
+    "recent_activity": "Recent Activity",
+    "change_password": "Change Password",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm New Password",
+    "update_password": "Update Password",
+    "updating": "Updating...",
+    "success_profile": "Profile updated successfully!",
+    "failed_profile": "Failed to update profile.",
+    "password_mismatch": "New passwords do not match.",
+    "success_password": "Password updated successfully!",
+    "failed_password": "Failed to update password.",
+    "home": "Home",
+    "joined": "Joined"
+  },
   "finance_page": {
     "title": "Wallet & Finance",
     "subtitle": "Manage user balances, deposits, withdrawals, and manual adjustments.",
@@ -392,19 +391,19 @@
       "failed_load": "Failed to load balances"
     },
     "adjust_modal": {
-        "title": "Manual Balance Adjustment",
-        "confirm_title": "Confirm Adjustment",
-        "type": "Adjustment Type",
-        "amount": "Amount (+/-)",
-        "amount_placeholder": "e.g., 100 or -50",
-        "reason": "Reason",
-        "reason_placeholder": "Reason for adjustment...",
-        "user_id": "User ID",
-        "next": "Next",
-        "back": "Back",
-        "confirm": "Confirm",
-        "cancel": "Cancel",
-        "warning": "Warning: This action will immediately affect the user's wallet."
+      "title": "Manual Balance Adjustment",
+      "confirm_title": "Confirm Adjustment",
+      "type": "Adjustment Type",
+      "amount": "Amount (+/-)",
+      "amount_placeholder": "e.g., 100 or -50",
+      "reason": "Reason",
+      "reason_placeholder": "Reason for adjustment...",
+      "user_id": "User ID",
+      "next": "Next",
+      "back": "Back",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "warning": "Warning: This action will immediately affect the user's wallet."
     }
   },
   "transaction_table": {
@@ -891,5 +890,41 @@
     "export_data": "Export Data",
     "delete_account": "Delete Account",
     "delete_warning": "Warning: Deleting your account is permanent and cannot be undone."
+  },
+  "transaction_table": {
+    "status": {
+      "completed": "Successful",
+      "pending": "Pending",
+      "processing": "Processing",
+      "failed": "Failed",
+      "rejected": "Rejected",
+      "expired": "Expired"
+    },
+    "headers": {
+      "order_id": "Order ID",
+      "user": "User",
+      "amount": "Amount",
+      "currency": "Currency",
+      "status": "Status",
+      "date": "Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View",
+      "approve": "Approve",
+      "reject": "Reject",
+      "confirm_approve": "Are you sure you want to approve this withdrawal?",
+      "confirm_reject": "Are you sure you want to reject this withdrawal?",
+      "success_approve": "Withdrawal approved successfully",
+      "success_reject": "Withdrawal rejected successfully",
+      "failed_update": "Failed to update transaction",
+      "failed_load": "Failed to load transactions"
+    },
+    "page_info": "Page {{page}} of {{totalPages}}",
+    "prev": "Previous",
+    "next": "Next",
+    "loading": "Loading transactions...",
+    "no_transactions": "No transactions found",
+    "search_placeholder": "Search by User or Order ID..."
   }
 }

@@ -38,7 +38,7 @@ export default function SystemLayout() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-            {t('system.title', 'System Management')}
+            !!! TEST !!! {t('system.title', 'System Management')}
           </h1>
           <p className="mt-2 text-gray-500 dark:text-gray-400 text-lg">
             {t('system.subtitle', 'Configure settings and monitor activities')}

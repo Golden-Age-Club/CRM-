@@ -7,43 +7,40 @@ import ActionsMenu from "../../components/ActionsMenu";
 export default function GamesManagement() {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [games, setGames] = useState([]);
-  const [gamesLoading, setGamesLoading] = useState(false);
-  const [gamesPage, setGamesPage] = useState(1);
-  const [gamesTotalPages, setGamesTotalPages] = useState(1);
+  
+  // Providers State
+  const [providers, setProviders] = useState([]);
+  const [providersLoading, setProvidersLoading] = useState(false);
+  
   const [openMenu, setOpenMenu] = useState(null);
 
   useEffect(() => {
-    fetchGames(gamesPage, searchTerm);
-  }, [gamesPage, searchTerm]);
+    fetchProviders(searchTerm);
+  }, [searchTerm]);
 
-  const fetchGames = async (page = 1, search = "") => {
-    setGamesLoading(true);
+  const fetchProviders = async (search = "") => {
+    setProvidersLoading(true);
     try {
-      const response = await api.get(`/api/admin/games?page=${page}&limit=10&search=${search}`);
-      setGames(response.games);
-      setGamesTotalPages(response.total_pages);
-      setGamesPage(response.page);
+        const response = await api.get(`/api/admin/games/providers?search=${search}`);
+        setProviders(response.providers);
     } catch (error) {
-      console.error("Failed to fetch games:", error);
-      toast.error(t('bets.games.failed_load'));
+        console.error("Failed to fetch providers:", error);
+        toast.error("Failed to load providers");
     } finally {
-      setGamesLoading(false);
+        setProvidersLoading(false);
     }
   };
 
-  const handleToggleGame = async (gameId, currentStatus) => {
+  const handleToggleProvider = async (providerId, currentStatus) => {
     const newStatus = currentStatus === "enabled" ? "disabled" : "enabled";
-    const statusText = newStatus === 'disabled' ? t('bets.games.actions.disable').toLowerCase() : t('bets.games.actions.enable').toLowerCase();
-    
-    if(!window.confirm(t('bets.games.actions.confirm_toggle', { status: statusText }))) return;
+    if(!window.confirm(`Are you sure you want to ${newStatus} this provider?`)) return;
 
     try {
-      await api.post('/api/admin/games/toggle', { gameId, status: newStatus });
-      toast.success(t('bets.games.actions.success_toggle', { status: statusText }));
-      fetchGames(gamesPage, searchTerm);
+        await api.post('/api/admin/games/providers/toggle', { providerId, status: newStatus });
+        toast.success(`Provider ${newStatus} successfully`);
+        fetchProviders(searchTerm);
     } catch (error) {
-      toast.error(t('bets.games.actions.failed_toggle'));
+        toast.error("Failed to toggle provider");
     }
   };
 
@@ -58,6 +55,12 @@ export default function GamesManagement() {
 
   return (
     <div className="p-6">
+      <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white pb-4">
+            {t('bets.games.tabs.providers', 'Providers Management')}
+        </h1>
+      </div>
+
       {/* Search */}
       <div className="mb-4">
         <input
@@ -71,57 +74,54 @@ export default function GamesManagement() {
 
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-900">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">{t('bets.games.headers.provider_id')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">{t('bets.games.headers.game_name')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">{t('bets.games.headers.status')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">{t('bets.games.headers.total_bets')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">{t('bets.games.headers.rtp')}</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">{t('bets.games.headers.actions')}</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            {gamesLoading ? (
-                <tr><td colSpan="7" className="px-6 py-4 text-center text-gray-500">{t('bets.games.loading')}</td></tr>
-            ) : games.length === 0 ? (
-                <tr><td colSpan="7" className="px-6 py-4 text-center text-gray-500">{t('bets.games.no_games')}</td></tr>
-            ) : (
-              games.map((game) => (
-                <tr key={game.game_id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{game.provider_id}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{game.name || game.title}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{getStatusBadge(game.local_status, game.provider_status)}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">${game.stats?.total_bets?.toLocaleString() || 0}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{game.stats?.rtp || 0}%</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm relative">
-                    <ActionsMenu
-                      isOpen={openMenu === `game-${game.game_id}`}
-                      onToggle={() => setOpenMenu(openMenu === `game-${game.game_id}` ? null : `game-${game.game_id}`)}
-                      showIcons={false}
-                      actions={[
-                        { 
-                          label: (game.local_status === "enabled" || game.local_status === undefined) ? t('bets.games.actions.disable') : t('bets.games.actions.enable'), 
-                          onClick: () => handleToggleGame(game.game_id, game.local_status || 'enabled'),
-                          danger: (game.local_status === "enabled" || game.local_status === undefined),
-                          disabled: game.provider_status === 0 || game.provider_status === false // Cannot enable if provider is frozen
-                        },
-                      ]}
-                    />
-                  </td>
+            <thead className="bg-gray-50 dark:bg-gray-900">
+                <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Provider Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">API Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Platform Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
                 </tr>
-              ))
-            )}
-          </tbody>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {providersLoading ? (
+                    <tr><td colSpan="5" className="px-6 py-4 text-center">Loading...</td></tr>
+                ) : providers.length === 0 ? (
+                    <tr><td colSpan="5" className="px-6 py-4 text-center">No providers found</td></tr>
+                ) : (
+                    providers.map((provider) => (
+                        <tr key={provider.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{provider.id}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{provider.title}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                {provider.is_active ? (
+                                    <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">Active</span>
+                                ) : (
+                                    <span className="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">Inactive</span>
+                                )}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                {getStatusBadge(provider.db_status, provider.is_active)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm relative">
+                                <ActionsMenu
+                                    isOpen={openMenu === `prov-${provider.id}`}
+                                    onToggle={() => setOpenMenu(openMenu === `prov-${provider.id}` ? null : `prov-${provider.id}`)}
+                                    showIcons={false}
+                                    actions={[
+                                        {
+                                            label: provider.db_status === 'enabled' ? 'Disable' : 'Enable',
+                                            onClick: () => handleToggleProvider(provider.id, provider.db_status),
+                                            className: provider.db_status === 'enabled' ? 'text-red-600' : 'text-green-600'
+                                        }
+                                    ]}
+                                />
+                            </td>
+                        </tr>
+                    ))
+                )}
+            </tbody>
         </table>
-      </div>
-       {/* Games Pagination */}
-       <div className="flex justify-between items-center mt-4">
-        <div className="text-sm text-gray-500">{t('transaction_table.page_info', { page: gamesPage, totalPages: gamesTotalPages })}</div>
-        <div className="space-x-2">
-          <button disabled={gamesPage === 1} onClick={() => setGamesPage(gamesPage - 1)} className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-white">{t('transaction_table.prev')}</button>
-          <button disabled={gamesPage === gamesTotalPages} onClick={() => setGamesPage(gamesPage + 1)} className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-white">{t('transaction_table.next')}</button>
-        </div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { Power } from "lucide-react";
 import api from "../../api/axios";
 import ActionsMenu from "../../components/ActionsMenu";
 
@@ -44,6 +45,24 @@ export default function GamesManagement() {
     }
   };
 
+  const handleUpdateRtp = async (providerId, newRtp) => {
+    const rtpValue = parseFloat(newRtp);
+    if (isNaN(rtpValue) || rtpValue < 0 || rtpValue > 100) {
+        toast.error("Invalid RTP value (0-100)");
+        return;
+    }
+
+    try {
+        await api.post('/api/admin/games/providers/toggle', { providerId, rtp: rtpValue });
+        toast.success(`RTP updated to ${rtpValue}%`);
+        setProviders(prev => prev.map(p => 
+            p.id === providerId ? { ...p, rtp: rtpValue } : p
+        ));
+    } catch (error) {
+        toast.error("Failed to update RTP");
+    }
+  };
+
   const getStatusBadge = (status, providerStatus) => {
     if (providerStatus === 0 || providerStatus === false) {
        return <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-500 border border-gray-300">{t('bets.games.status.provider_frozen')}</span>;
@@ -78,6 +97,7 @@ export default function GamesManagement() {
                 <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">ID</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Provider Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">RTP (%)</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">API Status</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Platform Status</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">Actions</th>
@@ -85,14 +105,29 @@ export default function GamesManagement() {
             </thead>
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 {providersLoading ? (
-                    <tr><td colSpan="5" className="px-6 py-4 text-center">Loading...</td></tr>
+                    <tr><td colSpan="6" className="px-6 py-4 text-center">Loading...</td></tr>
                 ) : providers.length === 0 ? (
-                    <tr><td colSpan="5" className="px-6 py-4 text-center">No providers found</td></tr>
+                    <tr><td colSpan="6" className="px-6 py-4 text-center">No providers found</td></tr>
                 ) : (
                     providers.map((provider) => (
                         <tr key={provider.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{provider.id}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{provider.title}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <input 
+                                    type="number" 
+                                    defaultValue={provider.rtp || 95}
+                                    onBlur={(e) => {
+                                        if (parseFloat(e.target.value) !== provider.rtp) {
+                                            handleUpdateRtp(provider.id, e.target.value);
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') e.target.blur();
+                                    }}
+                                    className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                                />
+                            </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 {provider.is_active ? (
                                     <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">Active</span>
@@ -107,12 +142,15 @@ export default function GamesManagement() {
                                 <ActionsMenu
                                     isOpen={openMenu === `prov-${provider.id}`}
                                     onToggle={() => setOpenMenu(openMenu === `prov-${provider.id}` ? null : `prov-${provider.id}`)}
-                                    showIcons={false}
                                     actions={[
                                         {
-                                            label: provider.db_status === 'enabled' ? 'Disable' : 'Enable',
+                                            label: provider.db_status === 'enabled' ? 'Disable Provider' : 'Enable Provider',
+                                            icon: Power,
                                             onClick: () => handleToggleProvider(provider.id, provider.db_status),
-                                            className: provider.db_status === 'enabled' ? 'text-red-600' : 'text-green-600'
+                                            danger: provider.db_status === 'enabled',
+                                            className: provider.db_status === 'enabled' 
+                                                ? '' 
+                                                : 'text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300'
                                         }
                                     ]}
                                 />

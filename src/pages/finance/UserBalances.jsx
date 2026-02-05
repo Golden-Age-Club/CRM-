@@ -29,7 +29,7 @@ const UserBalances = () => {
   const fetchBalances = async (pageNum = 1, search = "") => {
     setLoading(true);
     try {
-      const response = await api.get(`/api/admin/finance/balances?page=${pageNum}&limit=10&search=${search}`);
+      const response = await api.get(`/api/admin/finance/balances?page=${pageNum}&limit=50&search=${search}`);
       setUsers(response.users);
       setTotalPages(response.pages);
       setPage(response.page);
@@ -103,21 +103,21 @@ const UserBalances = () => {
                     ${user.total?.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm relative">
-                     <ActionsMenu
-                        isOpen={openMenu === user.userId}
-                        onToggle={() => setOpenMenu(openMenu === user.userId ? null : user.userId)}
-                        showIcons={true}
-                        actions={[
-                          { 
-                            label: t('user_balances.actions.adjust_balance'), 
-                            icon: "edit",
-                            onClick: () => {
-                              setAdjustUserId(user.userId);
-                              setShowAdjustModal(true);
-                            }
-                          },
-                        ]}
-                      />
+                    <ActionsMenu
+                      isOpen={openMenu === user.userId}
+                      onToggle={() => setOpenMenu(openMenu === user.userId ? null : user.userId)}
+                      showIcons={true}
+                      actions={[
+                        {
+                          label: t('user_balances.actions.adjust_balance'),
+                          icon: "edit",
+                          onClick: () => {
+                            setAdjustUserId(user.userId);
+                            setShowAdjustModal(true);
+                          }
+                        },
+                      ]}
+                    />
                   </td>
                 </tr>
               ))
@@ -126,21 +126,21 @@ const UserBalances = () => {
         </table>
       </div>
 
-       {/* Pagination */}
-       <div className="flex justify-between items-center mt-4">
+      {/* Pagination */}
+      <div className="flex justify-between items-center mt-4">
         <div className="text-sm text-gray-500">
           {t('transaction_table.page_info', { page, totalPages })}
         </div>
         <div className="space-x-2">
-          <button 
-            disabled={page === 1} 
+          <button
+            disabled={page === 1}
             onClick={() => fetchBalances(page - 1, searchTerm)}
             className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-white"
           >
             {t('transaction_table.prev')}
           </button>
-          <button 
-            disabled={page === totalPages} 
+          <button
+            disabled={page === totalPages}
             onClick={() => fetchBalances(page + 1, searchTerm)}
             className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-white"
           >

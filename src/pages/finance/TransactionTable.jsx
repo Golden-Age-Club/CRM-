@@ -21,7 +21,7 @@ const TransactionTable = ({ type }) => {
   const fetchTransactions = async (pageNum = 1, search = "") => {
     setLoading(true);
     try {
-      const response = await api.get(`/api/admin/finance/transactions?type=${type}&page=${pageNum}&limit=10&search=${search}`);
+      const response = await api.get(`/api/admin/finance/transactions?type=${type}&page=${pageNum}&limit=50&search=${search}`);
       setTransactions(response.transactions);
       setTotalPages(response.pages);
       setPage(response.page);

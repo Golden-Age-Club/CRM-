@@ -125,11 +125,11 @@ export default function UsersPage() {
   const fetchUsers = async (pageNum = 1, search = "") => {
     setLoading(true);
     try {
-      const response = await api.get(`/api/admin/users?page=${pageNum}&limit=10&search=${search}`);
+      const response = await api.get(`/api/admin/users?page=${pageNum}&limit=50&search=${search}`);
       setUsers(response.users);
       setTotalPages(response.pages);
       setPage(response.page);
-      
+
       // Also fetch stats if first page or search changed (optional, could be separate)
       fetchStats();
     } catch (error) {
@@ -171,10 +171,10 @@ export default function UsersPage() {
     const newFrozenStatus = !user.is_frozen;
     const actionKey = newFrozenStatus ? "freeze" : "unfreeze";
     const actionText = t(`users_page.${actionKey}`);
-    
+
     if (window.confirm(t('users_page.confirm_action', { action: actionText, defaultValue: `Are you sure you want to ${actionKey} this user?` }))) {
       try {
-        await api.put(`/api/admin/users/${user._id}`, { 
+        await api.put(`/api/admin/users/${user._id}`, {
           is_frozen: newFrozenStatus,
           is_active: !newFrozenStatus // Assuming freeze implies inactive
         });
@@ -310,11 +310,11 @@ export default function UsersPage() {
                         actions={[
                           { label: t('users_page.view_details'), icon: "view", onClick: () => navigate(`/users/${user._id}`) },
                           { label: t('users_page.edit_user'), icon: "edit", onClick: () => navigate(`/users/${user._id}`) }, // Same page for now as requested
-                          { 
-                            label: user.is_frozen ? t('users_page.unfreeze_user') : t('users_page.freeze_user'), 
-                            icon: "block", 
+                          {
+                            label: user.is_frozen ? t('users_page.unfreeze_user') : t('users_page.freeze_user'),
+                            icon: "block",
                             onClick: () => handleFreezeToggle(user),
-                            danger: !user.is_frozen 
+                            danger: !user.is_frozen
                           },
                           { label: t('users_page.delete_user'), icon: "delete", onClick: () => handleDelete(user._id), danger: true },
                         ]}
@@ -351,10 +351,10 @@ export default function UsersPage() {
         </div>
       </div>
 
-      <AddUserModal 
-        isOpen={isAddModalOpen} 
-        onClose={() => setIsAddModalOpen(false)} 
-        onUserAdded={() => fetchUsers(page, searchTerm)} 
+      <AddUserModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onUserAdded={() => fetchUsers(page, searchTerm)}
       />
     </div>
   );

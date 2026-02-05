@@ -25,12 +25,6 @@ export default function SystemLayout() {
       path: '/system/logs',
       icon: FileText
     },
-    {
-      id: 'webhooks',
-      label: 'Webhook Logs',
-      path: '/system/webhooks',
-      icon: Activity
-    },
   ];
 
   return (
